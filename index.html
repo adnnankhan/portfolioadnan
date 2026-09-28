@@ -1,0 +1,1930 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Adnan Asif Khan, a self-taught product designer from Kishanganj, India. I design AI-first products, from first research to working prototype.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Adnan Asif Khan · Product Designer">
+<meta property="og:description" content="Adnan Asif Khan, a self-taught product designer from Kishanganj, India. I design AI-first products, from first research to working prototype.">
+<meta property="og:url" content="https://adnnankhan.github.io/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2064%2064'%3E%3Crect%20width%3D'64'%20height%3D'64'%20rx%3D'16'%20fill%3D'%23152238'%2F%3E%3Ctext%20x%3D'32'%20y%3D'45'%20font-family%3D'Georgia%2Cserif'%20font-size%3D'38'%20fill%3D'%23fff'%20text-anchor%3D'middle'%3EA%3C%2Ftext%3E%3C%2Fsvg%3E">
+<title>Adnan Asif Khan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;700&family=Pacifico&display=swap">
+<style>
+  :root{
+    --ground:#F7FBFF; --surface:#EDF2F9; --white:#FFFFFF;
+    --navy:#152238;
+    --t:#1B2130; --m:#5A6577; --f:#8C97A8; --line:rgba(27,33,48,.10); --line-2:rgba(27,33,48,.16);
+    --acc:#2F7FE0; --acc-soft:rgba(47,127,224,.10);
+    --serif:"Newsreader",Georgia,"Times New Roman",serif;
+    --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --gutter:clamp(16px,5vw,72px);
+    --max:1200px;
+    --navh:72px; /* space the floating capsule occupies: 16px offset + ~52px pill */
+    --capclear:84px; /* top padding every first section needs so nothing sits under the capsule */
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--ground);color:var(--t);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible,button:focus-visible,.rail:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+  ::selection{background:var(--acc);color:#fff}
+  img{max-width:100%}
+
+  .band{padding-inline:var(--gutter)}
+  .band > .wrap{max-width:var(--max);margin-inline:auto}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--m)}
+  .eyebrow b{color:var(--acc);font-weight:500}
+  .serif{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.02;text-wrap:balance}
+  .serif i{font-style:italic;font-weight:300}
+  .h-xl{font-size:clamp(40px,6vw,88px)}
+  .h-l{font-size:clamp(32px,4vw,54px)}
+  .lede{font-size:clamp(17px,1.3vw,19px);line-height:1.5;color:var(--m);max-width:34em;margin:0}
+
+  /* FLOATING CAPSULE NAV → full-width bar after the hero.
+     One element: its width, top, radius, glass and padding transition together while the inner row
+     (logo left, buttons right, space-between) widens to the page container, so it reads as one pill stretching. */
+  .capsule{--cpl:18px;--cpr:6px;--cpy:6px;--nav-dur:.42s;--nav-ease:cubic-bezier(.22,1,.36,1);
+    position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);left:50%;transform:translateX(-50%);z-index:60;
+    width:var(--capw,auto);max-width:calc(100vw - 24px);border-radius:30px;
+    background-color:rgba(255,255,255,.28);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+    border:1px solid rgba(255,255,255,.75);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(27,33,48,.05),0 0 0 1px rgba(27,33,48,.04),0 12px 32px -14px rgba(27,33,48,.3);
+    white-space:nowrap;
+    transition:top var(--nav-dur) var(--nav-ease),width var(--nav-dur) var(--nav-ease),max-width var(--nav-dur) var(--nav-ease),border-radius var(--nav-dur) var(--nav-ease),background-color var(--nav-dur) var(--nav-ease),border-color var(--nav-dur) var(--nav-ease),box-shadow var(--nav-dur) var(--nav-ease),padding var(--nav-dur) var(--nav-ease)}
+  /* the capsule's diagonal sheen (same look as before), faded out in the bar */
+  .capsule::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,var(--sheen-a,.47)),rgba(255,255,255,0));transition:opacity var(--nav-dur) var(--nav-ease)}
+  .capsule.scrolled{--sheen-a:.52;background-color:rgba(255,255,255,.42);box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(27,33,48,.05),0 0 0 1px rgba(27,33,48,.05),0 16px 36px -14px rgba(27,33,48,.34)}
+  .capsule .cap-in{position:relative;display:flex;align-items:center;justify-content:space-between;width:100%;max-width:100%;margin-inline:auto;padding:var(--cpy) var(--cpr) var(--cpy) var(--cpl);transition:padding var(--nav-dur) var(--nav-ease),max-width var(--nav-dur) var(--nav-ease)}
+  .capsule .cap-r{display:flex;align-items:center;gap:4px}
+  /* Bar state */
+  .capsule.bar{top:0;width:100%;max-width:100%;border-radius:0;padding-top:env(safe-area-inset-top,0px);
+    background-color:rgba(255,255,255,.76);border-color:transparent transparent rgba(27,33,48,.09);
+    box-shadow:0 10px 28px -22px rgba(27,33,48,.32)}
+  .capsule.bar::before{opacity:0}
+  .capsule.bar .cap-in{max-width:calc(var(--max) + 2 * var(--gutter));padding:7px var(--gutter)}
+  .capsule.bar .logo{transform:scale(.9)}
+  /* Bar over the navy footer: switch to a navy glass so it stays crisp instead of turning grey */
+  .capsule.bar.on-dark{background-color:rgba(16,27,46,.74);border-bottom-color:rgba(238,243,250,.10);box-shadow:0 12px 30px -20px rgba(0,0,0,.55)}
+  .capsule.bar.on-dark .logo{color:#F3F7FC;text-shadow:1.5px 1.5px 0 rgba(127,180,245,.35)}
+  .capsule.bar.on-dark .nl{color:rgba(238,243,250,.8)}
+  .capsule.bar.on-dark .nl:hover{background:rgba(255,255,255,.08);color:#fff}
+  .capsule.bar.on-dark .nl[aria-current="page"]{background:rgba(127,180,245,.16);color:#BBD7FA}
+  .capsule.bar.on-dark .hire{background:#F3F7FC;color:var(--navy)}
+  .capsule.bar.on-dark .hire:hover{background:#fff}
+  .capsule.bar.on-dark .menu-btn{color:#F3F7FC}
+  @media (prefers-reduced-motion:reduce){
+    .capsule,.capsule::before,.capsule .cap-in,.capsule .logo{transition:none!important}
+    .capsule.nav-fade{animation:nav-fade .16s ease-out}
+  }
+  @keyframes nav-fade{from{opacity:.4}to{opacity:1}}
+  .nav-sentinel{position:absolute;left:0;width:1px;height:1px;pointer-events:none;visibility:hidden}
+  .capsule .logo{font-family:"Pacifico","Brush Script MT",cursive;font-weight:400;font-size:24px;line-height:1.2;letter-spacing:.005em;color:var(--t);padding:0 4px 3px 0;margin-right:24px;text-shadow:1.5px 1.5px 0 rgba(47,127,224,.28);transform-origin:left center;transition:color .18s ease,text-shadow .18s ease,transform var(--nav-dur) var(--nav-ease)}
+  .capsule .logo:hover{color:var(--acc);text-shadow:2px 2px 0 rgba(27,33,48,.16)}
+  .capsule .nl{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;font-size:14.5px;font-weight:500;color:var(--m);transition:background .18s ease,color .18s ease}
+  .capsule .nl:hover{background:rgba(47,127,224,.09);color:var(--t)}
+  .capsule .nl[aria-current="page"]{background:rgba(47,127,224,.12);color:var(--acc)}
+  .capsule .hire{display:inline-flex;align-items:center;padding:10px 20px;margin-left:4px;border-radius:999px;background:var(--t);color:#fff;font-size:14.5px;font-weight:500;transition:background .18s ease,transform .18s ease,box-shadow .18s ease}
+  .capsule .hire:hover{background:#0E121A;transform:translateY(-1px);box-shadow:0 8px 16px -8px rgba(27,33,48,.7)}
+  .capsule .hire[aria-current="page"]{box-shadow:0 0 0 3px rgba(47,127,224,.35)}
+  .capsule a:focus-visible,.capsule button:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:999px}
+  .capsule .menu-btn{display:none;appearance:none;border:0;background:transparent;width:38px;height:38px;border-radius:50%;align-items:center;justify-content:center;color:var(--t);cursor:pointer;transition:background .18s ease}
+  .capsule .menu-btn:hover{background:rgba(47,127,224,.09)}
+  .capsule .menu-btn svg{width:18px;height:18px}
+  .capsule .menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:180px;padding:6px;border-radius:18px;background:rgba(255,255,255,.985);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(27,33,48,.08);box-shadow:0 16px 32px -14px rgba(27,33,48,.35);display:flex;flex-direction:column;gap:2px}
+  .capsule .menu .nl{justify-content:space-between}
+  @media (max-width:400px){
+    .capsule{--cpl:14px;--cpr:5px;--cpy:5px}
+    .capsule .cap-r{gap:2px}
+    .capsule .logo{font-size:21px;margin-right:14px}
+    .capsule .nl{padding:8px 10px;font-size:13.5px}
+    .capsule .hire{padding:9px 15px;font-size:13.5px;margin-left:2px}
+  }
+  /* Very narrow: Work and Resume collapse into a menu, Hire me stays */
+  @media (max-width:350px){
+    .capsule .cap-r > .nl{display:none}
+    .capsule .menu-btn{display:inline-flex}
+  }
+  @media (min-width:351px){.capsule .menu{display:none!important}}
+  section[id],main[id]{scroll-margin-top:88px}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:11px 18px;border-radius:999px;font-size:14.5px;font-weight:500;border:1px solid transparent;transition:transform .2s ease,background .2s ease,color .2s ease,border-color .2s ease;cursor:pointer;font-family:var(--sans);white-space:nowrap}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.solid{background:var(--t);color:#fff}
+  .btn.solid:hover{background:var(--acc)}
+  .btn.white{background:#fff;color:var(--t)}
+  .btn.white:hover{color:var(--acc)}
+  .btn.line{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+  .btn.line:hover{border-color:#fff}
+
+  /* HERO */
+  /* At least one full screen, grows with content; capsule clearance lives inside the min-height (border-box) */
+  .hero{position:relative;isolation:isolate;box-sizing:border-box;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding-top:calc(env(safe-area-inset-top,0px) + 120px);padding-bottom:clamp(24px,3vw,40px);overflow:hidden;
+    /* Static gradient: first paint, no-WebGL fallback and the phone version. The liquid canvas fades in over it. */
+    background:var(--sky-atmo)}
+  /* The hero's atmosphere, shared with the Hire me page so both feel like one site */
+  :root{--sky-atmo:
+      radial-gradient(38% 48% at 18% 30%,#CFE3FB 0%,rgba(207,227,251,0) 70%),
+      radial-gradient(34% 44% at 82% 26%,#D9DAF8 0%,rgba(217,218,248,0) 70%),
+      radial-gradient(42% 52% at 64% 86%,#CFE6FA 0%,rgba(207,230,250,0) 70%),
+      radial-gradient(40% 46% at 10% 90%,#CFE3FB 0%,rgba(207,227,251,0) 70%),
+      radial-gradient(24% 30% at 46% 52%,rgba(47,127,224,.10) 0%,rgba(47,127,224,0) 70%),
+      #ECF4FE}
+  /* Optical centre: free space splits 36:64 above/below the content, which puts the content group's midpoint
+     roughly 45% down the space under the floating nav. Top padding = nav (16 + ~56) + 48px minimum clearance. */
+  .hero::before{content:"";flex:36 1 0}
+  .hero::after{content:"";flex:64 1 0}
+  .hero .liquid,.cp .liquid{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+  .hero .liquid.on,.cp .liquid.on{opacity:1}
+  @media (max-width:599px){.liquid{display:none}}   /* phones: static gradient only (see liquidBg) */
+  .hero .grain,.cp .grain{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.045;background-size:160px 160px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+  .hero .fade,.cp .fade{position:absolute;left:0;right:0;bottom:0;height:120px;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(247,251,255,0),var(--ground))}
+  .hero .wrap{position:relative;z-index:1;width:100%}
+  /* Desktop: a slightly wider, slightly less-guttered hero pulls the headline ~24–40px left and the card right, as a pair */
+  @media (min-width:961px){.hero{padding-inline:clamp(24px,3.2vw,56px)}.hero .wrap{max-width:1280px}}
+  /* Soft light scrim so the headline always reads over the moving colour */
+  .hero-copy{position:relative}
+  /* Scrim: tinted to the sky palette (not white) and kept close to the text, so it never reads as a pale stain */
+  .hero-copy::before{content:"";position:absolute;inset:-10% -8% -6% -6%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(232,242,254,.42),rgba(232,242,254,0))}
+  /* Status capsule: glass, below the two-column row */
+  .pillrow{display:flex;justify-content:flex-start;margin:0 0 24px}
+  .status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--m);padding:8px 15px 8px 11px;border-radius:999px;background:rgba(255,255,255,.46);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border:1px solid rgba(255,255,255,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 24px -14px rgba(47,127,224,.32);flex-wrap:nowrap;justify-content:center;text-align:center}
+  .status .dot{position:relative;flex:none;width:8px;height:8px;border-radius:50%;background:var(--acc)}
+  .status .dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--acc);animation:halo 2.5s cubic-bezier(.2,.6,.3,1) infinite}
+  @keyframes halo{0%{transform:scale(1);opacity:.5}80%,100%{transform:scale(3.2);opacity:0}}
+  /* Phones: one compact line, never wider than the column (homepage drops "· Designing since 2023" where it cannot fit) */
+  @media (max-width:599px){
+    .status{font-size:10px;line-height:14px;letter-spacing:.04em;padding:6px 12px;gap:6px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+    .status .dot{width:6px;height:6px}
+  }
+  @media (max-width:479px){.status .st-more{display:none}}
+  @media (prefers-reduced-motion:reduce){.status .dot::after{animation:none;opacity:0}}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(40px,7vw,112px);align-items:center}
+  @media (max-width:960px){.hero-grid{grid-template-columns:1fr;gap:clamp(32px,6vw,48px)}}
+  /* Three fixed lines, each nowrap, so typing can never reflow the headline.
+     Sized so the widest line ("people intend, not" = 8.01em) fits the text column at every width:
+     stacked: 10.5vw (38px at 360, 41px at 390, capped 50px); two columns: ~57px at 1024, ~71px at 1280, capped 78px. */
+  .hero h1{margin:0;font-size:clamp(2rem,10.5vw,3.125rem)}
+  @media (min-width:961px){.hero h1{font-size:clamp(3.25rem,.25rem + 5.2vw,4.875rem)}}
+  .hero h1 .hl-line{display:block;white-space:nowrap}
+  .hero h1 .u{position:relative;display:inline-block}
+  .hero h1 .w1,.hero h1 .w2{position:relative;transition:margin-right .18s ease}
+  /* While a word is being retyped it opens a small gap after itself and the caret sits inside it, so the caret
+     is always before the "," / "." (never on top of it), even when the word is fully erased. */
+  .hero h1 .editing{margin-right:.16em;transition:none}   /* opens instantly (caret never lands on the "."), eases shut after */
+  /* Underline hugs word 1; JS sets its width in px so it eases as the word changes */
+  .hero h1 .uline{position:absolute;left:0;bottom:.08em;height:.06em;width:100%;background:var(--acc);transform:scaleX(0);transform-origin:left;animation:draw .9s cubic-bezier(.2,.7,.2,1) .6s forwards;transition:width .22s cubic-bezier(.2,.7,.2,1)}
+  .hero h1 .editing::before{content:"";position:absolute;right:-.1em;bottom:.04em;width:2px;height:.8em;border-radius:1px;background:var(--acc);animation:blink 1s steps(1) infinite}
+  @media (prefers-reduced-motion:reduce){.hero h1 .uline{animation:none;transform:none;transition:none}}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* Hand-drawn doodles: one overlay behind the hero content, positioned by JS from real element boxes */
+  .hero .wrap > .hero-grid,.hero .wrap > .pillrow{position:relative;z-index:1}
+  .doodles{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
+  .doodles .dd{display:none}
+  .doodles .dd.on{display:inline}
+  .doodles .ln{fill:none;stroke:var(--navy);stroke-width:1.8;stroke-opacity:.45;stroke-linecap:round;stroke-linejoin:round}
+  .doodles .ln.acc{stroke:var(--acc);stroke-opacity:.6}
+  .doodles .lbl{font-family:"Caveat","Segoe Print","Bradley Hand",cursive;font-weight:700;font-size:22px;letter-spacing:.01em;fill:var(--acc);fill-opacity:.9}
+  @media (prefers-reduced-motion:no-preference){
+    .doodles .ln{stroke-dasharray:1 1;stroke-dashoffset:1}
+    .doodles .dd.on .ln{animation:dd-draw 1.1s cubic-bezier(.45,.05,.25,1) var(--dl,0s) forwards}
+    .doodles .dd.on .lbl{opacity:0;animation:dd-fade .6s ease calc(var(--dl,0s) + .9s) forwards}
+    .hero.paused .doodles *{animation-play-state:paused}
+  }
+  @keyframes dd-draw{to{stroke-dashoffset:0}}
+  @keyframes dd-fade{to{opacity:1}}
+  @keyframes draw{to{transform:scaleX(1)}}
+  .hero .lede{margin-top:22px;max-width:42ch;font-size:clamp(1rem,.9rem + .35vw,1.1875rem);line-height:1.55;color:#454F5E;text-wrap:pretty}
+  .hero .lede .nw{white-space:nowrap}
+
+  /* Scroll cue: a tiny "SCROLL" label over a 1px line with a dot drifting down it. Centred ~28px above the
+     bottom of the first screen; JS hides it when the band under the content is too short to hold it cleanly. */
+  .cue{position:absolute;left:50%;bottom:28px;z-index:2;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:9px;padding:6px 10px;border:0;border-radius:10px;
+    background:none;color:var(--m);cursor:pointer;transition:opacity .25s ease}
+  .cue.off{display:none}
+  .cue-lbl,.cue-line{opacity:.5;transition:opacity .2s ease}
+  .cue:hover .cue-lbl,.cue:hover .cue-line,.cue:focus-visible .cue-lbl,.cue:focus-visible .cue-line{opacity:.8}
+  .cue-lbl{font-family:var(--mono);font-size:10.5px;line-height:1;letter-spacing:.12em;text-transform:uppercase;padding-left:.12em}
+  .cue-line{position:relative;width:1px;height:32px;background:currentColor}
+  .cue-line::after{content:"";position:absolute;left:50%;top:0;width:3px;height:3px;margin-left:-1.5px;border-radius:50%;background:currentColor;
+    box-shadow:0 0 0 1px rgba(236,244,254,.9);opacity:0;animation:cue-travel 2.5s cubic-bezier(.45,0,.55,1) infinite}
+  .cue:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+  .hero.paused .cue-line::after{animation-play-state:paused}
+  @media (prefers-reduced-motion:reduce){.cue-line::after{animation:none;opacity:0}}
+  @keyframes cue-travel{0%{transform:translateY(0);opacity:0}18%{opacity:1}70%{opacity:1}100%{transform:translateY(29px);opacity:0}}
+
+  /* INTENT DEVICE */
+  .device{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.95);border-radius:20px;background:rgba(255,255,255,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:16px;box-shadow:0 24px 50px -34px rgba(27,33,48,.35);transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+  /* Soft sheen that follows the tilt (driven by --sx/--sy/--sheen from JS) */
+  .device::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:var(--sheen,0);background:radial-gradient(360px circle at var(--sx,50%) var(--sy,0%),rgba(255,255,255,.26),rgba(255,255,255,0) 60%)}
+  .device .tabs{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding:3px;margin:-3px -3px 9px}   /* one row; scrolls sideways inside the card when it can't fit (padding keeps focus rings visible) */
+  .device .tabs::-webkit-scrollbar{display:none}
+  .device .tabs button{flex:none}
+  @media (min-width:961px){.device .tabs{gap:5px}.device .tabs button[role="tab"]{padding:6px 8px}}   /* desktop: all five tabs fit on one row */
+  .device .tabs button{appearance:none;border:1px solid var(--line-2);background:#fff;color:var(--m);font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:6px 10px;border-radius:999px;cursor:pointer;transition:all .2s ease}
+  .device .tabs button:hover{color:var(--t);border-color:var(--t)}
+  .device .tabs button[aria-selected="true"]{background:var(--acc);color:#fff;border-color:var(--acc)}
+  .device .row{display:grid;gap:8px}
+  .device .cell{padding:14px 16px;border-radius:14px;min-height:84px}
+  .device .cell .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+  .device .typed{background:var(--navy);color:#EEF3FA}
+  .device .typed .lab{color:rgba(238,243,250,.5)}
+  .device .typed .txt{font-family:var(--mono);font-size:clamp(14px,1.15vw,16px);min-height:1.6em}
+  .device .typed .txt::after{content:"";display:inline-block;width:.55em;height:1.05em;background:#7FB4F5;vertical-align:-.15em;margin-left:2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .device .meant{background:#fff;border:1px solid var(--line);color:var(--t)}
+  .device .meant .lab{color:var(--f)}
+  .device .meant .txt{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(20px,1.8vw,26px);line-height:1.15;letter-spacing:-.01em;transition:opacity .35s ease,transform .35s ease}
+  .device .meant.swap .txt{opacity:0;transform:translateY(6px)}
+  .device .foot{margin-top:10px;font-size:13px;color:var(--f);display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+  .device .foot a{color:var(--m);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px}
+  .device .foot a:hover{color:var(--acc);text-decoration-color:var(--acc)}
+
+  /* SECTION HEAD */
+  .sec{padding-block:clamp(64px,8vw,112px)}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px 48px;flex-wrap:wrap;margin-bottom:clamp(28px,3.5vw,48px)}
+  .sec-head .eyebrow{margin-bottom:12px}
+  .sec-head h2{margin:0}
+  .sec-head .lede{font-size:16.5px;max-width:30em}
+
+  /* WORK · stacking cards */
+  .stack{display:flex;flex-direction:column}
+  .stack-item{margin-bottom:24px}
+  .stack-item:last-child{margin-bottom:0}
+  @media (min-width:900px) and (min-height:680px){
+    .stack-item{position:sticky;top:calc(var(--navh) + 24px + var(--i) * 18px)}
+  }
+  .wc{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(20px,3vw,56px);align-items:center;padding:clamp(56px,5vw,72px) clamp(24px,3.4vw,48px) clamp(28px,3.4vw,48px);border-radius:28px;color:#fff;overflow:hidden;min-height:clamp(460px,64vh,560px);box-shadow:0 30px 60px -40px rgba(27,33,48,.55);transform-origin:50% 0;will-change:transform}
+  .wc::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 80% 20%,rgba(255,255,255,.22),rgba(255,255,255,0) 60%);pointer-events:none}
+  .wc.c1{background:linear-gradient(120deg,#1E4FB5,#3F8BF2)}
+  .wc.c2{background:linear-gradient(120deg,#0E7466,#3DBFA4)}
+  .wc.c3{background:linear-gradient(120deg,#4A3FB0,#8A7DF0)}
+  .wc > *{position:relative;z-index:1}
+  .wc .num{position:absolute;top:clamp(20px,2.4vw,30px);left:clamp(24px,3.4vw,48px);font-family:var(--mono);font-size:15px;letter-spacing:.08em;color:#fff}
+  .wc .yr{position:absolute;top:clamp(20px,2.4vw,30px);right:clamp(24px,3.4vw,48px);font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:rgba(255,255,255,.85);background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px}
+  .wc h3{margin:0;font-size:clamp(28px,3vw,44px);line-height:1.05;color:#fff;max-width:17ch}
+  .wc .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .wc .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28)}
+  .wc .tag.st{background:rgba(255,255,255,.92);color:var(--t);border-color:transparent}
+  .wc p{margin:18px 0 0;color:rgba(255,255,255,.86);font-size:16.5px;max-width:34em}
+  .wc .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .wc .panel{background:rgba(9,17,34,.32);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:12px;min-height:260px}
+  @media (max-width:899px){.wc{grid-template-columns:minmax(0,1fr);min-height:0}.wc .panel{min-height:0}}   /* minmax(0,…): the nowrap git-log lines in the GitBrief panel used to force the column wider than the card */
+  /* ---------- Work cards: product screens ----------
+     Desktop (>=900px): the card keeps the reference's 2:1 shape (1200x600); the concept panel sits top-right and
+     the screens bleed off the bottom/right edges. Positions are % of the card, so they scale with it.
+     --push is set by script so the highest rotated corner of the screens always sits 32px below the panel
+     (28px on mobile). Mobile (<900px): panel full width, then a screens zone that bleeds off the card's bottom. */
+  .wc .num .pn::before{content:"·";margin:0 .6em;opacity:.7}
+  .wc .shots{pointer-events:none}
+  .wc .shot{position:absolute;box-shadow:0 20px 50px rgba(0,0,0,.25);border-radius:10px;border:1px solid rgba(255,255,255,.18);overflow:hidden;
+    transform:rotate(var(--r));opacity:var(--o)}
+  .wc .shot img{display:block;width:100%;height:auto;object-fit:cover;object-position:top}
+  .wc .shot.phone{border-radius:30px;border:0;padding:6px;background:#0F4F46}
+  .wc .shot.phone img{border-radius:24px}
+  .wc .shot.back{z-index:0}
+  .wc .shot.front{z-index:1}
+  /* desktop positions (from the 1200x600 reference) + mobile positions (px in a 351px-wide zone, i.e. a 390px phone) */
+  .c1 .shot.back {--l:75%;  --t:53%;     --w:31.667%;--r:6deg; --o:.6;  --ml:130;--mt:16;--mw:270;--mr:8deg}
+  .c1 .shot.front{--l:52.5%;--t:67.333%; --w:36.667%;--r:-4deg;--o:.97; --ml:30; --mt:44;--mw:300;--mr:-5deg}
+  .c3 .shot.back {--l:75%;  --t:57.5%;   --w:31.667%;--r:6deg; --o:.6;  --ml:120;--mt:18;--mw:260;--mr:8deg}
+  .c3 .shot.front{--l:52.5%;--t:70%;     --w:35%;    --r:-4deg;--o:.97; --ml:30; --mt:44;--mw:270;--mr:-5deg}
+  .c2 .shot.back {--l:81.25%;--t:48.667%;--w:17.5%;  --r:9deg; --o:.55; --ml:205;--mt:22;--mw:140;--mr:9deg}
+  .c2 .shot.front{--l:66.667%;--t:53%;   --w:18.333%;--r:-5deg;--o:.97; --ml:112;--mt:36;--mw:150;--mr:-5deg}
+  @media (min-width:900px){
+    .wc{aspect-ratio:2/1;align-items:start}   /* text top-aligned under the number, as in the reference */
+    .wc .panel{position:absolute;z-index:2;top:16%;left:53.333%;width:35%;min-height:0;padding:22px 24px;border-radius:20px;
+      border-color:rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+    .wc .shots{position:absolute;inset:0;z-index:0}
+    .wc .shot{left:var(--l);top:calc(var(--t) + var(--push,0px));width:var(--w)}
+  }
+  @media (max-width:899px){
+    .wc{padding-bottom:0}
+    .wc .panel{border-radius:20px;border-color:rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+    /* 28px under the panel in total (the card grid already adds its row gap) */
+    .wc .shots{position:relative;z-index:0;height:clamp(210px,40vw,336px);margin:calc(28px - clamp(20px,3vw,56px)) calc(-1 * clamp(24px,3.4vw,48px)) 0;container-type:inline-size}
+    /* --k: px per reference px; 1 at a 351px zone, grows with the card up to 1.6x (810px uses this layout too) */
+    .wc .shot{--k:min(calc(100cqw / 351),1.6px);left:calc(var(--k) * var(--ml));top:calc(var(--k) * var(--mt) + var(--push,0px));width:calc(var(--k) * var(--mw));transform:rotate(var(--mr))}
+  }
+  /* Phones: keep each work card to about one screen. The product screens now carry the visual,
+     so the concept panel steps aside, and the two buttons share a row */
+  @media (max-width:599px){
+    .wc .panel{display:none}
+    .wc .actions{gap:6px;margin-top:22px}   /* still wraps on very narrow phones */
+    .wc .actions .btn{padding:10px 11px;font-size:13px;gap:6px;white-space:nowrap}
+  }
+  .mline{font-family:var(--mono);font-size:12.5px;color:rgba(255,255,255,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mline .tg{color:#FFD27A}
+  .brief{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(17px,1.5vw,22px);line-height:1.2;border-left:2px solid #FFD27A;padding-left:14px;margin-top:6px}
+  .sup{font-family:var(--mono);font-size:10px;color:#FFD27A;vertical-align:super}
+  .cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+  .track{display:flex;gap:6px}
+  .step{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.2);position:relative;overflow:hidden}
+  .step i{position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(var(--p,0))}
+  .big{font-family:var(--serif);font-size:clamp(22px,2vw,32px);line-height:1.05;letter-spacing:-.02em;margin-top:6px}
+  .big i{color:#CFF5EA;font-weight:300}
+  .dl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .old{font-family:var(--mono);font-size:clamp(12.5px,1vw,14px);color:rgba(255,255,255,.7);text-decoration:line-through;text-decoration-thickness:1.5px}
+  .new{font-family:var(--serif);font-size:clamp(19px,1.7vw,26px);line-height:1.15;letter-spacing:-.01em}
+  .new i{font-weight:300;color:#E4DFFF}
+
+  /* Glass capsule */
+  .more{position:relative;display:flex;justify-content:center;margin-top:clamp(40px,5vw,64px);padding-block:14px}
+  .more::before{content:"";position:absolute;width:min(360px,80%);height:84px;left:50%;top:50%;transform:translate(-50%,-50%);background:linear-gradient(90deg,#8FC1FF,#B9F1E2,#D4CCFA);filter:blur(26px);opacity:.85;border-radius:999px;pointer-events:none}
+  .glass{position:relative;z-index:1;display:inline-flex;align-items:center;gap:14px;padding:12px 12px 12px 26px;border-radius:999px;background:rgba(255,255,255,.42);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(27,33,48,.05),0 14px 30px -16px rgba(27,33,48,.45);font-weight:500;font-size:16px;transition:transform .25s ease,box-shadow .25s ease}
+  .glass:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 20px 36px -16px rgba(27,33,48,.5)}
+  .glass .cnt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--m)}
+  .glass .ar{width:38px;height:38px;border-radius:50%;background:var(--t);color:#fff;display:grid;place-items:center;font-size:16px;transition:transform .3s ease}
+  .glass:hover .ar{transform:rotate(-45deg)}
+
+  /* APPROACH */
+  .approach{background:var(--surface);position:relative;overflow:hidden}
+  /* Soft colour fields that the glass cards blur */
+  .blobs{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .blobs span{position:absolute;border-radius:50%;filter:blur(60px);opacity:.6}
+  .blobs .b1{width:38vw;height:38vw;max-width:520px;max-height:520px;background:#9CC8FF;left:-6vw;top:20%}
+  .blobs .b2{width:30vw;height:30vw;max-width:420px;max-height:420px;background:#B9F1E2;left:34%;bottom:-12%}
+  .blobs .b3{width:32vw;height:32vw;max-width:440px;max-height:440px;background:#D4CCFA;right:-4vw;top:8%}
+  .blobs .b4{width:22vw;height:22vw;max-width:300px;max-height:300px;background:#FFD2BF;right:22%;top:55%;opacity:.5}
+  .has-blobs > .wrap{position:relative;z-index:1}
+  .glassy{background:rgba(255,255,255,.48);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(27,33,48,.04),0 24px 50px -36px rgba(27,33,48,.45)}
+  .rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:16px}
+  @media (max-width:1000px){.rules{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:560px){.rules{grid-template-columns:1fr;grid-auto-rows:auto}}
+  .rule{height:100%;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,.48);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 24px 50px -36px rgba(27,33,48,.45);transition:box-shadow .3s ease,background .3s ease}
+  .rule:hover{background:rgba(255,255,255,.62);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 30px 56px -34px rgba(27,33,48,.5)}
+  .rule .hd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+  .rule .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);font-weight:500}
+  /* 3D icons in the portfolio palette, on a small glass tile (gradients live in the hidden #apBlue… defs) */
+  .rule .ico{width:60px;height:60px;flex:none;border-radius:16px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 #fff,0 10px 22px -16px rgba(47,127,224,.45);display:grid;place-items:center}
+  .rule .ico svg{width:46px;height:46px;overflow:visible}
+  .rule .k .n::after{content:"·";margin:0 .55em;opacity:.55}
+  @media (prefers-reduced-motion:no-preference){
+    .rule .ico svg{transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+    .rule:hover .ico svg{transform:translateY(-3px) rotate(-4deg)}
+  }
+  .rule h3{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(22px,1.8vw,26px);line-height:1.1;letter-spacing:-.015em;text-wrap:balance}
+  .rule p{margin:0;color:var(--m);font-size:15px;line-height:1.55}
+  /* Fallback: reserve two heading lines so body text starts on the same line */
+  .rule h3{min-height:2.2em}
+  /* Modern browsers: icon row, heading row and body row share one grid across all four cards */
+  @supports (grid-template-rows:subgrid){
+    .rules{grid-auto-rows:auto}
+    .rule{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:12px;align-content:start}
+    .rule h3{min-height:0;align-self:start}
+    .rule p{align-self:start}
+  }
+
+  /* ABOUT */
+  #about{position:relative;overflow:hidden;padding-block:clamp(80px,10vw,144px)}
+  #about .blobs .b1{top:auto;bottom:-10%;left:auto;right:-8vw;opacity:.45}
+  #about .blobs .b3{top:-10%;right:18%;opacity:.4}
+  .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,120px);align-items:center}
+  .panel-glass{border-radius:26px;padding:clamp(24px,3vw,40px)}  @media (max-width:900px){.about{grid-template-columns:1fr}}
+  .portrait{margin:0 0 36px;display:flex;align-items:flex-end;gap:14px;flex-wrap:nowrap}
+  .portrait .photo{display:block;flex:none;width:clamp(170px,20vw,230px);max-width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;border-radius:22px;border:1px solid rgba(255,255,255,.9);box-shadow:0 20px 40px -26px rgba(27,33,48,.45),0 0 0 1px rgba(27,33,48,.04)}
+  .portrait figcaption{position:relative;min-width:0;padding-bottom:6px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--f);line-height:1.5}
+  .portrait .hi{display:block;font-family:"Caveat","Segoe Print","Bradley Hand",cursive;font-weight:700;font-size:clamp(28px,2.6vw,36px);line-height:1;letter-spacing:0;color:var(--t);transform:rotate(-3deg);transform-origin:left bottom;margin-bottom:10px}
+  .portrait .loc{display:inline-flex;align-items:center;gap:6px}
+  .portrait .loc svg{width:13px;height:13px;flex:none}
+  .portrait .doodle{position:absolute;left:-26px;bottom:calc(100% - 4px);width:clamp(96px,9vw,128px);height:auto;overflow:visible;color:var(--acc);pointer-events:none}
+  @media (max-width:420px){.portrait .doodle{display:none}}
+  .story p{margin:0 0 22px;font-size:clamp(17px,1.25vw,19px);line-height:1.6;max-width:28em;color:var(--m)}
+  .story p:last-child{margin-bottom:0}
+  .story p.first{font-family:var(--serif);font-size:clamp(26px,2.4vw,36px);line-height:1.15;letter-spacing:-.015em;color:var(--t)}
+  .story p.first i{font-weight:300;color:var(--acc)}
+  .tl{display:flex;flex-direction:column}
+  .tl .h{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--f);padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:4px}
+  .tl .it{display:grid;grid-template-columns:118px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .tl .it .d{font-family:var(--mono);font-size:12.5px;color:var(--m);font-variant-numeric:tabular-nums}
+  .tl .it .r{font-weight:500;font-size:16.5px}
+  .tl .it .c{color:var(--m);font-size:15px}
+  .tl .it .c a{border-bottom:1px solid var(--line-2)}
+  .tl .it .c a:hover{color:var(--acc);border-color:var(--acc)}
+  .tl .it.now .r::after{content:"now";font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--acc);color:#fff;padding:3px 7px;border-radius:999px;margin-left:10px;vertical-align:middle}
+  @media (max-width:520px){.tl .it{grid-template-columns:1fr;gap:4px}}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{font-family:var(--mono);font-size:12px;padding:7px 12px;border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.7)}
+  a.chip:hover{border-color:var(--acc);color:var(--acc)}
+  .chip.ai{border-color:var(--acc);color:var(--acc);background:var(--acc-soft)}
+
+  /* BLOGS & THOUGHTS */
+  .blogs{background:var(--surface)}
+  .rail-ctrl{display:flex;gap:8px}
+  .rail-ctrl button{appearance:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:var(--white);color:var(--t);font-size:18px;cursor:pointer;transition:all .2s ease}
+  .rail-ctrl button:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}
+  .rail-ctrl button:disabled{opacity:.35;cursor:default}
+  /* overflow-x:auto is needed for the sideways row, but it forces vertical clipping too.
+     Padding gives the hover lift + shadow room inside the scroll box; equal negative margins keep the layout unchanged.
+     Top 24 = lift 4 + margin. Bottom 32 = shadow reach 28 + margin. Sides 16 = shadow reach 14 + margin (= the smallest page gutter). */
+  .rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:24px 16px 32px;margin:-24px -16px -32px;scroll-padding-inline:16px;scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+  .rail::-webkit-scrollbar{display:none}
+  .rail.drag{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto}
+  .rail.drag .post{pointer-events:none}
+  .post{flex:0 0 clamp(260px,28vw,340px);scroll-snap-align:start;background:var(--white);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .25s ease;will-change:transform;transform:translateY(0);box-shadow:0 0 0 rgba(27,33,48,0)}
+  .post:hover{border-color:rgba(47,127,224,.4);transform:translateY(-4px);box-shadow:0 14px 28px -14px rgba(27,33,48,.35)}
+  @media (prefers-reduced-motion:reduce){.post{transition:border-color .25s ease,box-shadow .25s ease}.post:hover{transform:none}}
+  .post .cov{height:120px;padding:18px;display:flex;flex-direction:column;justify-content:space-between}
+  .post .cov .src{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--t);opacity:.7}
+  .post .cov .q{font-family:var(--serif);font-style:italic;font-weight:300;font-size:30px;line-height:1;color:var(--t);opacity:.85}
+  .post.med .cov{background:linear-gradient(135deg,#E3EEFC,#C8DDF8)}
+  .post.lin .cov{background:linear-gradient(135deg,#DDF3EC,#BDE6D8)}
+  .post.con .cov{background:linear-gradient(135deg,#ECE8FF,#D4CCFA)}
+  .post .bd{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .post h3{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(20px,1.6vw,23px);line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
+  .post p{margin:0;color:var(--m);font-size:14.5px;line-height:1.45}
+  .post .go{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--f)}
+  .post:hover .go{color:var(--acc)}
+
+  /* CONTACT / FOOTER
+     One shell (#ftShell) wraps the closing block AND the bottom bar and owns the only background: an eased fade from
+     the section above (--fade-from) into --navy over --ft-fade, then the same flat --navy to the very bottom. The
+     fade's last stop is exactly var(--navy), the base fill. Grain sits on top and fades in through a mask,
+     so it never starts at an edge. --ft-fade: fade height. --fade-from: colour of the section above. */
+  .ft-shell{--ft-fade:clamp(160px,18vw,240px);--fade-from:var(--surface);position:relative;overflow:hidden;isolation:isolate;color:#EEF3FA;
+    background-color:var(--navy);background-repeat:no-repeat;background-size:100% var(--ft-fade);
+    background-image:linear-gradient(180deg,var(--fade-from) 0,#C4D4EA calc(var(--ft-fade) * .26),#7D93B6 calc(var(--ft-fade) * .5),#34486A calc(var(--ft-fade) * .74),#1B2A45 calc(var(--ft-fade) * .9),var(--navy) var(--ft-fade));
+    /* eased (sine in-out) steps mixed in OKLab, passing through a soft sky-blue mid-tone (--fade-mid) so the middle
+       doesn't go grey: no visible bands, no strip at the top, and it lands exactly on --navy */
+    --fade-mid:#7A90B4;
+    background-image:linear-gradient(180deg,var(--fade-from) 0,
+      color-mix(in oklab,var(--fade-mid) 4.8%,var(--fade-from)) 10%,color-mix(in oklab,var(--fade-mid) 19%,var(--fade-from)) 20%,
+      color-mix(in oklab,var(--fade-mid) 41.2%,var(--fade-from)) 30%,color-mix(in oklab,var(--fade-mid) 69%,var(--fade-from)) 40%,
+      var(--fade-mid) 50%,color-mix(in oklab,var(--navy) 31%,var(--fade-mid)) 60%,
+      color-mix(in oklab,var(--navy) 58.8%,var(--fade-mid)) 70%,color-mix(in oklab,var(--navy) 81%,var(--fade-mid)) 80%,
+      color-mix(in oklab,var(--navy) 95.2%,var(--fade-mid)) 90%,var(--navy) 100%)}
+  #allwork:not([hidden]) ~ .ft-shell,#contactpage:not([hidden]) ~ .ft-shell{--fade-from:var(--ground)}
+  .contact{position:relative;padding-block:calc(var(--ft-fade) + clamp(40px,6vw,88px)) clamp(56px,7vw,96px)}
+  /* Atmosphere: soft glowing blobs (colour + opacity here), drifting slowly. Blobs + grain span the whole shell
+     (bottom bar included) and are masked in over the lower half of the fade. */
+  .ft-atmo,.ft-grain{position:absolute;inset:0;z-index:-1;pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,transparent calc(var(--ft-fade) * .45),#000 calc(var(--ft-fade) + 160px));
+    mask-image:linear-gradient(180deg,transparent 0,transparent calc(var(--ft-fade) * .45),#000 calc(var(--ft-fade) + 160px))}
+  .ft-atmo span{position:absolute;border-radius:50%;filter:blur(70px);will-change:transform}
+  .ft-atmo .fb1{width:48vw;height:48vw;max-width:680px;max-height:680px;left:-12vw;top:18%;background:radial-gradient(closest-side,rgba(38,78,150,.55),rgba(38,78,150,0));animation:fb-a 36s ease-in-out infinite alternate}
+  .ft-atmo .fb2{width:40vw;height:40vw;max-width:560px;max-height:560px;right:-10vw;top:6%;background:radial-gradient(closest-side,rgba(58,62,160,.42),rgba(58,62,160,0));animation:fb-b 30s ease-in-out infinite alternate}
+  .ft-atmo .fb3{width:34vw;height:34vw;max-width:480px;max-height:480px;left:38%;bottom:-18%;background:radial-gradient(closest-side,rgba(47,127,224,.28),rgba(47,127,224,0));animation:fb-c 40s ease-in-out infinite alternate}
+  @keyframes fb-a{to{transform:translate(8vw,-3vw) scale(1.08)}}
+  @keyframes fb-b{to{transform:translate(-6vw,5vw) scale(.94)}}
+  @keyframes fb-c{to{transform:translate(-5vw,-6vw) scale(1.1)}}
+  .ft-shell.paused .ft-atmo span{animation-play-state:paused}
+  /* marks where the footer is dark enough for the navy nav bar: from ~45% down the fade to the bottom */
+  .ft-dark-mark{position:absolute;left:0;right:0;top:calc(var(--ft-fade) * .45);bottom:0;pointer-events:none;visibility:hidden}
+  @media (prefers-reduced-motion:reduce){.ft-atmo span{animation:none}}
+  .ft-grain{opacity:.05;background-size:160px 160px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+  /* Layout: copy left, card right (centred on the headline); stacked below 1000px with the card after the links */
+  .contact .wrap{position:relative}
+  .ft-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);grid-template-areas:"eye ." "head card" "mail ." "social .";column-gap:clamp(40px,6vw,96px);align-items:start}
+  .ft-grid > *{position:relative;z-index:1}
+  .ft-grid .eyebrow{grid-area:eye}
+  .contact .eyebrow{color:rgba(238,243,250,.66)}
+  .contact .eyebrow b{color:#8FC0F7}
+  .contact h2{grid-area:head;margin:24px 0 0;max-width:16ch;color:#fff}
+  .contact h2 i{color:#BBD7FA}
+  @media (max-width:1000px){.ft-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"eye" "head" "mail" "social" "card"}}
+  /* Email: the main action */
+  .mail-row{grid-area:mail;display:flex;align-items:center;flex-wrap:wrap;gap:12px 16px;margin-top:clamp(28px,3.5vw,40px)}
+  .mail{display:inline-block;font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.7vw,38px);line-height:1.15;letter-spacing:-.01em;color:#E3ECF7;padding-bottom:6px;word-break:break-word;
+    background:linear-gradient(#9CC8FF,#9CC8FF) left bottom/0% 2px no-repeat,linear-gradient(rgba(156,200,255,.35),rgba(156,200,255,.35)) left bottom/100% 1px no-repeat;
+    transition:background-size .45s cubic-bezier(.22,1,.36,1),color .2s ease}
+  .mail:hover,.mail:focus-visible{color:#fff;background-size:100% 2px,100% 1px}
+  .mail:focus-visible{outline:2px solid #9CC8FF;outline-offset:6px;border-radius:4px}
+  .copy{appearance:none;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#DCE8F7;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 13px;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease}
+  .copy:hover{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3)}
+  .copy:focus-visible{outline:2px solid #9CC8FF;outline-offset:3px}
+  .copy.copied{color:#A9EBCB;border-color:rgba(169,235,203,.45);background:rgba(169,235,203,.08)}
+  /* Socials */
+  .socials{grid-area:social;display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:clamp(32px,4vw,44px);font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:rgba(238,243,250,.8)}
+  .socials a{display:inline-flex;align-items:center;gap:6px;transition:color .2s ease}
+  .socials a::after{content:"↗";display:inline-block;font-size:12px;transition:transform .25s cubic-bezier(.22,1,.36,1)}
+  .socials a:hover,.socials a:focus-visible{color:#BBD7FA}
+  .socials a:hover::after,.socials a:focus-visible::after{transform:translate(3px,-3px)}
+  .socials a:focus-visible{outline:2px solid #9CC8FF;outline-offset:4px;border-radius:3px}
+  /* Footer card = the hero card (.device: same radius, padding, cells, type, tilt + sheen), in a dark-glass variant */
+  .ft-card{grid-area:card;align-self:center;justify-self:end;width:min(100%,440px);margin-top:24px}
+  .device.on-dark{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 30px 60px -30px rgba(0,0,0,.65)}
+  .device.on-dark::after{background:radial-gradient(360px circle at var(--sx,50%) var(--sy,0%),rgba(255,255,255,.14),rgba(255,255,255,0) 60%)}
+  .device.on-dark .typed{background:#0B1426;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+  .device.on-dark .meant{border-color:rgba(255,255,255,.6)}
+  @media (max-width:1000px){.ft-card{justify-self:stretch;align-self:start;width:100%;margin-top:clamp(40px,6vw,56px)}}
+  /* Footer doodles (same hand-drawn stroke as the hero, in light blue) */
+  .ft-doodles{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
+  .ft-doodles .dd{display:none}
+  .ft-doodles .dd.on{display:inline}
+  .ft-doodles .ln{fill:none;stroke:#9CC8FF;stroke-width:1.8;stroke-opacity:.55;stroke-linecap:round;stroke-linejoin:round}
+  .ft-doodles .lbl{font-family:"Caveat","Segoe Print","Bradley Hand",cursive;font-weight:700;font-size:22px;letter-spacing:.01em;fill:#9CC8FF;fill-opacity:.85}
+  @media (prefers-reduced-motion:no-preference){
+    .ft-doodles .ln{stroke-dasharray:1 1;stroke-dashoffset:1}
+    .ft-doodles.drawn .dd.on .ln{animation:dd-draw 1.1s cubic-bezier(.45,.05,.25,1) var(--dl,0s) forwards}
+    .ft-doodles .dd.on .lbl{opacity:0}
+    .ft-doodles.drawn .dd.on .lbl{animation:dd-fade .6s ease calc(var(--dl,0s) + .8s) forwards}
+  }
+  /* SITE FOOTER: transparent, it sits on the same shell background as the closing block */
+  .site-foot{position:relative;color:rgba(238,243,250,.68);font-family:var(--mono);font-size:12px;letter-spacing:.06em}
+  /* Contact page: no closing block above, so the shell's fade sits above the bar */
+  #say-hello[hidden] + .site-foot{padding-top:var(--ft-fade)}
+  .site-foot .wrap{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;padding-block:22px 30px}
+  /* top rule spans the full viewport width; the content stays on the container */
+  .site-foot .wrap::before{content:"";position:absolute;top:0;left:50%;width:100vw;height:1px;transform:translateX(-50%);background:rgba(238,243,250,.14)}
+  .site-foot nav{display:flex;gap:6px 22px;flex-wrap:wrap;text-transform:uppercase;letter-spacing:.1em}
+  .site-foot nav a{color:rgba(238,243,250,.84);transition:color .18s ease}
+  .site-foot nav a:focus-visible{outline:2px solid #9CC8FF;outline-offset:3px;border-radius:3px}
+  .site-foot nav a:hover{color:#fff}
+
+  /* HIRE ME PAGE (#contact): one screen, same width and position as the old "Let's talk" page, on the hero's atmosphere.
+     Reuses the hero .status pill, .lede, and the footer's .mail / .copy / .socials in a light variant. */
+  .cp,.aw-hero{position:relative}
+  .cp{isolation:isolate;overflow:hidden;background:var(--sky-atmo);min-height:calc(100vh - 76px);min-height:calc(100dvh - 76px);padding-block:calc(var(--capclear) + clamp(40px,4vw,72px)) clamp(64px,8vw,120px)}   /* top space trimmed from the old page so everything fits one desktop screen */
+  .cp .wrap{position:relative;z-index:1}
+  .cp h1{margin:16px 0 0;font-size:clamp(56px,9vw,128px)}
+  .cp .lede{margin-top:20px}
+  .cp .lede + .lede{margin-top:14px}
+  .cp .mail-row{margin-top:clamp(28px,3vw,36px)}
+  .cp .mail{color:var(--t);background-image:linear-gradient(var(--acc),var(--acc)),linear-gradient(var(--line-2),var(--line-2))}
+  .cp .mail:hover,.cp .mail:focus-visible{color:var(--acc)}
+  .cp .mail:focus-visible{outline-color:var(--acc)}
+  .cp .copy{color:var(--t);background:#fff;border-color:var(--line-2)}
+  .cp .copy:hover{color:var(--acc);background:#fff;border-color:var(--acc)}
+  .cp .copy:focus-visible{outline-color:var(--acc)}
+  .cp .copy.copied{color:#1E7A52;border-color:rgba(30,122,82,.4);background:rgba(30,122,82,.07)}
+  .cp .socials{margin-top:clamp(20px,2.5vw,28px);color:var(--m)}
+  .cp .socials a:hover,.cp .socials a:focus-visible{color:var(--acc)}
+  .cp .socials a:focus-visible{outline-color:var(--acc)}
+  .cp-note{margin:clamp(20px,2.5vw,24px) 0 0;font-size:14.5px;color:var(--m);display:flex;flex-wrap:wrap;column-gap:32px}   /* the two projects share a row when there's room */
+  .cp-note p{margin:0}
+  .cp-note p:first-child{flex-basis:100%}
+  .cp-note p + p{margin-top:6px}
+  .cp-note .pj{color:var(--t);font-weight:500;margin-right:8px}
+  .cp-note a{white-space:nowrap;color:var(--t);border-bottom:1px solid var(--line-2);transition:color .2s ease,border-color .2s ease}
+  .cp-note a:hover,.cp-note a:focus-visible{color:var(--acc);border-color:var(--acc)}
+  @media (min-width:961px) and (max-height:800px){.cp{padding-top:calc(var(--capclear) + 12px)}.cp h1{margin-top:10px}.cp .mail-row{margin-top:24px}.cp-note{margin-top:16px}}   /* short laptop screens (1366x768)... */
+
+  /* ALL WORK PAGE */
+  .aw-hero{padding-block:calc(var(--capclear) + clamp(24px,3vw,48px)) clamp(36px,4vw,56px);background:linear-gradient(180deg,#DCEBFB 0%,#EDF5FE 60%,var(--ground) 100%)}
+  .back{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:28px}
+  .back:hover{color:var(--acc)}
+  .aw-hero h1{margin:0;font-size:clamp(44px,6vw,84px)}
+  .aw-hero .lede{margin-top:18px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px}
+  .filters button{appearance:none;font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:8px 14px;border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.75);color:var(--m);cursor:pointer;transition:all .2s ease}
+  .filters button:hover{color:var(--t);border-color:var(--t)}
+  .filters button[aria-pressed="true"]{background:var(--t);color:#fff;border-color:var(--t)}
+  .filters button span{opacity:.6;margin-left:4px}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}}
+  .pc{background:var(--white);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+  .pc:hover{transform:translateY(-4px);border-color:rgba(47,127,224,.35);box-shadow:0 28px 50px -36px rgba(27,33,48,.5)}
+  .pc .cv{position:relative;aspect-ratio:16/9;max-width:100%;padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;overflow:hidden}
+  .pc .cv::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 80% 15%,rgba(255,255,255,.25),rgba(255,255,255,0) 60%)}
+  .pc .cv > *{position:relative}
+  .pc .cv .num{position:absolute;top:20px;left:24px;font-family:var(--mono);font-size:14px}
+  .pc .cv .yr{position:absolute;top:18px;right:20px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:4px 11px;border-radius:999px}
+  .pc .cv .cmd{font-family:var(--mono);font-size:13px;color:rgba(255,255,255,.72)}
+  .pc .cv .cmd::before{content:"> ";color:rgba(255,255,255,.5)}
+  .pc .cv .int{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(22px,2.2vw,30px);line-height:1.1;letter-spacing:-.01em}
+  .g1{background:linear-gradient(120deg,#1E4FB5,#3F8BF2)}
+  .g2{background:linear-gradient(120deg,#0E7466,#3DBFA4)}
+  .g3{background:linear-gradient(120deg,#4A3FB0,#8A7DF0)}
+  .g4{background:linear-gradient(120deg,#B9573B,#EE9E78)}
+  .g5{background:linear-gradient(120deg,#8C5A1F,#E0A956)}
+  .g6{background:linear-gradient(120deg,#2A5B78,#6FB1D6)}
+  .g7{background:linear-gradient(120deg,#1E1638,#6D4FE0)}
+  .pc .bd{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .pc h3{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(24px,2vw,30px);line-height:1.08;letter-spacing:-.015em}
+  .pc .pt{display:flex;flex-wrap:wrap;gap:6px}
+  .pc .pt span{font-family:var(--mono);font-size:11px;letter-spacing:.05em;padding:5px 10px;border-radius:999px;border:1px solid var(--line-2);color:var(--m)}
+  .pc .pt span.st{background:var(--acc-soft);border-color:transparent;color:var(--acc)}
+  .pc p{margin:0;color:var(--m);font-size:15.5px}
+  .pc .go{margin-top:auto;padding-top:10px;font-weight:500;color:var(--acc);font-size:15px}
+  .pc .go::after{content:" →"}
+
+  /* Work page cards: product screens / illustration inside each cover */
+  .cv.has-shots .cmd,.cv.has-shots .int{max-width:46%}
+  .cv .shots{position:absolute!important;inset:0;pointer-events:none;transform:translateY(var(--push,0px))}
+  .cv .shot{display:block;position:absolute;overflow:hidden;box-shadow:0 16px 36px rgba(0,0,0,.28)}
+  .cv .shot.web{border-radius:8px;border:1px solid rgba(255,255,255,.18);background:#F4F5F2}
+  .cv .shot.phone{border-radius:18px;padding:4px}
+  .cv .shot img{display:block;width:100%;height:auto}
+  .cv .shot.phone img{border-radius:14px}
+  .cv .shot.back{opacity:.58}
+  .cv .shot.front{opacity:.97}
+  .cv .web.back  {left:66%;top:30%;width:42%;transform:rotate(6deg)}
+  .cv .web.front {left:52%;top:50%;width:46%;transform:rotate(-4deg)}
+  .cv .phone.back {left:78%;top:26%;width:19%;transform:rotate(9deg)}
+  .cv .phone.front{left:61%;top:33%;width:20%;transform:rotate(-5deg)}
+
+  .cv .hco{display:block;position:absolute;background:#fff;border-radius:12px;box-shadow:0 16px 36px rgba(0,0,0,.22);padding:12px 14px;box-sizing:border-box;color:#1b2130}
+  .cv .hco .hk{white-space:nowrap;font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:#6b7280;display:flex;justify-content:space-between;align-items:center}
+  .cv .hco .hl{display:block;height:6px;border-radius:3px;background:#e5e7eb;margin-top:9px}
+  .cv .hco .hl.s{width:60%}
+  .cv .hco.back{opacity:.5}
+  .cv .hco.pick .hk{color:#2A5B78}
+  .cv .hco .hck{width:18px;height:18px;border-radius:50%;background:#2A5B78;display:inline-flex;align-items:center;justify-content:center}
+  .cv .hco .ht{font-family:var(--serif);font-size:17px;margin-top:8px;line-height:1.15}
+  .cv .hco.o1{left:70%;top:24%;width:30%;transform:rotate(8deg)}
+  .cv .hco.o2{left:62%;top:38%;width:30%;transform:rotate(2deg)}
+  .cv .hco.o3{left:54%;top:54%;width:34%;transform:rotate(-4deg);opacity:.98}
+
+  @media (min-width:761px) and (max-width:1023px){.pc .cv.has-shots{aspect-ratio:4/3}}
+  @media (max-width:600px){
+    .pc .cv.has-shots{aspect-ratio:4/3;justify-content:flex-start;padding-top:62px}
+    .cv.has-shots .cmd,.cv.has-shots .int{max-width:100%}
+    .cv .web.back  {left:54%;top:60%;width:52%;transform:rotate(6deg)}
+    .cv .web.front {left:12%;top:70%;width:60%;transform:rotate(-4deg)}
+    .cv .phone.back {left:62%;top:62%;width:26%;transform:rotate(9deg)}
+    .cv .phone.front{left:36%;top:66%;width:27%;transform:rotate(-5deg)}
+    .cv .hco{padding:10px 12px}
+    .cv .hco .ht{font-size:15px}
+    .cv .hco.o1{left:60%;top:60%;width:40%}
+    .cv .hco.o2{left:38%;top:64%;width:40%}
+    .cv .hco.o3{left:14%;top:70%;width:46%}
+  }
+  /* Replix: one card across the whole grid */
+  .pc.wide{grid-column:1/-1}
+  .pc.wide .cv{aspect-ratio:21/8}
+  .pc.wide .cv .web.back {left:58%;top:22%;width:34%;transform:rotate(6deg)}
+  .pc.wide .cv .web.front{left:50%;top:22%;width:44%;transform:rotate(-4deg)}   /* one screen: larger and centred in the cover */
+  .pc.wide .cv.has-shots .cmd,.pc.wide .cv.has-shots .int{max-width:42%}
+  .cv .shot.dark{background:#111;border-color:rgba(255,255,255,.14)}
+  /* Replix can't be opened yet: no link, no hover lift, and a "Coming soon" pill on the screenshot */
+  .pc.locked{cursor:default}
+  .pc.locked:hover{transform:none;border-color:var(--line);box-shadow:none}
+  .pc .cv .soon{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+    padding:9px 16px 9px 14px;border-radius:999px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--t);font-weight:500;
+    background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.9);box-shadow:0 12px 28px -10px rgba(0,0,0,.7)}   /* wider screens: the centre of the whole card */
+  .pc .cv .soon.on-shot{display:none}
+  @media (min-width:601px) and (max-width:760px){.pc.wide .cv{aspect-ratio:16/9}}   /* one-column tablets: same 16:9 as the other covers, so the pill clears the text */
+  @media (min-width:601px) and (max-width:900px){.pc .cv .soon.on-card{top:36%}}   /* shorter covers: sit above the text */
+  @media (max-width:600px){
+    .pc.wide .cv{aspect-ratio:4/3}
+    .pc.wide .cv .web.back {left:54%;top:60%;width:52%}
+    .pc.wide .cv .web.front{left:16%;top:62%;width:68%}
+    .pc.wide .cv.has-shots .cmd,.pc.wide .cv.has-shots .int{max-width:100%}
+    .pc .cv .soon.on-card{display:none}
+    .pc .cv .soon.on-shot{display:inline-flex;top:calc(53% - var(--push,0px));transform:translate(-50%,-50%) rotate(4deg);font-size:11px;padding:7px 13px 7px 11px;gap:7px}   /* phones: on the screenshot, counter-rotated to read level */
+  }
+
+  .rv{opacity:1;transform:none}
+  @media (prefers-reduced-motion:no-preference){
+    .rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+    .rv.pre{opacity:.55;transform:translateY(18px)}
+  }
+
+  /* ---------- Phones (<600px): intro text sizing ---------- */
+  @media (max-width:599px){
+    /* hero + Hire me subheading: 15px, full column width, 16px under the headline, 24px below */
+    .hero .lede{margin-top:16px;font-size:15px;line-height:1.55;max-width:100%}
+    .hero-grid{gap:24px}
+    .cp .lede{font-size:15px;line-height:1.55;max-width:100%}
+    .cp h1 + .lede{margin-top:16px}
+    .cp .mail-row{margin-top:24px}
+    /* every other section intro: 16px (was 16.5–17px) */
+    .lede,.sec-head .lede{font-size:16px}
+  }
+</style>
+
+<nav class="capsule" id="capsule" aria-label="Primary">
+  <div class="cap-in">
+    <a class="logo" href="#home" aria-label="Adnan Asif Khan – home">Adnan</a>
+    <div class="cap-r">
+      <a class="nl" href="#all-work" data-nav="work">Work</a>
+      <!-- Resume: the artifact viewer blocks download links, so this opens the hosted PDF in a new tab.
+           When you self-host, put the file next to this page as resume.pdf and change this link to:
+           href="resume.pdf" download="Adnan-Asif-Khan-Resume.pdf" (and remove target/rel). -->
+      <a class="nl" href="https://adnnankhan.github.io/resume/uiuxdesign_resume_adnanasifkhan.pdf" target="_blank" rel="noopener">Resume</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <a class="hire" href="#contact" data-nav="contact">Hire me</a>
+    </div>
+  </div>
+  <div class="menu" id="navMenu" hidden>
+    <a class="nl" href="#all-work" data-nav="work">Work</a>
+    <a class="nl" href="https://adnnankhan.github.io/resume/uiuxdesign_resume_adnanasifkhan.pdf" target="_blank" rel="noopener">Resume</a>
+  </div>
+</nav>
+
+<!-- ============ HOME PAGE ============ -->
+<main id="home">
+  <!-- HERO -->
+  <section class="hero band">
+    <canvas class="liquid" id="liquid" aria-hidden="true"></canvas>
+    <!-- nav morph triggers: bar at 80% scrolled, back to capsule at 70% (hysteresis) -->
+    <span class="nav-sentinel" data-nav-mark="on" style="top:80%" aria-hidden="true"></span>
+    <span class="nav-sentinel" data-nav-mark="off" style="top:70%" aria-hidden="true"></span>
+    <!-- scroll cue: centred near the bottom of the first screen -->
+    <button class="cue" id="cue" type="button" aria-label="Scroll to work">
+      <span class="cue-lbl" aria-hidden="true">Scroll</span>
+      <span class="cue-line" aria-hidden="true"></span>
+    </button>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="fade" aria-hidden="true"></div>
+    <div class="wrap">
+      <svg class="doodles" id="doodles" aria-hidden="true" focusable="false">
+        <defs>
+          <!-- One "sketchy" filter for every doodle, so all strokes share the same slightly irregular hand-drawn edge -->
+          <filter id="sketchy" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="4" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+        <g filter="url(#sketchy)">
+          <!-- Arrow: path drawn by JS from just right of the subheading to the card's "what they need" box -->
+          <g class="dd" id="ddArrow" style="--dl:1.3s">
+            <path class="ln acc" id="ddArrowPath" pathLength="1"/>
+            <path class="ln acc" id="ddArrowHead" pathLength="1"/>
+          </g>
+        </g>
+        <!-- "try it" rides along the start of the arrow; it sits outside the filter so the script stays legible -->
+        <g class="dd" id="ddLabel" style="--dl:1.3s"><text class="lbl" id="ddArrowLabel">try it</text></g>
+      </svg>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="pillrow">
+            <span class="status"><span class="dot" aria-hidden="true"></span>Open to product design roles · India<span class="st-more"> · Designing since 2023</span></span>
+          </div>
+          <h1 class="serif">
+            <span class="sr-only">I design for what people mean, not what they type.</span>
+            <span class="hl" aria-hidden="true"><span class="hl-line">I design for what</span><span class="hl-line">people <span class="u"><span class="w1" id="hw1">mean</span><span class="uline" id="hwLine"></span></span>, not</span><span class="hl-line">what they <i class="w2" id="hw2">type</i><i>.</i></span></span>
+          </h1>
+          <p class="lede">Product designer for <span class="nw">AI-first</span> products. I&nbsp;design the moments where people decide whether to trust an AI's answer, from first research to working&nbsp;prototype.</p>
+        </div>
+
+        <div class="device" id="device" aria-label="Intent, translated: examples from my case studies">
+          <div class="tabs" role="tablist" aria-label="Pick an example">
+            <button role="tab" aria-selected="true" data-i="0" id="tab-0">GitBrief</button>
+            <button role="tab" aria-selected="false" data-i="1" id="tab-1">FitBite</button>
+            <button role="tab" aria-selected="false" data-i="2" id="tab-2">Replix</button>
+            <button role="tab" aria-selected="false" data-i="3" id="tab-3">Where did my money go?</button>
+            <button role="tab" aria-selected="false" data-i="4" id="tab-4">Diney</button>
+          </div>
+          <div class="row">
+            <div class="cell typed">
+              <div class="lab">What they type</div>
+              <div class="txt" id="typed" aria-live="polite">show me this week's commits</div>
+            </div>
+            <div class="cell meant" id="meant">
+              <div class="lab">What they need</div>
+              <div class="txt" id="meantTxt" aria-live="polite">Are we on track, and is anything stuck?</div>
+            </div>
+          </div>
+          <div class="foot">
+            <span id="devNote">The gap between these two lines is the job.</span>
+            <a id="devLink" href="https://adnnankhan.github.io/GitBrief/auth.html" target="_blank" rel="noopener">Open the GitBrief prototype</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="sec band" id="work">
+    <div class="wrap">
+      <div class="sec-head rv pre">
+        <div>
+          <div class="eyebrow"><b>Selected work</b> · Three of seven</div>
+          <h2 class="serif h-l">One shipped at an agency.<br>Two built to <i>test an idea.</i></h2>
+        </div>
+        <p class="lede">Each one starts with what someone asked for, and what they actually needed.</p>
+      </div>
+
+      <div class="stack" id="stack">
+        <div class="stack-item" style="--i:0">
+          <article class="wc c1">
+            <span class="num">01<span class="pn">GitBrief</span></span><span class="yr">2026</span>
+            <div>
+              <h3 class="serif">A week of commits, turned into a brief a founder can read and check.</h3>
+              <div class="tags"><span class="tag">AI product</span><span class="tag">Web</span><span class="tag">Designer + 1 engineer</span><span class="tag st">Working prototype</span></div>
+              <p>GitBrief translates developer activity for non-technical leaders.</p>
+              <div class="actions"><a class="btn white" href="https://adnnankhan.github.io/GitBrief/" target="_blank" rel="noopener">View case study</a><a class="btn line" href="https://adnnankhan.github.io/GitBrief/auth.html" target="_blank" rel="noopener">Try the prototype ↗</a></div>
+            </div>
+            <div class="panel" aria-hidden="true">
+              <div class="mline"><span class="tg">#312</span> feat(checkout): split payment intent · merged</div>
+              <div class="mline"><span class="tg">#309</span> fix(auth): refresh token race · merged</div>
+              <div class="mline"><span class="tg">fix/webhook-retry</span> · 6 commits · no PR</div>
+              <div class="brief">Checkout now takes split payments<span class="sup">1</span>, and the login bug is fixed<span class="sup">2</span>.</div>
+            </div>
+            <!-- product screens: back behind, front on top; bleed off the card's bottom/right edge -->
+            <div class="shots">
+              <div class="shot back"><img src="images/card-gitbrief-back.jpg" alt="GitBrief activity page with a commits-over-time chart" width="780" height="610" loading="lazy" decoding="async"></div>
+              <div class="shot front"><img src="images/card-gitbrief-front.jpg" alt="GitBrief brief in plain language, with inferred claims labelled" width="1150" height="760" loading="lazy" decoding="async"></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="stack-item" style="--i:1">
+          <article class="wc c2">
+            <span class="num">02<span class="pn">FitBite</span></span><span class="yr">2025</span>
+            <div>
+              <h3 class="serif">Most people don't fail their diets. Their systems do.</h3>
+              <div class="tags"><span class="tag">Health</span><span class="tag">Mobile</span><span class="tag st">Concept</span></div>
+              <p>FitBite is designed for the moment intention breaks, not the moment it forms.</p>
+              <div class="actions"><a class="btn white" href="https://www.figma.com/deck/PD4XyMT1EzsWULsxSRiOuc" target="_blank" rel="noopener">View case study</a></div>
+            </div>
+            <div class="panel" aria-hidden="true">
+              <div class="cap"><span>Monday</span><span>Friday</span></div>
+              <div class="track"><span class="step"><i style="--p:1"></i></span><span class="step"><i style="--p:1"></i></span><span class="step"><i style="--p:.55"></i></span><span class="step"><i style="--p:0"></i></span><span class="step"><i style="--p:0"></i></span></div>
+              <div class="big">Intention was never the problem. <i>Wednesday</i> was.</div>
+            </div>
+            <!-- product screens: back behind, front on top; bleed off the card's bottom/right edge -->
+            <div class="shots">
+              <div class="shot back phone"><img src="images/card-fitbite-back.jpg" alt="FitBite plan-ready screen" width="804" height="1748" loading="lazy" decoding="async"></div>
+              <div class="shot front phone"><img src="images/card-fitbite-front.jpg" alt="FitBite home screen" width="804" height="1748" loading="lazy" decoding="async"></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="stack-item" style="--i:2">
+          <article class="wc c3">
+            <span class="num">03<span class="pn">Craftstudioo</span></span><span class="yr">2025</span>
+            <div>
+              <h3 class="serif">A creative agency with no website. I&nbsp;designed and shipped one in a&nbsp;month.</h3>
+              <div class="tags"><span class="tag">Agency work</span><span class="tag">Web</span><span class="tag st">Shipped</span></div>
+              <p>The agency's own website, designed and shipped in a month, then refined over a year.</p>
+              <div class="actions"><a class="btn white" href="https://www.figma.com/proto/ftuvxt5mZZFxYQ98zcNclq/CRAFT-STUDIOO?node-id=576-3410&amp;t=4TFyViYpZxO9IJ6z-1" target="_blank" rel="noopener">View case study</a></div>
+            </div>
+            <div class="panel" aria-hidden="true">
+              <div class="dl">Vague</div>
+              <div class="old">Submit your enquiry and our team will get back to you shortly.</div>
+              <div class="dl">Clear</div>
+              <div class="new">Tell us about the project. <i>You'll hear from a person within a day.</i></div>
+            </div>
+            <!-- product screens: back behind, front on top; bleed off the card's bottom/right edge -->
+            <div class="shots">
+              <div class="shot back"><img src="images/card-craftstudioo-back.jpg" alt="Services section of the Craftstudioo website" width="720" height="540" loading="lazy" decoding="async"></div>
+              <div class="shot front"><img src="images/card-craftstudioo-front.jpg" alt="Homepage of the Craftstudioo website" width="1000" height="590" loading="lazy" decoding="async"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="more">
+        <a class="glass" href="#all-work">See all work <span class="cnt">7 projects</span><span class="ar" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="sec band approach has-blobs" id="approach">
+    <div class="blobs" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span><span class="b4"></span></div>
+    <div class="wrap">
+      <div class="sec-head rv pre">
+        <div>
+          <div class="eyebrow"><b>Approach</b> · How I decide</div>
+          <h2 class="serif h-l">Four tests every screen <i>has to pass.</i></h2>
+        </div>
+        <p class="lede">Not values for a wall. If a screen fails one, it goes&nbsp;back.</p>
+      </div>
+
+      <!-- shared gradients for the 3D Approach icons, in the portfolio palette (sky / accent blue / navy / paper / lavender) -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="apBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8FC1FF"/><stop offset="1" stop-color="#2F6FD6"/></linearGradient><linearGradient id="apNavy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A6796"/><stop offset="1" stop-color="#152238"/></linearGradient><linearGradient id="apSky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6F0FD"/><stop offset="1" stop-color="#AFCDF4"/></linearGradient><linearGradient id="apLav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ECE8FF"/><stop offset="1" stop-color="#B7AEF0"/></linearGradient><linearGradient id="apPaper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DCE7F5"/></linearGradient><radialGradient id="apShine" cx=".3" cy=".25" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset=".5" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="apSoft" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#152238" flood-opacity=".2"/></filter></defs></svg>
+      <div class="rules rv pre">
+        <article class="rule">
+          <div class="hd">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g filter="url(#apSoft)"><path d="M32 8h16a8 8 0 018 8v6a8 8 0 01-8 8h-1l4 6.5-9.5-6.5H32a8 8 0 01-8-8v-6a8 8 0 018-8z" fill="url(#apNavy)"/><rect x="31" y="15" width="17" height="3" rx="1.5" fill="#fff" opacity=".5"/></g><g filter="url(#apSoft)"><path d="M16 24h20a8 8 0 018 8v8a8 8 0 01-8 8H24.5L15 55l2-7.3A8 8 0 018 40v-8a8 8 0 018-8z" fill="url(#apBlue)"/><path d="M16 24h20a8 8 0 018 8v8a8 8 0 01-8 8H24.5L15 55l2-7.3A8 8 0 018 40v-8a8 8 0 018-8z" fill="url(#apShine)"/><rect x="15" y="31" width="21" height="3.2" rx="1.6" fill="#fff"/><rect x="15" y="38" width="13" height="3.2" rx="1.6" fill="#fff" opacity=".85"/></g></svg></div>
+            <span class="k"><span class="n">01</span>Intent</span>
+          </div>
+          <h3>Hear the sentence behind the sentence.</h3>
+          <p>A request is evidence of a need, not the need itself. Someone asking for a report usually wants reassurance. I design for the sentence behind the sentence, then check I heard it right.</p>
+        </article>
+
+        <article class="rule">
+          <div class="hd">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g filter="url(#apSoft)"><path d="M32 6c7 4.5 13 6 20 6.5 0 18-5.5 32-20 43.5C17.5 44.5 12 30.5 12 12.5 19 12 25 10.5 32 6z" fill="url(#apBlue)"/><path d="M32 6c7 4.5 13 6 20 6.5 0 18-5.5 32-20 43.5C17.5 44.5 12 30.5 12 12.5 19 12 25 10.5 32 6z" fill="url(#apShine)"/><path d="M22.5 31l6.8 6.8L42.5 24" stroke="#fff" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M45.6 12.4l-3.1 5 3.2 3.1-2.2 4.2" stroke="#fff" stroke-opacity=".8" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div>
+            <span class="k"><span class="n">02</span>Trust</span>
+          </div>
+          <h3>Wrong once, doubted always.</h3>
+          <p>In AI products, one confident mistake makes every other line suspect. So proof stays one click away, the system says "unclear" when it is, and features that are sometimes wrong get cut.</p>
+        </article>
+
+        <article class="rule">
+          <div class="hd">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g filter="url(#apSoft)"><rect x="27.5" y="43" width="9" height="8" fill="url(#apNavy)"/><rect x="19" y="49.5" width="26" height="5.5" rx="2.75" fill="url(#apNavy)"/><rect x="7" y="9" width="50" height="36" rx="8" fill="url(#apNavy)"/><rect x="7" y="9" width="50" height="36" rx="8" fill="url(#apShine)"/><rect x="11.5" y="13.5" width="41" height="27" rx="4.5" fill="url(#apPaper)"/><circle cx="25" cy="24" r="2.3" fill="#2F7FE0"/><circle cx="39" cy="24" r="2.3" fill="#2F7FE0"/><path d="M23.5 32.6c2.6-2.1 5.2 1.6 8.3 0 3-1.6 5.6-1.9 8.3 0" stroke="#2F7FE0" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M46.4 16.6c-2.3 3.3-2.7 5.4-.4 6.4 2.3.9 3.3-1.5.4-6.4z" fill="url(#apBlue)"/></g></svg></div>
+            <span class="k"><span class="n">03</span>Emotion</span>
+          </div>
+          <h3>Every screen has a nervous person behind it.</h3>
+          <p>Behind every diet app, money app or status report is someone slightly anxious. Research, IA and UI only matter when they change how that moment feels.</p>
+        </article>
+
+        <article class="rule">
+          <div class="hd">
+            <div class="ico" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><g filter="url(#apSoft)"><rect x="9" y="8" width="35" height="47" rx="6.5" fill="url(#apPaper)"/><path d="M15.5 8h22A6.5 6.5 0 0144 14.5V17H9v-2.5A6.5 6.5 0 0115.5 8z" fill="url(#apSky)"/><path d="M20.5 29c0-4.6 3.3-7.3 7.2-7.3 3.9 0 7 2.6 7 6.4 0 3.3-2.4 4.6-4.3 5.8-1.6 1-2.5 2-2.5 4.1" stroke="#2F7FE0" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="27.9" cy="44.2" r="2.3" fill="#2F7FE0"/></g><g filter="url(#apSoft)" transform="rotate(38 50 34)"><rect x="45.5" y="10" width="9" height="7" rx="2.5" fill="url(#apLav)"/><rect x="45.5" y="16" width="9" height="30" fill="url(#apBlue)"/><rect x="45.5" y="16" width="9" height="30" fill="url(#apShine)"/><path d="M45.5 46h9L50 55z" fill="url(#apPaper)"/><path d="M48.4 51.5h3.2L50 55z" fill="#152238"/></g></svg></div>
+            <span class="k"><span class="n">04</span>Clarity</span>
+          </div>
+          <h3>Write the guess down before drawing anything.</h3>
+          <p>When requirements are foggy, a written guess gives the team a direction. Then every later change has a reason.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="sec band has-blobs" id="about">
+    <div class="blobs" aria-hidden="true"><span class="b1"></span><span class="b3"></span></div>
+    <div class="wrap">
+      <div class="sec-head rv pre">
+        <div>
+          <div class="eyebrow"><b>About me</b> · The person behind the work</div>
+          <h2 class="serif h-l">Learned by building, <i>not by syllabus.</i></h2>
+        </div>
+      </div>
+
+      <div class="about">
+        <div class="story rv pre">
+          <figure class="portrait">
+            <!-- Portrait: 4:5 crop framed on the face (source 1559x2000, crop x512 y790 760x950, saved at 480x600). To swap, replace the data URI with your own image. -->
+            <img class="photo" alt="Adnan Asif Khan on a beach, wearing sunglasses and a black jacket" width="480" height="600" decoding="async" src="data:image/jpeg;base64,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">
+            <figcaption>
+              <svg class="doodle" viewBox="0 0 130 120" fill="none" aria-hidden="true">
+                <path d="M4 30C22 12 54 4 74 18c16 11 12 32-2 32-13 0-15-18-2-26 16-10 40-2 46 18 5 18-4 42-24 66" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M83 94l9 14 13-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="hi">that&#39;s me, Adnan!</span>
+              <span class="loc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.5" r="2.5" stroke="currentColor" stroke-width="2"/></svg>Kishanganj, India</span>
+            </figcaption>
+          </figure>
+          <p class="first">Self-taught. <i>Everything here exists because I couldn't stop building it.</i></p>
+          <p>I'm Adnan, a product designer from Kishanganj, India. I&nbsp;learned by shipping: a creative agency's website first, now my own AI product.</p>
+          <p>What I care about is the moment between people and AI: what someone types, what they meant, and what it takes to trust the answer.</p>
+        </div>
+
+        <div class="tl panel-glass glassy rv pre">
+          <div class="h">Experience</div>
+          <div class="it now"><span class="d">2026</span><div><div class="r">GitBrief</div><div class="c">Personal AI product with one engineering partner. Working prototype, user testing not yet started.</div></div></div>
+          <div class="it"><span class="d">Jan – Dec 2025</span><div><div class="r">UI/UX Designer</div><div class="c"><a href="https://craftstudioo.com" target="_blank" rel="noopener">Craftstudioo</a> · creative agency</div></div></div>
+          <div class="it"><span class="d">Jun&nbsp;2023&nbsp;– Dec&nbsp;2024</span><div><div class="r">Graphic Designer &amp; Social Media Lead</div><div class="c">Al Noor Youth Committee · community organisation</div></div></div>
+
+          <div class="h" style="margin-top:36px">Tools</div>
+          <div class="chips">
+            <span class="chip">Figma</span><span class="chip">FigJam</span><span class="chip">HTML prototypes</span><span class="chip">GitHub</span><span class="chip">Framer</span>
+            <span class="chip ai">Claude</span>
+          </div>
+
+          <div class="h" style="margin-top:36px">Elsewhere</div>
+          <div class="chips">
+            <a class="chip" href="https://www.behance.net/adnankhan482" target="_blank" rel="noopener">Behance</a>
+            <a class="chip" href="https://medium.com/@adnanasifkhan24" target="_blank" rel="noopener">Medium</a>
+            <a class="chip" href="https://www.linkedin.com/in/adnanasifkhan/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="chip" href="https://www.instagram.com/adnanuiux/" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOGS & THOUGHTS -->
+  <section class="sec band blogs" id="blogs">
+    <div class="wrap">
+      <div class="sec-head rv pre">
+        <div>
+          <div class="eyebrow"><b>Blogs &amp; thoughts</b> · Essays, posts, one quick concept</div>
+          <h2 class="serif h-l">Every interface is <i>an opinion about people.</i></h2>
+        </div>
+        <div class="rail-ctrl">
+          <button type="button" id="railPrev" aria-label="Scroll back">←</button>
+          <button type="button" id="railNext" aria-label="Scroll forward">→</button>
+        </div>
+      </div>
+
+      <div class="rail" id="rail" tabindex="0" aria-label="Blogs and thoughts, scrolls sideways">
+        <a class="post con" href="https://medium.com/@adnanasifkhan24/help-me-choose-ux-concept-5f0c9927498f" target="_blank" rel="noopener">
+          <div class="cov"><span class="src">AI UX concept</span><span class="q">Help me choose</span></div>
+          <div class="bd">
+            <h3>An antidote to decision paralysis.</h3>
+            <p>Conceptual UX for making a choice feel smaller, thought through in a few hours.</p>
+            <span class="go">See the concept →</span>
+          </div>
+        </a>
+        <a class="post med" href="https://medium.com/@adnanasifkhan24" target="_blank" rel="noopener">
+          <div class="cov"><span class="src">Medium · Essay</span><span class="q">“</span></div>
+          <div class="bd">
+            <h3>I used to think UX was just about "solving problems."</h3>
+            <p>Great designers don't complain about constraints. They design through them.</p>
+            <span class="go">Read on Medium →</span>
+          </div>
+        </a>
+        <a class="post med" href="https://medium.com/@adnanasifkhan24" target="_blank" rel="noopener">
+          <div class="cov"><span class="src">Medium · Essay</span><span class="q">“</span></div>
+          <div class="bd">
+            <h3>When new becomes bad UX.</h3>
+            <p>A sleek redesign means little if it ignores the edge cases of real use.</p>
+            <span class="go">Read on Medium →</span>
+          </div>
+        </a>
+        <a class="post lin" href="https://www.linkedin.com/posts/adnanasifkhan_uxdesign-productdesign-artificialintelligence-activity-7447192113399824384-vnQo" target="_blank" rel="noopener">
+          <div class="cov"><span class="src">LinkedIn · Post</span><span class="q">“</span></div>
+          <div class="bd">
+            <h3>Design beyond the pixels.</h3>
+            <p>AI can generate the structure. Designers create the intent and the nuance.</p>
+            <span class="go">Read on LinkedIn →</span>
+          </div>
+        </a>
+        <a class="post lin" href="https://www.linkedin.com/posts/adnanasifkhan_uxdesign-realworldux-irctc-activity-7416413584274075650-w-1r" target="_blank" rel="noopener">
+          <div class="cov"><span class="src">LinkedIn · Post</span><span class="q">“</span></div>
+          <div class="bd">
+            <h3>Real-world UX, tested on a railway app.</h3>
+            <p>What breaks when an interface meets a crowded platform and a slow connection.</p>
+            <span class="go">Read on LinkedIn →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ ALL WORK PAGE ============ -->
+<main id="allwork" hidden>
+  <section class="aw-hero band">
+    <!-- same nav morph as Home: bar once 80% of this intro band has scrolled away, capsule again at 70% -->
+    <span class="nav-sentinel" data-nav-mark="on" style="top:80%" aria-hidden="true"></span>
+    <span class="nav-sentinel" data-nav-mark="off" style="top:70%" aria-hidden="true"></span>
+    <div class="wrap">
+      <a class="back" href="#home">← Back home</a>
+      <div class="eyebrow"><b>All work</b> · Seven projects</div>
+      <h1 class="serif" style="margin-top:14px">Everything, <i>in one place.</i></h1>
+      <p class="lede">Agency work, a product in progress, and concepts I made to test ideas. Each one starts from what someone asked for, and what they actually needed.</p>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button type="button" aria-pressed="true" data-f="all" id="f-all">All <span>7</span></button>
+        <button type="button" aria-pressed="false" data-f="ai" id="f-ai">AI &amp; UX <span>3</span></button>
+        <button type="button" aria-pressed="false" data-f="agency" id="f-agency">Agency work <span>1</span></button>
+        <button type="button" aria-pressed="false" data-f="concept" id="f-concept">Concepts <span>4</span></button>
+        <button type="button" aria-pressed="false" data-f="dev" id="f-dev">In development <span>1</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-block:clamp(24px,3vw,40px) clamp(72px,9vw,120px)">
+    <div class="wrap">
+      <div class="grid" id="grid">
+        <div class="pc wide locked" data-cat="ai dev">
+          <div class="cv g7 has-shots">
+          <div class="shots">
+            <div class="shot web dark front"><img src="images/card-replix-back.jpg" alt="Replix landing page" loading="lazy" decoding="async" width="1200" height="750"><span class="soon on-shot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>Coming soon</span></div>
+          </div><span class="soon on-card" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>Coming soon</span><span class="num">01</span><span class="yr">2026</span><span class="cmd">make a demo video of my app</span><span class="int">Show people why it matters, without recording a thing.</span></div>
+          <div class="bd">
+            <h3>Replix</h3>
+            <div class="pt"><span>AI product</span><span>Desktop</span><span class="st">In development</span></div>
+            <p>Turns a product's code into a finished demo video. It plans the scenes with you, films the real app, and adds voice and captions.</p>
+          </div>
+        </div>
+        <a class="pc" data-cat="ai" href="https://adnnankhan.github.io/GitBrief/" target="_blank" rel="noopener">
+          <div class="cv g1 has-shots">
+          <div class="shots">
+            <div class="shot web back"><img src="images/card-gitbrief-back.jpg" alt="GitBrief activity page with a commits-over-time chart" loading="lazy" decoding="async" width="780" height="610"></div>
+            <div class="shot web front"><img src="images/card-gitbrief-front.jpg" alt="GitBrief brief in plain language, with inferred claims labelled" loading="lazy" decoding="async" width="1150" height="760"></div>
+          </div><span class="num">02</span><span class="yr">2026</span><span class="cmd">show me this week's commits</span><span class="int">Are we on track, and is anything stuck?</span></div>
+          <div class="bd">
+            <h3>GitBrief</h3>
+            <div class="pt"><span>AI product</span><span>Web</span><span class="st">Working prototype</span></div>
+            <p>A week of developer activity, turned into a brief a non-technical leader can read and check.</p>
+            <span class="go">Read the case study</span>
+          </div>
+        </a>
+        <a class="pc" data-cat="concept" href="https://www.figma.com/deck/PD4XyMT1EzsWULsxSRiOuc" target="_blank" rel="noopener">
+          <div class="cv g2 has-shots">
+          <div class="shots">
+            <div class="shot phone back" style="background:#0B4D44"><img src="images/card-fitbite-back.jpg" alt="FitBite plan-ready screen" loading="lazy" decoding="async" width="804" height="1748"></div>
+            <div class="shot phone front" style="background:#0B4D44"><img src="images/card-fitbite-front.jpg" alt="FitBite home screen" loading="lazy" decoding="async" width="804" height="1748"></div>
+          </div><span class="num">03</span><span class="yr">2025</span><span class="cmd">track my calories</span><span class="int">Help me follow through on a plan I already made.</span></div>
+          <div class="bd">
+            <h3>FitBite</h3>
+            <div class="pt"><span>Health</span><span>Mobile</span><span class="st">Concept</span></div>
+            <p>Most people don't fail their diets. Their systems do. Designed for the moment intention breaks.</p>
+            <span class="go">Open the case study</span>
+          </div>
+        </a>
+        <a class="pc" data-cat="agency" href="https://www.figma.com/proto/ftuvxt5mZZFxYQ98zcNclq/CRAFT-STUDIOO?node-id=576-3410&amp;t=4TFyViYpZxO9IJ6z-1" target="_blank" rel="noopener">
+          <div class="cv g3 has-shots">
+          <div class="shots">
+            <div class="shot web back"><img src="images/card-craftstudioo-back.jpg" alt="Services section of the Craftstudioo website" loading="lazy" decoding="async" width="720" height="540"></div>
+            <div class="shot web front"><img src="images/card-craftstudioo-front.jpg" alt="Homepage of the Craftstudioo website" loading="lazy" decoding="async" width="1000" height="590"></div>
+          </div><span class="num">04</span><span class="yr">2025</span><span class="cmd">we need a website</span><span class="int">Make us look worth trusting.</span></div>
+          <div class="bd">
+            <h3>Craftstudioo</h3>
+            <div class="pt"><span>Agency work</span><span>Web</span><span class="st">Shipped</span></div>
+            <p>The agency I worked at had no website. I designed one and shipped it in a month.</p>
+            <span class="go">See the case study</span>
+          </div>
+        </a>
+        <a class="pc" data-cat="concept" href="https://adnnankhan.github.io/Where-did-my-money-go/" target="_blank" rel="noopener">
+          <div class="cv g4 has-shots">
+          <div class="shots">
+            <div class="shot phone back" style="background:#7A3522"><img src="images/card-money-back.jpg" alt="Where did my money go? sort screen, separating shops from shared payment pipes" loading="lazy" decoding="async" width="760" height="1700"></div>
+            <div class="shot phone front" style="background:#7A3522"><img src="images/card-money-front.jpg" alt="Where did my money go? home screen with monthly spending by category" loading="lazy" decoding="async" width="760" height="1700"></div>
+          </div><span class="num">05</span><span class="yr">2026</span><span class="cmd">categorise my transactions</span><span class="int">Tell me where my money quietly goes.</span></div>
+          <div class="bd">
+            <h3>Where did my money go?</h3>
+            <div class="pt"><span>Fintech</span><span>Mobile</span><span class="st">Concept</span></div>
+            <p>Sorts your spending from bank texts, and admits what it can't tell instead of hiding it in Miscellaneous.</p>
+            <span class="go">See the case study</span>
+          </div>
+        </a>
+        <a class="pc" data-cat="concept" href="https://www.figma.com/deck/feWjt208BsF0enTrTwmx9L/Diney-Case-Study?node-id=1-42&amp;t=RbZKK9kaXilGzOGq-1" target="_blank" rel="noopener">
+          <div class="cv g5 has-shots">
+          <div class="shots">
+            <div class="shot phone back" style="background:#5A3A12"><img src="images/card-diney-back.jpg" alt="Diney restaurant page with menu" loading="lazy" decoding="async" width="780" height="1703"></div>
+            <div class="shot phone front" style="background:#5A3A12"><img src="images/card-diney-front.jpg" alt="Diney home screen with nearby restaurants and offers" loading="lazy" decoding="async" width="780" height="1705"></div>
+          </div><span class="num">06</span><span class="yr">First study</span><span class="cmd">book a table for four</span><span class="int">Get us in without the wait.</span></div>
+          <div class="bd">
+            <h3>Diney</h3>
+            <div class="pt"><span>Food</span><span>Mobile</span><span class="st">Concept</span></div>
+            <p>My first case study. Easing the dining hustle, from finding a table to leaving happy.</p>
+            <span class="go">See the case study</span>
+          </div>
+        </a>
+        <a class="pc" data-cat="ai concept" href="https://medium.com/@adnanasifkhan24/help-me-choose-ux-concept-5f0c9927498f" target="_blank" rel="noopener">
+          <div class="cv g6 has-shots">
+          <div class="shots" role="img" aria-label="Illustration: three options, two set aside, one picked">
+            <div class="hco back o1"><div class="hk"><span>OPTION A</span></div><div class="hl"></div><div class="hl s"></div></div>
+            <div class="hco back o2"><div class="hk"><span>OPTION B</span></div><div class="hl"></div><div class="hl s"></div></div>
+            <div class="hco pick o3"><div class="hk"><span>OPTION C</span><span class="hck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7.5"/></svg></span></div><div class="ht">This one.</div><div class="hl s"></div></div>
+          </div><span class="num">07</span><span class="yr">A few hours</span><span class="cmd">which one should I pick?</span><span class="int">Make the choice feel smaller.</span></div>
+          <div class="bd">
+            <h3>Help me choose</h3>
+            <div class="pt"><span>AI UX</span><span>Experiment</span><span class="st">Concept</span></div>
+            <p>An antidote to decision paralysis. A quick concept, thought through in a few hours.</p>
+            <span class="go">See the concept</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ HIRE ME PAGE ============ -->
+<main id="contactpage" hidden>
+  <section class="cp band">
+    <canvas class="liquid" id="liquidHire" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="fade" aria-hidden="true"></div>
+    <!-- this page only scrolls a little, so its marks sit at fixed distances instead of 80% / 70% -->
+    <span class="nav-sentinel" data-nav-mark="on" style="top:120px" aria-hidden="true"></span>
+    <span class="nav-sentinel" data-nav-mark="off" style="top:80px" aria-hidden="true"></span>
+    <div class="wrap">
+      <span class="status"><span class="dot" aria-hidden="true"></span>Open to work · Remote · Available now</span>
+      <h1 class="serif">I'm looking for <i>my next team.</i></h1>
+      <p class="lede">I'm a self-taught product designer from Kishanganj, India, open to full-time roles, freelance projects and internships. I work remotely and can start right&nbsp;away.</p>
+      <p class="lede">I'm early in my career, and I'm looking for people I can learn from and build good things with. If that sounds like your team, I'd love to hear from&nbsp;you.</p>
+      <!-- the footer's email + copy component, light variant -->
+      <div class="mail-row">
+        <a class="mail" id="hpMail" href="mailto:adnanasifkhan24@gmail.com">adnanasifkhan24@gmail.com</a>
+        <button type="button" class="copy" id="hpCopy" aria-describedby="hpCopyStatus">Copy</button>
+        <span class="sr-only" id="hpCopyStatus" aria-live="polite"></span>
+      </div>
+      <div class="socials">
+        <a href="https://adnnankhan.github.io/resume/uiuxdesign_resume_adnanasifkhan.pdf" target="_blank" rel="noopener">Resume</a>
+        <a href="https://www.linkedin.com/in/adnanasifkhan/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="cp-note">
+        <p>Want to see the work first?</p>
+        <p><span class="pj">GitBrief</span> <a href="https://adnnankhan.github.io/GitBrief/" target="_blank" rel="noopener">Read the case study</a> · <a href="https://adnnankhan.github.io/GitBrief/auth.html" target="_blank" rel="noopener">Open the prototype</a></p>
+        <p><span class="pj">Where did my money go?</span> <a href="https://adnnankhan.github.io/Where-did-my-money-go/" target="_blank" rel="noopener">Read the case study</a> · <a href="https://adnnankhan.github.io/Where-did-my-money-go/prototype.html" target="_blank" rel="noopener">Open the prototype</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER SHELL: one continuous background (fade → navy, glow, grain) behind the closing block AND the bottom bar -->
+<div class="ft-shell" id="ftShell">
+<div class="ft-atmo" aria-hidden="true"><span class="fb1"></span><span class="fb2"></span><span class="fb3"></span></div>
+<div class="ft-grain" aria-hidden="true"></div>
+
+<!-- SAY HELLO (shared closing block, hidden on the contact page) -->
+<section class="contact band" id="say-hello">
+  <div class="ft-dark-mark" aria-hidden="true"></div>
+  <div class="wrap">
+    <!-- footer doodles: positioned by JS from the real email and card boxes; own copy of the sketchy filter -->
+    <svg class="ft-doodles" id="ftDoodles" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="sketchyFt" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="4" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+      <g filter="url(#sketchyFt)">
+        <g class="dd" id="ftArrow" style="--dl:.2s">
+          <path class="ln" id="ftArrowPath" pathLength="1"/>
+          <path class="ln" id="ftArrowHead" pathLength="1"/>
+        </g>
+      </g>
+      <g class="dd" id="ftLabel" style="--dl:.2s"><text class="lbl" id="ftArrowLabel">say hi</text></g>
+    </svg>
+    <div class="ft-grid rv pre">
+      <div class="eyebrow"><b>Contact</b></div>
+      <h2 class="serif h-xl">Tell me what you're trying to do. <i>I'll work out what you mean.</i></h2>
+      <div class="mail-row">
+        <a class="mail" id="ftMail" href="mailto:adnanasifkhan24@gmail.com">adnanasifkhan24@gmail.com</a>
+        <button type="button" class="copy" id="copyMail" aria-describedby="copyStatus">Copy</button>
+        <span class="sr-only" id="copyStatus" aria-live="polite"></span>
+      </div>
+      <!-- same component as the hero card (.device), dark-glass variant; pairs live in FT_PAIRS in the script -->
+      <div class="device on-dark ft-card" id="ftCard" aria-label="What they type, and what they need">
+        <div class="row">
+          <div class="cell typed">
+            <div class="lab">What they type</div>
+            <div class="txt" id="ftTyped">we need a product designer</div>
+          </div>
+          <div class="cell meant" id="ftMeant">
+            <div class="lab">What they need</div>
+            <div class="txt" id="ftMeantTxt">Someone who asks what you mean before designing it.</div>
+          </div>
+        </div>
+      </div>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/adnanasifkhan/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://medium.com/@adnanasifkhan24" target="_blank" rel="noopener">Medium</a>
+        <a href="https://www.behance.net/adnankhan482" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.instagram.com/adnanuiux/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://adnnankhan.github.io/resume/uiuxdesign_resume_adnanasifkhan.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-foot band">
+  <div class="wrap">
+    <span>Adnan Asif Khan · Kishanganj, India</span>
+    <nav aria-label="Footer">
+      <a href="#approach">Approach</a>
+      <a href="#about">About</a>
+      <a href="#blogs">Blogs</a>
+    </nav>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Hero intent device */
+  var examples=[
+    {typed:"show me this week's commits", meant:"Are we on track, and is anything stuck?", note:"The gap between these two lines is the job.", link:"https://adnnankhan.github.io/GitBrief/auth.html", label:"Open the GitBrief prototype"},
+    {typed:"track my calories", meant:"Help me follow through on a plan I already made.", note:"Nobody downloads a diet app to count. They download it to not quit.", link:"https://www.figma.com/deck/PD4XyMT1EzsWULsxSRiOuc", label:"Open the FitBite case study"},
+    {typed:"make a demo video of my app", meant:"Show people why it matters, without recording a thing.", note:"Recording is the chore. Being understood is the point.", link:"#all-work", label:"Replix is coming soon"},
+    {typed:"categorise my transactions", meant:"Tell me where my money quietly goes.", note:"Categories are the system's need. The story is the person's.", link:"https://adnnankhan.github.io/Where-did-my-money-go/", label:"See “Where did my money go?”"},
+    {typed:"book a table for four", meant:"Get us in without the wait, and without the awkward call.", note:"The booking is the command. The evening is the intent.", link:"https://www.figma.com/deck/feWjt208BsF0enTrTwmx9L/Diney-Case-Study?node-id=1-42&t=RbZKK9kaXilGzOGq-1", label:"Open the Diney case study"}
+  ];
+  var typed=document.getElementById('typed'), meant=document.getElementById('meant'), meantTxt=document.getElementById('meantTxt'),
+      note=document.getElementById('devNote'), link=document.getElementById('devLink'),
+      tabs=Array.prototype.slice.call(document.querySelectorAll('.device .tabs button')), device=document.getElementById('device');
+  var cur=0, timer=null, swapTimer=null, gen=0, paused=false;
+
+  /* ---------- Shared by both intent cards (hero #device and footer #ftCard) ---------- */
+  var CARD_TYPE_MS=34, CARD_REVEAL_MS=180;
+  /* A typist with its own timer: type(el,str,done) types str into el; type.stop() cancels mid-way */
+  function makeTypist(){
+    var t=null;
+    function type(el,str,done){
+      if(t){clearInterval(t);t=null}
+      if(reduce){el.textContent=str;done&&done();return}
+      var i=0; el.textContent='';
+      t=setInterval(function(){i++;el.textContent=str.slice(0,i);if(i>=str.length){clearInterval(t);t=null;done&&done()}},CARD_TYPE_MS);
+    }
+    type.stop=function(){if(t){clearInterval(t);t=null}};
+    return type;
+  }
+  /* Reserve the tallest example's height per field so the card never jumps as examples rotate */
+  function reserveTallest(fields,list){
+    fields.forEach(function(pair){
+      var el=pair[0], key=pair[1], keep=el.textContent, max=0;
+      el.style.minHeight='';
+      list.forEach(function(ex){el.textContent=ex[key];max=Math.max(max,el.offsetHeight)});
+      el.textContent=keep; el.style.minHeight=max+'px';
+    });
+  }
+  var typeInto=makeTypist();
+  function applyMeta(ex){
+    note.textContent=ex.note; link.href=ex.link; link.textContent=ex.label;
+    if(ex.link.charAt(0)==='#'){link.removeAttribute('target');link.removeAttribute('rel')}else{link.target='_blank';link.rel='noopener'}
+  }
+  /* One example at a time: tab, caption and link switch together; the old "need" hides while the new command
+     types, then the new "need" appears. A generation counter drops callbacks from any interrupted example. */
+  function show(i){
+    var my=++gen;
+    cur=(i+examples.length)%examples.length; var ex=examples[cur];
+    clearTimeout(swapTimer);
+    tabs.forEach(function(b,k){b.setAttribute('aria-selected',k===cur?'true':'false')});
+    var bar=tabs[cur].parentNode, tb=tabs[cur];
+    if(bar.scrollWidth>bar.clientWidth){
+      var l=tb.offsetLeft-bar.offsetLeft;
+      if(l<bar.scrollLeft||l+tb.offsetWidth>bar.scrollLeft+bar.clientWidth){
+        var to=Math.max(0,l-(bar.clientWidth-tb.offsetWidth)/2);
+        if(bar.scrollTo){bar.scrollTo({left:to,behavior:reduce?'auto':'smooth'})}else{bar.scrollLeft=to}
+      }
+    }
+    applyMeta(ex);
+    meant.classList.add('swap');
+    typeInto(typed,ex.typed,function(){
+      if(my!==gen)return;
+      swapTimer=setTimeout(function(){if(my!==gen)return;meantTxt.textContent=ex.meant;meant.classList.remove('swap')},reduce?0:CARD_REVEAL_MS);
+    });
+  }
+  function reserve(){ reserveTallest([[typed,'typed'],[meantTxt,'meant'],[note,'note'],[link,'label']],examples) }
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(reserve)} else {reserve()}
+  /* Re-measure whenever the card's width changes (text wraps differently); ignore height-only changes */
+  /* Card text sizes scale with the viewport width even when the card width is capped, so watch both */
+  var rT, lastKey='';
+  function onWidth(){var k=device.clientWidth+'|'+document.documentElement.clientWidth;if(k===lastKey)return;lastKey=k;clearTimeout(rT);rT=setTimeout(reserve,80)}
+  if('ResizeObserver' in window){var ro=new ResizeObserver(onWidth);ro.observe(device);ro.observe(document.documentElement)}
+  window.addEventListener('resize',onWidth);
+  function schedule(){if(timer)clearTimeout(timer);if(reduce||paused)return;timer=setTimeout(function(){show(cur+1);schedule()},5200)}
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.i);schedule()})});
+  ['mouseenter','focusin'].forEach(function(ev){device.addEventListener(ev,function(){paused=true;if(timer)clearTimeout(timer)})});
+  ['mouseleave','focusout'].forEach(function(ev){device.addEventListener(ev,function(){paused=false;schedule()})});
+  schedule();
+
+  /* ---------- Hero tuning knobs ---------- */
+  var TILT_MAX = 5;        // card tilt in degrees (4–6 feels right)
+  var TILT_EASE = 0.12;    // how quickly the card follows the cursor
+  var CURSOR_LERP = 0.06;  // liquid cursor damping (0.05–0.08 = watery)
+  var CURSOR_STRENGTH = 1; // 0 = ignore cursor, 1 = default, 1.5 = stronger ripple/pull
+  var RENDER_SCALE = 0.5;  // liquid canvas resolution vs CSS size; it is a soft gradient, so half-res is invisible
+  var DPR_CAP = 1.5;
+
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* Card: subtle 3D tilt + sheen (mouse only, not reduced motion). Shared by the hero card and the footer card. */
+  function attachTilt(card){
+    if(!card||!finePointer||reduce) return;
+    var tRX=0,tRY=0,tS=0,cRX=0,cRY=0,cS=0,sx=50,sy=0,tiltRaf=0;
+    function tiltStep(){
+      cRX+=(tRX-cRX)*TILT_EASE; cRY+=(tRY-cRY)*TILT_EASE; cS+=(tS-cS)*TILT_EASE;
+      card.style.setProperty('--rx',cRX.toFixed(3)+'deg');
+      card.style.setProperty('--ry',cRY.toFixed(3)+'deg');
+      card.style.setProperty('--sheen',cS.toFixed(3));
+      card.style.setProperty('--sx',sx.toFixed(1)+'%');
+      card.style.setProperty('--sy',sy.toFixed(1)+'%');
+      if(Math.abs(tRX-cRX)+Math.abs(tRY-cRY)+Math.abs(tS-cS)>0.002){tiltRaf=requestAnimationFrame(tiltStep)}else{tiltRaf=0}
+    }
+    function kick(){if(!tiltRaf)tiltRaf=requestAnimationFrame(tiltStep)}
+    card.addEventListener('pointermove',function(e){
+      var r=card.getBoundingClientRect(), px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+      tRY=(px-.5)*2*TILT_MAX; tRX=(.5-py)*2*TILT_MAX; tS=1; sx=px*100; sy=py*100; kick();
+    });
+    card.addEventListener('pointerleave',function(){tRX=0;tRY=0;tS=0;kick()});
+  }
+  attachTilt(device);
+
+  /* ---------- Headline word pairs: backspace + type, slow and calm ---------- */
+  var PAIRS=[['mean','type'],['feel','click'],['need','type'],['intend','swipe'],['want','scroll']];
+  var HOLD=3000, BACK_MS=60, TYPE_MS=90, BETWEEN_WORDS=450;
+  var heroEl=document.querySelector('.hero'), hw1=document.getElementById('hw1'), hw2=document.getElementById('hw2');
+  var heroActive=true, heroInView=true, waiters=[];
+  function setHeroActive(){
+    heroActive=heroInView&&!document.hidden;
+    heroEl.classList.toggle('paused',!heroActive);
+    if(heroActive) waiters.splice(0).forEach(function(f){f()});
+  }
+  function gate(){return heroActive?Promise.resolve():new Promise(function(r){waiters.push(r)})}
+  function wait(ms){return gate().then(function(){return new Promise(function(r){setTimeout(r,ms)})}).then(gate)}
+  function retype(el,from,to){
+    el.classList.add('editing');
+    var p=Promise.resolve(), k;
+    for(k=from.length-1;k>=0;k--){(function(n){p=p.then(function(){el.textContent=from.slice(0,n);if(el===hw1)syncLine();return wait(BACK_MS)})})(k)}
+    p=p.then(function(){return wait(160)});
+    for(k=1;k<=to.length;k++){(function(n){p=p.then(function(){el.textContent=to.slice(0,n);if(el===hw1)syncLine();return wait(TYPE_MS)})})(k)}
+    return p.then(function(){return wait(240)}).then(function(){el.classList.remove('editing')});
+  }
+  if(heroEl&&hw1&&hw2){
+    if('IntersectionObserver' in window){new IntersectionObserver(function(es){heroInView=es[0].isIntersecting;setHeroActive()}).observe(heroEl)}
+    document.addEventListener('visibilitychange',setHeroActive);
+    if(!reduce){
+      (function loop(i){
+        var next=PAIRS[(i+1)%PAIRS.length];
+        wait(HOLD)
+          .then(function(){return retype(hw1,PAIRS[i][0],next[0])})
+          .then(function(){return wait(BETWEEN_WORDS)})
+          .then(function(){return retype(hw2,PAIRS[i][1],next[1])})
+          .then(function(){loop((i+1)%PAIRS.length)});
+      })(0);
+    }
+  }
+
+  /* Underline hugs word 1: its px width eases (CSS transition) to the word's width after every character */
+  var hwLine=document.getElementById('hwLine');
+  function syncLine(){ if(hwLine&&hw1) hwLine.style.width=hw1.getBoundingClientRect().width.toFixed(2)+'px' }
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(syncLine);
+  window.addEventListener('resize',syncLine);
+
+  /* ---------- Doodles: placed from real element boxes, redrawn on resize ---------- */
+  (function(){
+    var svg=document.getElementById('doodles'); if(!svg) return;
+    var wrap=svg.parentElement, grid=wrap.querySelector('.hero-grid'), copy=wrap.querySelector('.hero-copy'),
+        lede=copy.querySelector('.lede'), card=document.getElementById('device'), need=document.getElementById('meant'),
+        cap=document.getElementById('capsule');
+    var g={arrow:document.getElementById('ddArrow'),label:document.getElementById('ddLabel')};
+    var aPath=document.getElementById('ddArrowPath'), aHead=document.getElementById('ddArrowHead');
+    function show(el,on,x,y){ if(on){el.setAttribute('transform',x==null?'':'translate('+x.toFixed(1)+' '+y.toFixed(1)+')');el.classList.add('on')} else el.classList.remove('on') }
+    function box(r,W){return {l:r.left-W.left,t:r.top-W.top,r:r.right-W.left,b:r.bottom-W.top,w:r.width,h:r.height}}
+    function f(n){return n.toFixed(1)}
+    /* Hidden measurer inside the headline (same font): gives each line's width with its longest typed word */
+    var h1=copy.querySelector('h1'), meas=document.createElement('span');
+    meas.setAttribute('aria-hidden','true');
+    meas.style.cssText='position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;white-space:nowrap';
+    h1.querySelector('.hl').appendChild(meas);
+    function hlLines(){return h1.querySelectorAll('.hl-line')}
+    function widest(n){
+      var m=0;
+      PAIRS.forEach(function(p){
+        /* measured with the editing gap open, i.e. the widest the line ever gets */
+        meas.innerHTML=n===2?'people <span class="editing">'+p[0]+'</span>, not':'what they <i class="editing">'+p[1]+'</i><i>.</i>';
+        m=Math.max(m,meas.getBoundingClientRect().width);
+      });
+      return m;
+    }
+    function widthOf(el){var r=document.createRange(); r.selectNodeContents(el); return r.getBoundingClientRect().width}
+    var cue=document.getElementById('cue');
+    function layout(){
+      var W=wrap.getBoundingClientRect(); if(!W.width) return;
+      var stacked=getComputedStyle(grid).gridTemplateColumns.split(' ').length===1;
+      var D=box(card.getBoundingClientRect(),W), N=box(need.getBoundingClientRect(),W);
+      var rg=document.createRange(); rg.selectNodeContents(lede); var rs=rg.getClientRects();
+
+      /* Headline extents at their WIDEST (longest typed words), measured with hidden copies of lines 2 and 3,
+         so nothing placed here depends on the live, changing text. */
+      var hl=hlLines(), lb1=box(hl[0].getBoundingClientRect(),W), lb3=box(hl[2].getBoundingClientRect(),W);
+      var l2max=box(hl[1].getBoundingClientRect(),W); l2max.r=l2max.l+widest(2);
+      var l3max={l:lb3.l,t:lb3.t,b:lb3.b,r:lb3.l+widest(3)};
+      l2max.b=Math.min(l2max.b,lb3.t);   /* line boxes touch; keep the check on line 2's own band */
+      var textBoxes=[{l:lb1.l,t:lb1.t,b:lb1.b,r:lb1.l+widthOf(hl[0])},l2max,l3max].concat([].map.call(rs,function(q){return box(q,W)}));
+      function hits(b,list,m){return list.some(function(q){return !(b.r<q.l-m||b.l>q.r+m||b.b<q.t-m||b.t>q.b+m)})}
+
+      /* Arrow: from a fixed point 24px past the end of "what they scroll." (the longest line 3 ever gets),
+         a short gentle curve to the card's "what they need" box, stopping 20px before the card. */
+      var sx=l3max.r+24, sy=lb3.t+(lb3.b-lb3.t)*.56, ex=D.l-20, ey=N.t+N.h*.5, dx=ex-sx;
+      if(!stacked && dx>=56){
+        var sag=Math.max(6,Math.min(16,dx*.12));   /* slight downward bow: reads hand-drawn, stays clear of line 2 */
+        var c1x=sx+dx*.36, c1y=Math.max(sy,ey)+sag, c2x=ex-dx*.32, c2y=ey+sag*.55;
+        aPath.setAttribute('d','M'+f(sx)+' '+f(sy)+'C'+f(c1x)+' '+f(c1y)+' '+f(c2x)+' '+f(c2y)+' '+f(ex)+' '+f(ey));
+        var tx=ex-c2x, ty=ey-c2y, tl=Math.hypot(tx,ty)||1; tx/=tl; ty/=tl;
+        function side(a,len){var c=Math.cos(a),s=Math.sin(a);return {x:ex-(tx*c-ty*s)*len,y:ey-(tx*s+ty*c)*len}}
+        var hs=dx<90?9:11, h1=side(.46,hs), h2=side(-.58,hs-2);   /* slightly uneven barbs, like a hand-drawn head */
+        aHead.setAttribute('d','M'+f(h1.x)+' '+f(h1.y)+'L'+f(ex)+' '+f(ey)+'L'+f(h2.x)+' '+f(h2.y));
+        show(g.arrow,true);
+        if(hits(box(g.arrow.getBoundingClientRect(),W),textBoxes,4)) show(g.arrow,false);
+      } else show(g.arrow,false);
+      /* "try it": near the arrow's start, above the curve (or below it if that clashes), tilted -6deg */
+      var aLbl=document.getElementById('ddArrowLabel');
+      function placeLabel(ly){var lx=sx+4; aLbl.setAttribute('x',f(lx)); aLbl.setAttribute('y',f(ly)); aLbl.setAttribute('transform','rotate(-6 '+f(lx)+' '+f(ly)+')')}
+      function labelOk(){var b=box(aLbl.getBoundingClientRect(),W); return !hits(b,textBoxes,6) && b.r<D.l-8}
+      show(g.label,g.arrow.classList.contains('on'));
+      if(g.label.classList.contains('on')){
+        placeLabel(sy-12);
+        if(!labelOk()){ placeLabel(sy+30); if(!labelOk()) show(g.label,false); }
+      }
+
+      /* Scroll cue: shown only if all of it fits on the first screen (at scroll 0), in the empty band at least
+         24px below the content (subheading / card), clear of the nav; a doodle that would touch it gives way. */
+      if(cue){
+        cue.classList.remove('off');
+        var cr=cue.getBoundingClientRect();
+        if(cr.width){
+          var y0=window.scrollY, cb=box(cr,W), navB=cap?cap.getBoundingClientRect().bottom:0, G=box(grid.getBoundingClientRect(),W);
+          var fits=cr.bottom+y0<=window.innerHeight-12 && cr.top+y0>=navB+16 && cb.t>=G.b+24 && !hits(cb,textBoxes,12) && !hits(cb,[D],12);
+          if(!fits) cue.classList.add('off');
+          else [g.arrow,g.label].forEach(function(d){
+            if(d.classList.contains('on')&&hits(box(d.getBoundingClientRect(),W),[cb],12)) show(d,false);
+          });
+        }
+      }
+    }
+    /* Scroll cue: smooth-scrolls to the work section; fades out over the first 80px of scroll, back at the top */
+    if(cue){
+      cue.addEventListener('click',function(){
+        var t=document.getElementById('work'); if(t) t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+      });
+      var cueRaf=0;
+      function cueFade(){
+        cueRaf=0;
+        var o=Math.max(0,Math.min(1,1-window.scrollY/80));
+        cue.style.opacity=o.toFixed(3);
+        cue.style.visibility=o<.02?'hidden':'';
+        cue.style.pointerEvents=o<.35?'none':'';
+      }
+      window.addEventListener('scroll',function(){if(!cueRaf) cueRaf=requestAnimationFrame(cueFade)},{passive:true});
+      cueFade();
+    }
+    var lt; function relayout(){clearTimeout(lt);lt=setTimeout(function(){layout();syncLine()},60)}
+    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(layout);
+    if('ResizeObserver' in window){new ResizeObserver(relayout).observe(wrap)}
+    window.addEventListener('resize',relayout);
+  })();
+
+  /* Liquid background: one WebGL fragment shader filling its host (the hero, and the Hire me page). Falls back to
+     the CSS radial-gradient version if WebGL is unavailable. */
+  function liquidBg(hero,cv){
+    if(!hero||!cv) return;
+    var gl=null;
+    try{gl=cv.getContext('webgl',{alpha:false,antialias:false,depth:false,stencil:false,preserveDrawingBuffer:false,powerPreference:'low-power'})}catch(e){}
+    if(!gl) return;
+    var VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    var FS=[
+      'precision mediump float;',
+      'uniform vec2 uRes;uniform float uTime;uniform vec2 uMouse;uniform float uStr;',
+      'float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}',
+      'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);',
+      ' return mix(mix(hash(i),hash(i+vec2(1.,0.)),u.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),u.x),u.y);}',
+      'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*noise(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}',
+      'float blob(vec2 p,vec2 c,float r){vec2 d=p-c;return exp(-dot(d,d)/(r*r));}',
+      'void main(){',
+      ' vec2 uv=gl_FragCoord.xy/uRes; float asp=uRes.x/uRes.y;',
+      ' vec2 p=vec2(uv.x*asp,uv.y); vec2 m=vec2(uMouse.x*asp,uMouse.y); float T=uTime;',
+      /* water ripple around the cursor: a decaying radial wave that bends the colour field */
+      ' vec2 d=p-m; float dist=length(d);',
+      ' float ring=sin(dist*22.-T*1.6)*exp(-dist*4.5);',
+      ' p+=d/(dist+.001)*ring*.012*uStr;',
+      /* slow domain warp = the "liquid" */
+      ' float t=T*.035;',
+      ' vec2 q=vec2(fbm(p*1.4+vec2(0.,t)),fbm(p*1.4+vec2(5.2,-t)));',
+      ' vec2 w=p+(q-.5)*.35;',
+      /* four blobs drifting on ~24–40s loops, eased toward the cursor */
+      ' vec2 pull=(m-vec2(.5*asp,.5))*.10*uStr;',
+      ' vec2 c1=vec2(.22*asp+.10*sin(T*.21),.68+.10*cos(T*.17))+pull;',
+      ' vec2 c2=vec2(.80*asp+.09*cos(T*.16),.72+.08*sin(T*.23))+pull*.6;',
+      ' vec2 c3=vec2(.64*asp+.12*sin(T*.18+1.3),.20+.09*cos(T*.26))+pull*.8;',
+      ' vec2 c4=vec2(.45*asp+.14*cos(T*.25+2.),.46+.12*sin(T*.19))+(m-vec2(.45*asp,.46))*.18*uStr;',
+      ' float b1=blob(w,c1,.42),b2=blob(w,c2,.38),b3=blob(w,c3,.52),b4=blob(w,c4,.28);',
+      /* palette: very light base, sky, lavender-blue, mist, and the accent blue kept faint for legibility */
+      ' vec2 c5=vec2(.13*asp+.06*sin(T*.15),.15+.06*cos(T*.2));',
+      ' float b5=blob(w,c5,.42);',
+      ' vec3 col=vec3(.925,.955,.995);',
+      ' col=mix(col,vec3(.78,.88,.985),b1*.85);',
+      ' col=mix(col,vec3(.83,.83,.97),b2*.80);',
+      ' col=mix(col,vec3(.80,.91,.98),b3*.80);',
+      ' col=mix(col,vec3(.79,.885,.985),b5*.78);',
+      ' col=mix(col,vec3(.184,.498,.878),b4*.16);',
+      ' float f=fbm(w*2.2+q*1.5+t*2.);',
+      ' col+=vec3(.035)*smoothstep(.55,.8,f);',
+      ' col+=vec3(.06,.06,.05)*exp(-dist*dist*9.)*uStr;',
+      ' gl_FragColor=vec4(col,1.);',
+      '}'
+    ].join('\n');
+    function sh(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null}
+    var vs=sh(gl.VERTEX_SHADER,VS), fs=sh(gl.FRAGMENT_SHADER,FS);
+    if(!vs||!fs) return;
+    var pr=gl.createProgram(); gl.attachShader(pr,vs); gl.attachShader(pr,fs); gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS)) return;
+    gl.useProgram(pr);
+    var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    var loc=gl.getAttribLocation(pr,'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+    var uRes=gl.getUniformLocation(pr,'uRes'), uTime=gl.getUniformLocation(pr,'uTime'), uMouse=gl.getUniformLocation(pr,'uMouse'), uStr=gl.getUniformLocation(pr,'uStr');
+
+    var dpr=Math.min(window.devicePixelRatio||1,DPR_CAP)*RENDER_SCALE;
+    var t=14, last=0, raf=0, inView=true, visible=!document.hidden;
+    var mx=.5,my=.5,tmx=.5,tmy=.5,str=0,tstr=0;
+    function size(){
+      var w=Math.max(1,Math.round(hero.clientWidth*dpr)), h=Math.max(1,Math.round(hero.clientHeight*dpr));
+      if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)}
+    }
+    function draw(){
+      gl.uniform2f(uRes,cv.width,cv.height); gl.uniform1f(uTime,t);
+      gl.uniform2f(uMouse,mx,my); gl.uniform1f(uStr,str*CURSOR_STRENGTH);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+    }
+    function frame(now){
+      raf=0;
+      var dt=last?Math.min((now-last)/1000,.05):1/60; last=now; t+=dt;
+      var k=1-Math.pow(1-CURSOR_LERP,dt*60);      // frame-rate independent damping
+      mx+=(tmx-mx)*k; my+=(tmy-my)*k; str+=(tstr-str)*k;
+      draw();
+      if(inView&&visible&&cv.offsetWidth) raf=requestAnimationFrame(frame);   /* canvas hidden (phone width): stop */
+    }
+    function start(){ if(reduce){draw();return} if(!raf&&inView&&visible){last=0;raf=requestAnimationFrame(frame)} }
+    function stop(){ if(raf){cancelAnimationFrame(raf);raf=0} }
+
+    if(finePointer && !reduce){
+      hero.addEventListener('pointermove',function(e){
+        var r=hero.getBoundingClientRect(); tmx=(e.clientX-r.left)/r.width; tmy=1-(e.clientY-r.top)/r.height; tstr=1;
+      },{passive:true});
+      hero.addEventListener('pointerleave',function(){tstr=0});
+    }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){inView=es[0].isIntersecting; inView?start():stop()}).observe(hero);
+    }
+    document.addEventListener('visibilitychange',function(){visible=!document.hidden; visible?start():stop()});
+    if('ResizeObserver' in window){new ResizeObserver(function(){size();draw()}).observe(hero)}
+    window.addEventListener('resize',function(){size();draw();start()});
+    cv.addEventListener('webglcontextlost',function(e){e.preventDefault();stop();cv.classList.remove('on')});
+
+    size(); draw(); cv.classList.add('on'); start();
+  }
+  /* Desktop and tablet only: under 600px the static radial-gradient version shows instead (the canvas is hidden in
+     CSS), so phones never run a full-screen shader while scrolling. Reduced motion: one still frame, no animation. */
+  if(window.matchMedia('(min-width:600px)').matches){
+    liquidBg(document.querySelector('.hero'),document.getElementById('liquid'));
+    liquidBg(document.querySelector('.cp'),document.getElementById('liquidHire'));
+  }
+
+  /* Work cards: keep the product screens clear of the concept panel — their highest corner (after rotation) sits at
+     least 32px (desktop) / 28px (mobile) below the panel's bottom edge; if the panel runs taller, the screens move down */
+  var wcards=Array.prototype.slice.call(document.querySelectorAll('#stack .wc'));
+  function clearShots(){
+    var need=window.matchMedia('(min-width:900px)').matches?32:28;
+    wcards.forEach(function(c){
+      var panel=c.querySelector('.panel'), shots=c.querySelectorAll('.shot');
+      if(!panel||!shots.length||!c.offsetWidth) return;
+      c.style.setProperty('--push','0px');
+      var s=c.getBoundingClientRect().width/c.offsetWidth||1, top=Infinity, pb=panel.getBoundingClientRect().bottom;
+      Array.prototype.forEach.call(shots,function(sh){top=Math.min(top,sh.getBoundingClientRect().top)});
+      var gap=(top-pb)/s;
+      if(gap<need) c.style.setProperty('--push',Math.ceil(need-gap)+'px');
+    });
+  }
+  var csT; function clearShotsSoon(){clearTimeout(csT);csT=setTimeout(clearShots,80)}
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(clearShots);
+  window.addEventListener('resize',clearShotsSoon);
+  window.addEventListener('hashchange',clearShotsSoon);
+
+  /* Work page covers: on phones the visuals sit below the text; if a long line wraps, push them down to keep a gap */
+  var covers=Array.prototype.slice.call(document.querySelectorAll('.pc .cv.has-shots'));
+  function clearCovers(){
+    var phone=window.matchMedia('(max-width:600px)').matches;
+    covers.forEach(function(cv){
+      cv.style.setProperty('--push','0px');
+      if(!phone||!cv.offsetWidth) return;
+      var int=cv.querySelector('.int'), top=Infinity;
+      Array.prototype.forEach.call(cv.querySelectorAll('.shot,.hco'),function(v){top=Math.min(top,v.getBoundingClientRect().top)});
+      var gap=top-int.getBoundingClientRect().bottom;
+      if(gap<12) cv.style.setProperty('--push',Math.ceil(12-gap)+'px');
+    });
+  }
+  var ccT; function clearCoversSoon(){clearTimeout(ccT);ccT=setTimeout(clearCovers,60)}
+  if(window.ResizeObserver){var ro=new ResizeObserver(clearCoversSoon);covers.forEach(function(cv){ro.observe(cv)})}
+  window.addEventListener('resize',clearCoversSoon);
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(clearCovers);
+
+  /* Work: cards stack and unstack as you scroll */
+  var items=Array.prototype.slice.call(document.querySelectorAll('.stack-item'));
+  var ticking=false;
+  function stackOn(){return !reduce && items.length && getComputedStyle(items[0]).position==='sticky'}
+  function updateStack(){
+    ticking=false;
+    var on=stackOn();
+    items.forEach(function(it,i){
+      var card=it.firstElementChild, next=items[i+1];
+      if(!on||!next){card.style.transform='';card.style.filter='';return}
+      var h=it.offsetHeight; if(!h) return;
+      var d=next.getBoundingClientRect().top-it.getBoundingClientRect().top;
+      var p=Math.min(1,Math.max(0,(h-(d-18))/h));
+      card.style.transform='scale('+(1-0.06*p).toFixed(4)+')';
+      card.style.filter='brightness('+(1-0.18*p).toFixed(3)+')';
+    });
+  }
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(updateStack)}}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+
+  /* Blogs rail: arrows + drag */
+  var rail=document.getElementById('rail'), prev=document.getElementById('railPrev'), next=document.getElementById('railNext');
+  function stepW(){var c=rail.querySelector('.post');return c?c.getBoundingClientRect().width+16:300}
+  function sync(){prev.disabled=rail.scrollLeft<=2;next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2}
+  prev.addEventListener('click',function(){rail.scrollBy({left:-stepW(),behavior:reduce?'auto':'smooth'})});
+  next.addEventListener('click',function(){rail.scrollBy({left:stepW(),behavior:reduce?'auto':'smooth'})});
+  rail.addEventListener('scroll',sync,{passive:true});
+  window.addEventListener('resize',sync);
+  var down=false, sx=0, sl=0, moved=false;
+  rail.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;down=true;moved=false;sx=e.clientX;sl=rail.scrollLeft});
+  window.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx;if(Math.abs(dx)>5){moved=true;rail.classList.add('drag')}if(moved)rail.scrollLeft=sl-dx});
+  window.addEventListener('pointerup',function(){if(!down)return;down=false;setTimeout(function(){rail.classList.remove('drag')},0)});
+  rail.addEventListener('click',function(e){if(moved){e.preventDefault();moved=false}},true);
+
+  /* All work filters */
+  var fbtns=Array.prototype.slice.call(document.querySelectorAll('.filters button')), cards=Array.prototype.slice.call(document.querySelectorAll('#grid .pc'));
+  fbtns.forEach(function(b){b.addEventListener('click',function(){
+    var f=b.dataset.f;
+    fbtns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    cards.forEach(function(c){c.hidden=!(f==='all'||c.dataset.cat.split(' ').indexOf(f)>-1)});
+  })});
+
+  /* Capsule: firmer once scrolled; compact menu on very narrow screens */
+  var capsule=document.getElementById('capsule'), menuBtn=document.getElementById('menuBtn'), menu=document.getElementById('navMenu');
+  function capState(){capsule.classList.toggle('scrolled',window.scrollY>8)}
+  window.addEventListener('scroll',capState,{passive:true});
+  capState();
+
+  /* ---------- Nav morph: capsule ⇄ full-width bar ---------- */
+  var capLogo=capsule.querySelector('.logo'), capR=capsule.querySelector('.cap-r');
+  /* The capsule needs an explicit px width so width can transition to 100%. Its natural width is the sum of
+     its children (which don't change between states), so it can be measured in either state. */
+  function measureCap(){
+    var cs=getComputedStyle(capsule), pl=parseFloat(cs.getPropertyValue('--cpl'))||18, pr=parseFloat(cs.getPropertyValue('--cpr'))||6;
+    var w=capLogo.offsetWidth+(parseFloat(getComputedStyle(capLogo).marginRight)||0)+capR.offsetWidth+pl+pr+2;
+    capsule.style.setProperty('--capw',Math.ceil(w+1)+'px');
+  }
+  measureCap();
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(measureCap);
+  window.addEventListener('resize',measureCap);
+
+  /* Every page's first band carries the same pair of marks (data-nav-mark="on" / "off"); one evaluator reads
+     the pair on the page that's showing, so Home, Work and Contact share the exact same behaviour. */
+  var introPassed=false, pageMarks={on:null,off:null};
+  function applyBar(){
+    var want=introPassed;
+    if(capsule.classList.contains('bar')===want) return;
+    if(reduce){capsule.classList.remove('nav-fade');void capsule.offsetWidth;capsule.classList.add('nav-fade')}
+    capsule.classList.toggle('bar',want);
+  }
+  function useMarks(pageEl){
+    pageMarks.on=pageEl.querySelector('[data-nav-mark="on"]'); pageMarks.off=pageEl.querySelector('[data-nav-mark="off"]');
+  }
+  /* Hysteresis: bar once the "on" mark has left the top of the viewport; back to the capsule only when the
+     "off" mark is on screen (or below) again. Between the two marks the current state holds, so it never flickers. */
+  function evalNav(){
+    if(!pageMarks.on||!pageMarks.off) return;
+    if(pageMarks.on.getBoundingClientRect().top<0) introPassed=true;
+    else if(pageMarks.off.getBoundingClientRect().top>=0) introPassed=false;
+    applyBar();
+  }
+  if('IntersectionObserver' in window){
+    var navIO=new IntersectionObserver(evalNav);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-nav-mark]'),function(m){navIO.observe(m)});
+  } else { window.addEventListener('scroll',evalNav,{passive:true}) }
+  /* Dark sections under the bar (the navy footer): watch a thin band at the top of the viewport */
+  if('IntersectionObserver' in window){
+    var darkNow=new Set();
+    var darkIO=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting) darkNow.add(e.target); else darkNow.delete(e.target) });
+      capsule.classList.toggle('on-dark',darkNow.size>0);
+    },{rootMargin:'0px 0px -92% 0px'});
+    /* watch only the navy parts: the footer from ~45% down its fade and the bottom row's content */
+    document.querySelectorAll('#say-hello .ft-dark-mark, .site-foot .wrap').forEach(function(el){darkIO.observe(el)});
+  }
+  function closeMenu(){menu.hidden=true;menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Open menu')}
+  menuBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    var open=menu.hidden; menu.hidden=!open;
+    menuBtn.setAttribute('aria-expanded',String(open));
+    menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');
+  });
+  document.addEventListener('click',function(e){if(!menu.hidden&&!menu.contains(e.target))closeMenu()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!menu.hidden){closeMenu();menuBtn.focus()}});
+  menu.addEventListener('click',function(e){if(e.target.closest('a'))closeMenu()});
+
+  /* ---------- Footer ---------- */
+  (function(){
+    var sec=document.getElementById('say-hello'); if(!sec) return;
+    var mail=document.getElementById('ftMail'), copyB=document.getElementById('copyMail'), status=document.getElementById('copyStatus'),
+        card=document.getElementById('ftCard'), typedEl=document.getElementById('ftTyped');
+    var ADDR='adnanasifkhan24@gmail.com';
+
+    /* Copy email: Clipboard API, then a textarea fallback; if both are blocked, select the address for a manual copy.
+       One component, wired to the footer and to the Hire me page. */
+    function wireCopy(mailEl,btn,statusEl){
+      if(!mailEl||!btn||!statusEl) return;
+      var ct;
+      function copied(ok){
+        btn.textContent=ok?'Copied ✓':'Press Ctrl+C';
+        btn.classList.toggle('copied',ok);
+        statusEl.textContent=ok?'Email address copied to clipboard.':'Copy was blocked. The address is selected, press Ctrl+C to copy it.';
+        if(!ok){var s=window.getSelection(),r=document.createRange();r.selectNodeContents(mailEl);s.removeAllRanges();s.addRange(r)}
+        clearTimeout(ct); ct=setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');statusEl.textContent=''},2000);
+      }
+      function fallbackCopy(){
+        try{var ta=document.createElement('textarea');ta.value=ADDR;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:-200px;opacity:0';
+          document.body.appendChild(ta);ta.select();var ok=document.execCommand('copy');document.body.removeChild(ta);copied(ok)}catch(e){copied(false)}
+      }
+      btn.addEventListener('click',function(){
+        if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(ADDR).then(function(){copied(true)},fallbackCopy)} else fallbackCopy();
+      });
+    }
+    wireCopy(mail,copyB,status);
+    wireCopy(document.getElementById('hpMail'),document.getElementById('hpCopy'),document.getElementById('hpCopyStatus'));
+
+    /* ---------- Footer card: edit the pairs here (typed → what they actually need) ---------- */
+    var FT_PAIRS=[
+      {typed:"we need a product designer",  meant:"Someone who asks what you mean before designing it."},
+      {typed:"someone who gets AI",         meant:"Someone who gets people first. Hi, that's me."},
+      {typed:"just need some nice screens", meant:"Nice screens that make sense. I do both."},
+      {typed:"can you start soon?",         meant:"Already writing my reply. Scroll left ←"}
+    ];
+    var FT_HOLD=3500;   /* ms the revealed "need" stays before the next pair */
+
+    /* Same sequence as the hero card: hide the need, type the command, reveal the need, hold, next.
+       Runs only while the footer is on screen and the tab is visible; reduced motion shows pair 1, static. */
+    var meantBox=document.getElementById('ftMeant'), meantEl=document.getElementById('ftMeantTxt'), ftType=makeTypist();
+    var fCur=0, fGen=0, fT=null, fRunning=false, fStarted=false, fHover=false, fWaiting=false;
+    function ftStop(){fGen++; ftType.stop(); clearTimeout(fT)}
+    function ftShow(i){
+      ftStop(); var my=fGen;
+      fCur=(i+FT_PAIRS.length)%FT_PAIRS.length; var p=FT_PAIRS[fCur];
+      meantBox.classList.add('swap');
+      ftType(typedEl,p.typed,function(){
+        if(my!==fGen) return;
+        fT=setTimeout(function(){
+          if(my!==fGen) return;
+          meantEl.textContent=p.meant; meantBox.classList.remove('swap');
+          fT=setTimeout(function(){ if(my!==fGen) return; if(fHover){fWaiting=true;return} ftShow(fCur+1) },FT_HOLD+350);
+        },CARD_REVEAL_MS);
+      });
+    }
+    function ftRun(on){
+      if(reduce||on===fRunning) return; fRunning=on;
+      if(on){ ftShow(fStarted?fCur:0); fStarted=true } else ftStop();   /* resuming retypes the current pair */
+    }
+    function ftReserve(){ reserveTallest([[typedEl,'typed'],[meantEl,'meant']],FT_PAIRS) }
+    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(ftReserve);
+    var fW=0; if('ResizeObserver' in window){new ResizeObserver(function(){var w=card.clientWidth;if(w!==fW){fW=w;ftReserve()}}).observe(card)}
+    if(!reduce){ typedEl.textContent=''; meantBox.classList.add('swap') }
+    /* like the hero card: hovering holds the current pair */
+    card.addEventListener('mouseenter',function(){fHover=true});
+    card.addEventListener('mouseleave',function(){fHover=false; if(fWaiting&&fRunning){fWaiting=false; var my=fGen; fT=setTimeout(function(){if(my===fGen) ftShow(fCur+1)},1200)}});
+    attachTilt(card);
+    var ftInView=false;
+    function ftSync(){ ftRun(ftInView&&!document.hidden) }
+    document.addEventListener('visibilitychange',ftSync);
+
+    /* Doodles: arrow from the empty right column swooping back to the email row, "say hi" at its tail */
+    var svg=document.getElementById('ftDoodles'), wrap=svg.parentElement, socials=sec.querySelector('.socials'), head=sec.querySelector('h2');
+    var arrow=document.getElementById('ftArrow'), aP=document.getElementById('ftArrowPath'), aH=document.getElementById('ftArrowHead'),
+        lbl=document.getElementById('ftLabel'), lblT=document.getElementById('ftArrowLabel');
+    function bx(r,W){return {l:r.left-W.left,t:r.top-W.top,r:r.right-W.left,b:r.bottom-W.top,w:r.width,h:r.height}}
+    function f(n){return n.toFixed(1)}
+    function on(el,v,x,y){ if(v){ if(x!=null) el.setAttribute('transform','translate('+f(x)+' '+f(y)+')'); el.classList.add('on') } else el.classList.remove('on') }
+    function textRects(W){var out=[]; [head,mail,socials,copyB].forEach(function(el){var tw=document.createTreeWalker(el,NodeFilter.SHOW_TEXT),n; while(n=tw.nextNode()){if(!n.textContent.trim())continue; var r=document.createRange(); r.selectNodeContents(n); [].forEach.call(r.getClientRects(),function(q){if(q.width>1) out.push(bx(q,W))})}}); out.push(bx(copyB.getBoundingClientRect(),W)); return out}
+    function hits(a,list,p){return list.some(function(b){return !(a.r<b.l-p||a.l>b.r+p||a.b<b.t-p||a.t>b.b+p)})}
+    function layoutFt(){
+      var W=wrap.getBoundingClientRect(); if(!W.width) return;
+      var M=bx(mail.getBoundingClientRect(),W), B=bx(copyB.getBoundingClientRect(),W), D=bx(card.getBoundingClientRect(),W);
+      var twoCol=getComputedStyle(sec.querySelector('.ft-grid')).gridTemplateColumns.split(' ').length>1;
+      var txt=textRects(W);
+      var ex=B.r+18, ey=B.t+B.h/2, sx=D.l+56, sy=Math.max(D.b+46, ey-34), dx=sx-ex;
+      if(twoCol && dx>=120){
+        aP.setAttribute('d','M'+f(sx)+' '+f(sy)+'C'+f(sx-dx*.18)+' '+f(Math.max(sy,ey)+30)+' '+f(ex+dx*.36)+' '+f(ey+24)+' '+f(ex)+' '+f(ey));
+        var tx=ex-(ex+dx*.36), ty=ey-(ey+24), tl=Math.hypot(tx,ty)||1; tx/=tl; ty/=tl;
+        function side(a,len){var c=Math.cos(a),s=Math.sin(a);return {x:ex-(tx*c-ty*s)*len,y:ey-(tx*s+ty*c)*len}}
+        var h1=side(.46,12), h2=side(-.58,10);
+        aH.setAttribute('d','M'+f(h1.x)+' '+f(h1.y)+'L'+f(ex)+' '+f(ey)+'L'+f(h2.x)+' '+f(h2.y));
+        on(arrow,true);
+        var lx=sx-8, ly=sy-14; lblT.setAttribute('x',f(lx)); lblT.setAttribute('y',f(ly)); lblT.setAttribute('transform','rotate(-8 '+f(lx)+' '+f(ly)+')');
+        on(lbl,true);
+        var ab=bx(arrow.getBoundingClientRect(),W), lb=bx(lblT.getBoundingClientRect(),W);
+        if(hits(lb,txt,6)||hits(lb,[D],8)||hits(ab,[D],6)){ on(arrow,false); on(lbl,false) }
+      } else { on(arrow,false); on(lbl,false) }
+    }
+    var lt; function relayoutFt(){clearTimeout(lt);lt=setTimeout(layoutFt,80)}
+    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(layoutFt);
+    if('ResizeObserver' in window){new ResizeObserver(relayoutFt).observe(wrap)}
+    window.addEventListener('resize',relayoutFt);
+
+    /* In view: draw doodles once and run the card; off-screen: pause the card */
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        ftInView=es[0].isIntersecting;
+        if(ftInView){ layoutFt(); svg.classList.add('drawn'); }
+        ftSync();
+      },{threshold:.15}).observe(sec);
+      /* drifting blobs live on the shell (they also run behind the bottom bar on the Hire me page) */
+      var shell=document.getElementById('ftShell');
+      if(shell) new IntersectionObserver(function(es){shell.classList.toggle('paused',!es[0].isIntersecting)}).observe(shell);
+    } else { svg.classList.add('drawn'); ftInView=true; ftSync(); }
+  })();
+
+  /* Three pages, one file: #all-work = Work, #contact = Contact, anything else = Home */
+  var home=document.getElementById('home'), all=document.getElementById('allwork'),
+      cpage=document.getElementById('contactpage'), hello=document.getElementById('say-hello');
+  function setPage(name){
+    home.hidden=name!=='home'; all.hidden=name!=='work'; cpage.hidden=name!=='contact'; hello.hidden=name==='contact';
+    useMarks(name==='work'?all:name==='contact'?cpage:home);
+    document.title=name==='contact'?'Hire Adnan Asif Khan — Product Designer':'Adnan Asif Khan';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-nav]'),function(a){
+      if(a.dataset.nav===name){a.setAttribute('aria-current','page')}else{a.removeAttribute('aria-current')}
+    });
+  }
+  function route(){
+    var h=location.hash;
+    closeMenu();
+    if(h==='#all-work'){setPage('work');window.scrollTo(0,0)}
+    else if(h==='#contact'){setPage('contact');window.scrollTo(0,0)}
+    else {
+      var was=home.hidden; setPage('home');
+      var t=h&&h.length>1?document.getElementById(h.slice(1)):null;
+      if(t&&t!==home){requestAnimationFrame(function(){t.scrollIntoView()})}
+      else if(was){window.scrollTo(0,0)}
+      requestAnimationFrame(function(){updateStack();sync()});
+    }
+    evalNav(); requestAnimationFrame(evalNav);   /* fresh page: the new page's marks decide capsule or bar */
+  }
+  window.addEventListener('hashchange',route);
+  route();
+
+  /* Section reveal: readable at rest */
+  var rv=document.querySelectorAll('.rv.pre');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.05});
+    rv.forEach(function(el){if(el.getBoundingClientRect().top<window.innerHeight){el.classList.remove('pre')}else{io.observe(el)}});
+  } else { rv.forEach(function(el){el.classList.remove('pre')}) }
+})();
+</script>
+
+</html>
