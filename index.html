@@ -267,6 +267,7 @@
   .wc.c1{background:linear-gradient(120deg,#1E4FB5,#3F8BF2)}
   .wc.c2{background:linear-gradient(120deg,#0E7466,#3DBFA4)}
   .wc.c3{background:linear-gradient(120deg,#4A3FB0,#8A7DF0)}
+  .wc.c4{background:linear-gradient(120deg,#1E1638,#6D4FE0)}   /* Replix: same colours as its Work page card */
   .wc > *{position:relative;z-index:1}
   .wc .num{position:absolute;top:clamp(20px,2.4vw,30px);left:clamp(24px,3.4vw,48px);font-family:var(--mono);font-size:15px;letter-spacing:.08em;color:#fff}
   .wc .yr{position:absolute;top:clamp(20px,2.4vw,30px);right:clamp(24px,3.4vw,48px);font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:rgba(255,255,255,.85);background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px}
@@ -297,6 +298,8 @@
   .c1 .shot.front{--l:52.5%;--t:67.333%; --w:36.667%;--r:-4deg;--o:.97; --ml:30; --mt:44;--mw:300;--mr:-5deg}
   .c3 .shot.back {--l:75%;  --t:57.5%;   --w:31.667%;--r:6deg; --o:.6;  --ml:120;--mt:18;--mw:260;--mr:8deg}
   .c3 .shot.front{--l:52.5%;--t:70%;     --w:35%;    --r:-4deg;--o:.97; --ml:30; --mt:44;--mw:270;--mr:-5deg}
+  .c4 .shot.back {--l:75%;  --t:57.5%;   --w:31.667%;--r:6deg; --o:.6;  --ml:120;--mt:18;--mw:260;--mr:8deg}
+  .c4 .shot.front{--l:52.5%;--t:70%;     --w:35%;    --r:-4deg;--o:.97; --ml:30; --mt:44;--mw:270;--mr:-5deg}
   .c2 .shot.back {--l:81.25%;--t:48.667%;--w:17.5%;  --r:9deg; --o:.55; --ml:205;--mt:22;--mw:140;--mr:9deg}
   .c2 .shot.front{--l:66.667%;--t:53%;   --w:18.333%;--r:-5deg;--o:.97; --ml:112;--mt:36;--mw:150;--mr:-5deg}
   @media (min-width:900px){
@@ -651,19 +654,8 @@
     .cv .hco.o2{left:38%;top:64%;width:40%}
     .cv .hco.o3{left:14%;top:70%;width:46%}
   }
-  /* Replix: one card across the whole grid */
-  .pc.wide{grid-column:1/-1}
-  .pc.wide .cv{aspect-ratio:21/8}
-  .pc.wide .cv .web.back {left:58%;top:22%;width:34%;transform:rotate(6deg)}
-  .pc.wide .cv .web.front{left:47%;top:40%;width:38%;transform:rotate(-4deg)}
-  .pc.wide .cv.has-shots .cmd,.pc.wide .cv.has-shots .int{max-width:42%}
   .cv .shot.dark{background:#111;border-color:rgba(255,255,255,.14)}
-  @media (min-width:601px) and (max-width:760px){.pc.wide .cv{aspect-ratio:16/9}}   /* one-column tablets: same 16:9 as the other covers */
   @media (max-width:600px){
-    .pc.wide .cv{aspect-ratio:4/3}
-    .pc.wide .cv .web.back {left:54%;top:60%;width:52%}
-    .pc.wide .cv .web.front{left:12%;top:70%;width:60%}
-    .pc.wide .cv.has-shots .cmd,.pc.wide .cv.has-shots .int{max-width:100%}
   }
 
   .rv{opacity:1;transform:none}
@@ -758,8 +750,8 @@
         <div class="device" id="device" aria-label="Intent, translated: examples from my case studies">
           <div class="tabs" role="tablist" aria-label="Pick an example">
             <button role="tab" aria-selected="true" data-i="0" id="tab-0">GitBrief</button>
-            <button role="tab" aria-selected="false" data-i="1" id="tab-1">FitBite</button>
-            <button role="tab" aria-selected="false" data-i="2" id="tab-2">Replix</button>
+            <button role="tab" aria-selected="false" data-i="1" id="tab-1">Replix</button>
+            <button role="tab" aria-selected="false" data-i="2" id="tab-2">FitBite</button>
             <button role="tab" aria-selected="false" data-i="3" id="tab-3">Where did my money go?</button>
             <button role="tab" aria-selected="false" data-i="4" id="tab-4">Diney</button>
           </div>
@@ -790,7 +782,7 @@
           <div class="eyebrow"><b>Selected work</b> · Three of seven</div>
           <h2 class="serif h-l">What they asked for, <i>and what they needed.</i></h2>
         </div>
-        <p class="lede">One shipped at an agency, two&nbsp;built&nbsp;to&nbsp;test&nbsp;an&nbsp;idea.</p>
+        <p class="lede">Two AI products and a health concept, each built to test an&nbsp;idea.</p>
       </div>
 
       <div class="stack" id="stack">
@@ -818,8 +810,31 @@
         </div>
 
         <div class="stack-item" style="--i:1">
+          <article class="wc c4">
+            <span class="num">02<span class="pn">Replix</span></span><span class="yr">2026</span>
+            <div>
+              <h3 class="serif">Turns a product's code into a finished demo video.</h3>
+              <div class="tags"><span class="tag">AI product</span><span class="tag">Desktop</span><span class="tag st">In development</span></div>
+              <p>It plans the scenes with you, films the real app, and adds voice and captions.</p>
+              <div class="actions"><a class="btn white" href="https://adnnankhan.github.io/Replix/" target="_blank" rel="noopener">View case study</a></div>
+            </div>
+            <div class="panel" aria-hidden="true">
+              <div class="dl">What they type</div>
+              <div class="mline">make a demo video of my app</div>
+              <div class="dl">What they need</div>
+              <div class="new">Show people why it matters, <i>without recording a thing.</i></div>
+            </div>
+            <!-- product screens: back behind, front on top; bleed off the card's bottom/right edge -->
+            <div class="shots">
+              <div class="shot back"><img src="images/replix/replix-1-reading-code.png" alt="Replix reading a codebase: the screens, features and flows it found" width="1914" height="863" loading="lazy" decoding="async"></div>
+              <div class="shot front"><img src="images/replix/replix-2-storyboard.png" alt="Replix storyboard editor: chat, video preview, scene timeline and export settings" width="1914" height="866" loading="lazy" decoding="async"></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="stack-item" style="--i:2">
           <article class="wc c2">
-            <span class="num">02<span class="pn">FitBite</span></span><span class="yr">2025</span>
+            <span class="num">03<span class="pn">FitBite</span></span><span class="yr">2025</span>
             <div>
               <h3 class="serif">Most people don't fail their diets. Their systems do.</h3>
               <div class="tags"><span class="tag">Health</span><span class="tag">Mobile</span><span class="tag st">Concept</span></div>
@@ -839,28 +854,6 @@
           </article>
         </div>
 
-        <div class="stack-item" style="--i:2">
-          <article class="wc c3">
-            <span class="num">03<span class="pn">Craftstudioo</span></span><span class="yr">2025</span>
-            <div>
-              <h3 class="serif">A creative agency with no website. I&nbsp;designed and shipped one in a&nbsp;month.</h3>
-              <div class="tags"><span class="tag">Agency work</span><span class="tag">Web</span><span class="tag st">Shipped</span></div>
-              <p>The agency's own website, designed and shipped in a month, then refined over a year.</p>
-              <div class="actions"><a class="btn white" href="https://www.figma.com/proto/ftuvxt5mZZFxYQ98zcNclq/CRAFT-STUDIOO?node-id=576-3410&amp;t=4TFyViYpZxO9IJ6z-1" target="_blank" rel="noopener">View case study</a></div>
-            </div>
-            <div class="panel" aria-hidden="true">
-              <div class="dl">Vague</div>
-              <div class="old">Submit your enquiry and our team will get back to you shortly.</div>
-              <div class="dl">Clear</div>
-              <div class="new">Tell us about the project. <i>You'll hear from a person within a day.</i></div>
-            </div>
-            <!-- product screens: back behind, front on top; bleed off the card's bottom/right edge -->
-            <div class="shots">
-              <div class="shot back"><img src="images/card-craftstudioo-back.jpg" alt="Services section of the Craftstudioo website" width="720" height="540" loading="lazy" decoding="async"></div>
-              <div class="shot front"><img src="images/card-craftstudioo-front.jpg" alt="Homepage of the Craftstudioo website" width="1000" height="590" loading="lazy" decoding="async"></div>
-            </div>
-          </article>
-        </div>
       </div>
 
       <div class="more">
@@ -1061,30 +1054,30 @@
   <section class="band" style="padding-block:clamp(24px,3vw,40px) clamp(72px,9vw,120px)">
     <div class="wrap">
       <div class="grid" id="grid">
-        <a class="pc wide" data-cat="ai dev" href="https://adnnankhan.github.io/Replix/" target="_blank" rel="noopener">
-          <div class="cv g7 has-shots">
-          <div class="shots">
-            <div class="shot web dark back"><img src="images/replix/replix-1-reading-code.png" alt="Replix reading a codebase: the screens, features and flows it found" loading="lazy" decoding="async" width="1914" height="863"></div>
-            <div class="shot web dark front"><img src="images/replix/replix-2-storyboard.png" alt="Replix storyboard editor: chat, video preview, scene timeline and export settings" loading="lazy" decoding="async" width="1914" height="866"></div>
-          </div><span class="num">01</span><span class="yr">2026</span><span class="cmd">make a demo video of my app</span><span class="int">Show people why it matters, without recording a thing.</span></div>
-          <div class="bd">
-            <h3>Replix</h3>
-            <div class="pt"><span>AI product</span><span>Desktop</span><span class="st">In development</span></div>
-            <p>Turns a product's code into a finished demo video. It plans the scenes with you, films the real app, and adds voice and captions.</p>
-            <span class="go">See the case study</span>
-          </div>
-        </a>
         <a class="pc" data-cat="ai" href="https://adnnankhan.github.io/GitBrief/" target="_blank" rel="noopener">
           <div class="cv g1 has-shots">
           <div class="shots">
             <div class="shot web back"><img src="images/card-gitbrief-back.jpg" alt="GitBrief activity page with a commits-over-time chart" loading="lazy" decoding="async" width="780" height="610"></div>
             <div class="shot web front"><img src="images/card-gitbrief-front.jpg" alt="GitBrief brief in plain language, with inferred claims labelled" loading="lazy" decoding="async" width="1150" height="760"></div>
-          </div><span class="num">02</span><span class="yr">2026</span><span class="cmd">show me this week's commits</span><span class="int">Are we on track, and is anything stuck?</span></div>
+          </div><span class="num">01</span><span class="yr">2026</span><span class="cmd">show me this week's commits</span><span class="int">Are we on track, and is anything stuck?</span></div>
           <div class="bd">
             <h3>GitBrief</h3>
             <div class="pt"><span>AI product</span><span>Web</span><span class="st">Working prototype</span></div>
             <p>A week of developer activity, turned into a brief a non-technical leader can read and check.</p>
             <span class="go">Read the case study</span>
+          </div>
+        </a>
+        <a class="pc" data-cat="ai dev" href="https://adnnankhan.github.io/Replix/" target="_blank" rel="noopener">
+          <div class="cv g7 has-shots">
+          <div class="shots">
+            <div class="shot web dark back"><img src="images/replix/replix-1-reading-code.png" alt="Replix reading a codebase: the screens, features and flows it found" loading="lazy" decoding="async" width="1914" height="863"></div>
+            <div class="shot web dark front"><img src="images/replix/replix-2-storyboard.png" alt="Replix storyboard editor: chat, video preview, scene timeline and export settings" loading="lazy" decoding="async" width="1914" height="866"></div>
+          </div><span class="num">02</span><span class="yr">2026</span><span class="cmd">make a demo video of my app</span><span class="int">Show people why it matters, without recording a thing.</span></div>
+          <div class="bd">
+            <h3>Replix</h3>
+            <div class="pt"><span>AI product</span><span>Desktop</span><span class="st">In development</span></div>
+            <p>Turns a product's code into a finished demo video. It plans the scenes with you, films the real app, and adds voice and captions.</p>
+            <span class="go">See the case study</span>
           </div>
         </a>
         <a class="pc" data-cat="concept" href="https://www.figma.com/deck/PD4XyMT1EzsWULsxSRiOuc" target="_blank" rel="noopener">
@@ -1267,8 +1260,8 @@
   /* Hero intent device */
   var examples=[
     {typed:"show me this week's commits", meant:"Are we on track, and is anything stuck?", note:"The gap between these two lines is the job.", link:"https://adnnankhan.github.io/GitBrief/auth.html", label:"Open the GitBrief prototype"},
-    {typed:"track my calories", meant:"Help me follow through on a plan I already made.", note:"Nobody downloads a diet app to count. They download it to not quit.", link:"https://www.figma.com/deck/PD4XyMT1EzsWULsxSRiOuc", label:"Open the FitBite case study"},
     {typed:"make a demo video of my app", meant:"Show people why it matters, without recording a thing.", note:"Recording is the chore. Being understood is the point.", link:"https://adnnankhan.github.io/Replix/", label:"Open the Replix case study"},
+    {typed:"track my calories", meant:"Help me follow through on a plan I already made.", note:"Nobody downloads a diet app to count. They download it to not quit.", link:"https://www.figma.com/deck/PD4XyMT1EzsWULsxSRiOuc", label:"Open the FitBite case study"},
     {typed:"categorise my transactions", meant:"Tell me where my money quietly goes.", note:"Categories are the system's need. The story is the person's.", link:"https://adnnankhan.github.io/Where-did-my-money-go/", label:"See “Where did my money go?”"},
     {typed:"book a table for four", meant:"Get us in without the wait, and without the awkward call.", note:"The booking is the command. The evening is the intent.", link:"https://www.figma.com/deck/feWjt208BsF0enTrTwmx9L/Diney-Case-Study?node-id=1-42&t=RbZKK9kaXilGzOGq-1", label:"Open the Diney case study"}
   ];
