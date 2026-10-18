@@ -267,7 +267,8 @@
   .wc.c1{background:linear-gradient(120deg,#1E4FB5,#3F8BF2)}
   .wc.c2{background:linear-gradient(120deg,#0E7466,#3DBFA4)}
   .wc.c3{background:linear-gradient(120deg,#4A3FB0,#8A7DF0)}
-  .wc.c4{background:linear-gradient(120deg,#1E1638,#6D4FE0)}   /* Replix: same colours as its Work page card */
+  .wc.c4{background:linear-gradient(120deg,#1E1638,#6D4FE0)}
+  .wc.c5{background:linear-gradient(120deg,#121419,#3B414D)}   /* Nudge: the app's own graphite */   /* Replix: same colours as its Work page card */
   .wc > *{position:relative;z-index:1}
   .wc .num{position:absolute;top:clamp(20px,2.4vw,30px);left:clamp(24px,3.4vw,48px);font-family:var(--mono);font-size:15px;letter-spacing:.08em;color:#fff}
   .wc .yr{position:absolute;top:clamp(20px,2.4vw,30px);right:clamp(24px,3.4vw,48px);font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:rgba(255,255,255,.85);background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px}
@@ -299,6 +300,9 @@
   .c3 .shot.back {--l:75%;  --t:57.5%;   --w:31.667%;--r:6deg; --o:.6;  --ml:120;--mt:18;--mw:260;--mr:8deg}
   .c3 .shot.front{--l:52.5%;--t:70%;     --w:35%;    --r:-4deg;--o:.97; --ml:30; --mt:44;--mw:270;--mr:-5deg}
   .c4 .shot.back {--l:75%;  --t:57.5%;   --w:31.667%;--r:6deg; --o:.6;  --ml:120;--mt:18;--mw:260;--mr:8deg}
+  .c5 .shot.back {--l:81.25%;--t:48.667%;--w:17.5%;  --r:9deg; --o:.55; --ml:205;--mt:22;--mw:140;--mr:9deg}
+  .c5 .shot.front{--l:66.667%;--t:53%;   --w:18.333%;--r:-5deg;--o:.97; --ml:112;--mt:36;--mw:150;--mr:-5deg}
+  .c5 .shot.phone{background:#1A1B1F}   /* Nudge's phone-frame colour */
   .c4 .shot.front{--l:52.5%;--t:70%;     --w:35%;    --r:-4deg;--o:.97; --ml:30; --mt:44;--mw:270;--mr:-5deg}
   .c2 .shot.back {--l:81.25%;--t:48.667%;--w:17.5%;  --r:9deg; --o:.55; --ml:205;--mt:22;--mw:140;--mr:9deg}
   .c2 .shot.front{--l:66.667%;--t:53%;   --w:18.333%;--r:-5deg;--o:.97; --ml:112;--mt:36;--mw:150;--mr:-5deg}
@@ -604,6 +608,7 @@
   .g5{background:linear-gradient(120deg,#8C5A1F,#E0A956)}
   .g6{background:linear-gradient(120deg,#2A5B78,#6FB1D6)}
   .g7{background:linear-gradient(120deg,#1E1638,#6D4FE0)}
+  .g8{background:linear-gradient(120deg,#121419,#3B414D)}
   .pc .bd{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
   .pc h3{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(24px,2vw,30px);line-height:1.08;letter-spacing:-.015em}
   .pc .pt{display:flex;flex-wrap:wrap;gap:6px}
@@ -779,7 +784,7 @@
     <div class="wrap">
       <div class="sec-head rv pre">
         <div>
-          <div class="eyebrow"><b>Selected work</b> · Three of seven</div>
+          <div class="eyebrow"><b>Selected work</b> · Three of eight</div>
           <h2 class="serif h-l">What they asked for, <i>and what they needed.</i></h2>
         </div>
         <p class="lede">Two AI products and a health concept, each built to test an&nbsp;idea.</p>
@@ -787,24 +792,23 @@
 
       <div class="stack" id="stack">
         <div class="stack-item" style="--i:0">
-          <article class="wc c1">
-            <span class="num">01<span class="pn">GitBrief</span></span><span class="yr">2026</span>
+          <article class="wc c5">
+            <span class="num">01<span class="pn">Nudge</span></span><span class="yr">2026</span>
             <div>
-              <h3 class="serif">A week of commits, turned into a brief a founder can read and check.</h3>
-              <div class="tags"><span class="tag">AI product</span><span class="tag">Web</span><span class="tag">Designer + 1 engineer</span><span class="tag st">Working prototype</span></div>
-              <p>GitBrief translates developer activity for non-technical leaders.</p>
-              <div class="actions"><a class="btn white" href="https://adnnankhan.github.io/GitBrief/" target="_blank" rel="noopener">View case study</a><a class="btn line" href="https://adnnankhan.github.io/GitBrief/auth.html" target="_blank" rel="noopener">Try the prototype ↗</a></div>
+              <h3 class="serif">Never miss what your coding agent needs.</h3>
+              <div class="tags"><span class="tag">AI product</span><span class="tag">Mobile</span><span class="tag">Solo</span><span class="tag st">Live prototype</span></div>
+              <p>Nudge brings your coding agents' requests to your phone, explains them in plain words, and lets you answer safely.</p>
+              <div class="actions"><a class="btn white" href="https://adnnankhan.github.io/Nudge/" target="_blank" rel="noopener">View case study</a><a class="btn line" href="https://adnnankhan.github.io/Nudge/app/" target="_blank" rel="noopener">Try the prototype ↗</a></div>
             </div>
             <div class="panel" aria-hidden="true">
-              <div class="mline"><span class="tg">#312</span> feat(checkout): split payment intent · merged</div>
-              <div class="mline"><span class="tg">#309</span> fix(auth): refresh token race · merged</div>
-              <div class="mline"><span class="tg">fix/webhook-retry</span> · 6 commits · no PR</div>
-              <div class="brief">Checkout now takes split payments<span class="sup">1</span>, and the login bug is fixed<span class="sup">2</span>.</div>
+              <div class="dl">The problem</div>
+              <div class="new">The agent doesn't fail. <i>It waits — and nobody's there to answer.</i></div>
+              <div class="mline">Sent → Reached your computer → Running</div>
             </div>
             <!-- product screens: back behind, front on top; bleed off the card's bottom/right edge -->
             <div class="shots">
-              <div class="shot back"><img src="images/card-gitbrief-back.jpg" alt="GitBrief activity page with a commits-over-time chart" width="780" height="610" loading="lazy" decoding="async"></div>
-              <div class="shot front"><img src="images/card-gitbrief-front.jpg" alt="GitBrief brief in plain language, with inferred claims labelled" width="1150" height="760" loading="lazy" decoding="async"></div>
+              <div class="shot back phone"><img src="images/nudge/nudge-high-risk.png" alt="Nudge high-risk approval in the chat: hold to approve a force-push" width="780" height="1688" loading="lazy" decoding="async"></div>
+              <div class="shot front phone"><img src="images/nudge/nudge-home.png" alt="Nudge home: what needs you first, with a low-risk request to approve" width="780" height="1688" loading="lazy" decoding="async"></div>
             </div>
           </article>
         </div>
@@ -857,7 +861,7 @@
       </div>
 
       <div class="more">
-        <a class="glass" href="#all-work">See all work <span class="cnt">7 projects</span><span class="ar" aria-hidden="true">→</span></a>
+        <a class="glass" href="#all-work">See all work <span class="cnt">8 projects</span><span class="ar" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -1038,14 +1042,14 @@
     <span class="nav-sentinel" data-nav-mark="off" style="top:70%" aria-hidden="true"></span>
     <div class="wrap">
       <a class="back" href="#home">← Back home</a>
-      <div class="eyebrow"><b>All work</b> · Seven projects</div>
+      <div class="eyebrow"><b>All work</b> · Eight projects</div>
       <h1 class="serif" style="margin-top:14px">Everything, <i>in one place.</i></h1>
       <p class="lede">Agency work, a product in progress, and concepts I made to test ideas. Each one starts from what someone asked for, and what they actually needed.</p>
       <div class="filters" role="group" aria-label="Filter projects">
-        <button type="button" aria-pressed="true" data-f="all" id="f-all">All <span>7</span></button>
-        <button type="button" aria-pressed="false" data-f="ai" id="f-ai">AI &amp; UX <span>3</span></button>
+        <button type="button" aria-pressed="true" data-f="all" id="f-all">All <span>8</span></button>
+        <button type="button" aria-pressed="false" data-f="ai" id="f-ai">AI &amp; UX <span>4</span></button>
         <button type="button" aria-pressed="false" data-f="agency" id="f-agency">Agency work <span>1</span></button>
-        <button type="button" aria-pressed="false" data-f="concept" id="f-concept">Concepts <span>4</span></button>
+        <button type="button" aria-pressed="false" data-f="concept" id="f-concept">Concepts <span>5</span></button>
         <button type="button" aria-pressed="false" data-f="dev" id="f-dev">In development <span>1</span></button>
       </div>
     </div>
@@ -1054,12 +1058,25 @@
   <section class="band" style="padding-block:clamp(24px,3vw,40px) clamp(72px,9vw,120px)">
     <div class="wrap">
       <div class="grid" id="grid">
+        <a class="pc" data-cat="ai concept" href="https://adnnankhan.github.io/Nudge/" target="_blank" rel="noopener">
+          <div class="cv g8 has-shots">
+          <div class="shots">
+            <div class="shot phone back" style="background:#1A1B1F"><img src="images/nudge/nudge-high-risk.png" alt="Nudge high-risk approval in the chat: hold to approve a force-push" width="780" height="1688" loading="lazy" decoding="async"></div>
+            <div class="shot phone front" style="background:#1A1B1F"><img src="images/nudge/nudge-home.png" alt="Nudge home: what needs you first, with a low-risk request to approve" width="780" height="1688" loading="lazy" decoding="async"></div>
+          </div><span class="num">01</span><span class="yr">2026</span><span class="cmd">approve it from my phone</span><span class="int">Never miss what your coding agent needs.</span></div>
+          <div class="bd">
+            <h3>Nudge</h3>
+            <div class="pt"><span>AI product</span><span>Mobile</span><span class="st">Live prototype</span></div>
+            <p>A phone app for people who run AI coding agents. It brings each request to your phone, explains it in plain words, and lets you answer safely.</p>
+            <span class="go">Read the case study</span>
+          </div>
+        </a>
         <a class="pc" data-cat="ai" href="https://adnnankhan.github.io/GitBrief/" target="_blank" rel="noopener">
           <div class="cv g1 has-shots">
           <div class="shots">
             <div class="shot web back"><img src="images/card-gitbrief-back.jpg" alt="GitBrief activity page with a commits-over-time chart" loading="lazy" decoding="async" width="780" height="610"></div>
             <div class="shot web front"><img src="images/card-gitbrief-front.jpg" alt="GitBrief brief in plain language, with inferred claims labelled" loading="lazy" decoding="async" width="1150" height="760"></div>
-          </div><span class="num">01</span><span class="yr">2026</span><span class="cmd">show me this week's commits</span><span class="int">Are we on track, and is anything stuck?</span></div>
+          </div><span class="num">02</span><span class="yr">2026</span><span class="cmd">show me this week's commits</span><span class="int">Are we on track, and is anything stuck?</span></div>
           <div class="bd">
             <h3>GitBrief</h3>
             <div class="pt"><span>AI product</span><span>Web</span><span class="st">Working prototype</span></div>
@@ -1072,7 +1089,7 @@
           <div class="shots">
             <div class="shot web dark back"><img src="images/replix/replix-1-reading-code.png" alt="Replix reading a codebase: the screens, features and flows it found" loading="lazy" decoding="async" width="1914" height="863"></div>
             <div class="shot web dark front"><img src="images/replix/replix-2-storyboard.png" alt="Replix storyboard editor: chat, video preview, scene timeline and export settings" loading="lazy" decoding="async" width="1914" height="866"></div>
-          </div><span class="num">02</span><span class="yr">2026</span><span class="cmd">make a demo video of my app</span><span class="int">Show people why it matters, without recording a thing.</span></div>
+          </div><span class="num">03</span><span class="yr">2026</span><span class="cmd">make a demo video of my app</span><span class="int">Show people why it matters, without recording a thing.</span></div>
           <div class="bd">
             <h3>Replix</h3>
             <div class="pt"><span>AI product</span><span>Desktop</span><span class="st">In development</span></div>
@@ -1085,7 +1102,7 @@
           <div class="shots">
             <div class="shot phone back" style="background:#0B4D44"><img src="images/card-fitbite-back.jpg" alt="FitBite plan-ready screen" loading="lazy" decoding="async" width="804" height="1748"></div>
             <div class="shot phone front" style="background:#0B4D44"><img src="images/card-fitbite-front.jpg" alt="FitBite home screen" loading="lazy" decoding="async" width="804" height="1748"></div>
-          </div><span class="num">03</span><span class="yr">2025</span><span class="cmd">track my calories</span><span class="int">Help me follow through on a plan I already made.</span></div>
+          </div><span class="num">04</span><span class="yr">2025</span><span class="cmd">track my calories</span><span class="int">Help me follow through on a plan I already made.</span></div>
           <div class="bd">
             <h3>FitBite</h3>
             <div class="pt"><span>Health</span><span>Mobile</span><span class="st">Concept</span></div>
@@ -1098,7 +1115,7 @@
           <div class="shots">
             <div class="shot web back"><img src="images/card-craftstudioo-back.jpg" alt="Services section of the Craftstudioo website" loading="lazy" decoding="async" width="720" height="540"></div>
             <div class="shot web front"><img src="images/card-craftstudioo-front.jpg" alt="Homepage of the Craftstudioo website" loading="lazy" decoding="async" width="1000" height="590"></div>
-          </div><span class="num">04</span><span class="yr">2025</span><span class="cmd">we need a website</span><span class="int">Make us look worth trusting.</span></div>
+          </div><span class="num">05</span><span class="yr">2025</span><span class="cmd">we need a website</span><span class="int">Make us look worth trusting.</span></div>
           <div class="bd">
             <h3>Craftstudioo</h3>
             <div class="pt"><span>Agency work</span><span>Web</span><span class="st">Shipped</span></div>
@@ -1111,7 +1128,7 @@
           <div class="shots">
             <div class="shot phone back" style="background:#7A3522"><img src="images/card-money-back.jpg" alt="Where did my money go? sort screen, separating shops from shared payment pipes" loading="lazy" decoding="async" width="760" height="1700"></div>
             <div class="shot phone front" style="background:#7A3522"><img src="images/card-money-front.jpg" alt="Where did my money go? home screen with monthly spending by category" loading="lazy" decoding="async" width="760" height="1700"></div>
-          </div><span class="num">05</span><span class="yr">2026</span><span class="cmd">categorise my transactions</span><span class="int">Tell me where my money quietly goes.</span></div>
+          </div><span class="num">06</span><span class="yr">2026</span><span class="cmd">categorise my transactions</span><span class="int">Tell me where my money quietly goes.</span></div>
           <div class="bd">
             <h3>Where did my money go?</h3>
             <div class="pt"><span>Fintech</span><span>Mobile</span><span class="st">Concept</span></div>
@@ -1124,7 +1141,7 @@
           <div class="shots">
             <div class="shot phone back" style="background:#5A3A12"><img src="images/card-diney-back.jpg" alt="Diney restaurant page with menu" loading="lazy" decoding="async" width="780" height="1703"></div>
             <div class="shot phone front" style="background:#5A3A12"><img src="images/card-diney-front.jpg" alt="Diney home screen with nearby restaurants and offers" loading="lazy" decoding="async" width="780" height="1705"></div>
-          </div><span class="num">06</span><span class="yr">First study</span><span class="cmd">book a table for four</span><span class="int">Get us in without the wait.</span></div>
+          </div><span class="num">07</span><span class="yr">First study</span><span class="cmd">book a table for four</span><span class="int">Get us in without the wait.</span></div>
           <div class="bd">
             <h3>Diney</h3>
             <div class="pt"><span>Food</span><span>Mobile</span><span class="st">Concept</span></div>
@@ -1138,7 +1155,7 @@
             <div class="hco back o1"><div class="hk"><span>OPTION A</span></div><div class="hl"></div><div class="hl s"></div></div>
             <div class="hco back o2"><div class="hk"><span>OPTION B</span></div><div class="hl"></div><div class="hl s"></div></div>
             <div class="hco pick o3"><div class="hk"><span>OPTION C</span><span class="hck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7.5"/></svg></span></div><div class="ht">This one.</div><div class="hl s"></div></div>
-          </div><span class="num">07</span><span class="yr">A few hours</span><span class="cmd">which one should I pick?</span><span class="int">Make the choice feel smaller.</span></div>
+          </div><span class="num">08</span><span class="yr">A few hours</span><span class="cmd">which one should I pick?</span><span class="int">Make the choice feel smaller.</span></div>
           <div class="bd">
             <h3>Help me choose</h3>
             <div class="pt"><span>AI UX</span><span>Experiment</span><span class="st">Concept</span></div>
