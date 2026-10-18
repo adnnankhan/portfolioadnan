@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Craftstudioo — Case study · Adnan Asif Khan</title>
+<meta name="description" content="Craftstudioo had clients, a team and real work, but nowhere to send a new lead. The site brought in 6 new customers in its first month.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Craftstudioo — Case study · Adnan Asif Khan">
+<meta property="og:description" content="A creative agency with no website. I designed and shipped one in a month.">
+<meta property="og:url" content="https://adnnankhan.github.io/craftstudioo/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2064%2064'%3E%3Crect%20width%3D'64'%20height%3D'64'%20rx%3D'16'%20fill%3D'%230A0A0A'%2F%3E%3Ccircle%20cx%3D'32'%20cy%3D'32'%20r%3D'10'%20fill%3D'%23E67919'%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&display=swap">
+<style>
+  /* Craftstudioo's own palette and type, taken from the site design (desktop.png) */
+  :root{
+    --bg:#0A0A0A; --card:#151515; --card-2:#191919; --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.16);
+    --t:#FFFFFF; --m:#A3A3A3; --f:#6E6E6E;
+    --or:#E67919; --or-hi:#F28C2E;
+    --sans:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --gutter:clamp(16px,5vw,64px); --max:1160px;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--t);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible{outline:2px solid var(--or);outline-offset:3px;border-radius:6px}
+  ::selection{background:var(--or);color:#0A0A0A}
+  img{display:block;max-width:100%;height:auto}
+  .wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+  /* the orange dot from the logo, after headings — same as on the Craftstudioo site */
+  .dot{display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--or);margin-left:.06em;vertical-align:.05em}
+  h2 .dot{width:.2em;height:.2em;vertical-align:.5em;margin-left:.08em}
+
+  /* TOP BAR */
+  .top{position:sticky;top:0;z-index:10;background:rgba(10,10,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+  .top .logo img{height:30px;width:auto}
+  .back{font-size:14px;font-weight:400;color:var(--m);padding:8px 14px;border:1px solid var(--line-2);border-radius:999px;transition:color .2s ease,border-color .2s ease;white-space:nowrap}
+  .back:hover{color:var(--t);border-color:rgba(255,255,255,.4)}
+
+  /* HERO */
+  .hero{position:relative;padding:clamp(56px,9vw,120px) 0 clamp(48px,6vw,80px)}   /* no overflow clip: the offline popup can hang below */
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(80% 70% at 30% 20%,#000,transparent 75%);mask-image:radial-gradient(80% 70% at 30% 20%,#000,transparent 75%)}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:-30%;height:60%;pointer-events:none;background:radial-gradient(50% 50% at 50% 50%,rgba(230,121,25,.06),rgba(230,121,25,0) 70%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--m)}
+  h1{margin:20px 0 0;font-size:clamp(40px,6.4vw,84px);font-weight:700;line-height:1;letter-spacing:-.045em;max-width:15ch;text-wrap:balance}
+  h1 .key{color:var(--or)}
+  .sub{margin:clamp(20px,2.4vw,28px) 0 0;font-size:clamp(18px,1.6vw,21px);font-weight:300;line-height:1.5;color:#D4D4D4;max-width:36em}
+  .meta{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 40px;margin-top:clamp(36px,4.5vw,56px);padding-top:24px;border-top:1px solid var(--line)}
+  .meta dl{display:flex;flex-wrap:wrap;gap:16px clamp(28px,4vw,56px);margin:0}
+  .meta dt{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--f);margin-bottom:6px}
+  .meta dd{margin:0;font-size:16px;font-weight:400}
+  .meta dd .off{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--f);margin-right:8px;vertical-align:.12em}
+  .actions{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:15px;font-weight:500;white-space:nowrap;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.pri{background:var(--or);color:#fff}
+  .btn.pri:hover{background:var(--or-hi)}
+  .btn.alt{background:var(--card-2);border:1px solid var(--line-2);color:var(--t)}
+  .btn.alt:hover{border-color:rgba(255,255,255,.4)}
+  .btn .ar{font-weight:400}
+
+  /* RESULT */
+  .result{padding-bottom:clamp(64px,8vw,112px)}
+  .result-card{display:flex;align-items:center;flex-wrap:wrap;gap:8px clamp(20px,3vw,40px);padding:clamp(28px,4vw,48px);border-radius:24px;background:var(--card);border:1px solid var(--line)}
+  .result .n{font-size:clamp(104px,15vw,200px);font-weight:800;line-height:.82;letter-spacing:-.06em}
+  .result .n .dot{width:.14em;height:.14em;vertical-align:baseline;margin-left:.04em}
+  .result .t{font-size:clamp(24px,2.8vw,40px);font-weight:400;line-height:1.1;letter-spacing:-.025em;max-width:15ch}
+
+  /* SECTIONS */
+  .sec{padding-block:clamp(56px,7vw,104px);border-top:1px solid var(--line)}
+  h2{margin:0;font-size:clamp(32px,4.2vw,56px);font-weight:600;line-height:1.04;letter-spacing:-.035em;text-wrap:balance}
+  .copy{margin-top:clamp(20px,2.4vw,32px)}
+  .copy p{margin:0 0 16px;font-size:clamp(17px,1.3vw,19px);line-height:1.6;color:var(--m);max-width:38em}
+  .copy p:last-child{margin-bottom:0}
+  .copy p.big{font-size:clamp(21px,2vw,28px);font-weight:400;line-height:1.4;letter-spacing:-.015em;color:#E5E5E5;max-width:30em}
+
+  /* THE THREE QUESTIONS */
+  .qs{list-style:none;margin:clamp(24px,3vw,36px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .qs li{display:flex;flex-direction:column;justify-content:space-between;gap:clamp(28px,4vw,56px);padding:clamp(20px,2.4vw,28px);border-radius:20px;background:var(--card);border:1px solid var(--line-2)}
+  .qs .k{align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:28px;padding:0 10px;border-radius:999px;border:1px solid var(--line-2);font-size:13px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--m)}
+  .qs .q{font-size:clamp(24px,2.5vw,34px);font-weight:500;line-height:1.1;letter-spacing:-.03em;color:var(--t)}
+  @media (max-width:760px){.qs{grid-template-columns:1fr}.qs li{flex-direction:row;align-items:center;gap:16px}}
+
+  /* SECTION BY SECTION */
+  .steps{margin-top:clamp(36px,4.5vw,64px);display:flex;flex-direction:column}
+  .step{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4.5vw,72px);align-items:start;padding-block:clamp(32px,4vw,56px);border-top:1px solid var(--line)}
+  .step:first-child{border-top:0;padding-top:0}
+  .step .txt{position:sticky;top:96px}
+  .step .k{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:28px;padding:0 10px;border-radius:999px;border:1px solid var(--line-2);font-size:13px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--m)}
+  .step h3{margin:16px 0 0;font-size:clamp(23px,2.2vw,30px);font-weight:500;line-height:1.15;letter-spacing:-.025em;text-wrap:balance}
+  .step p{margin:14px 0 0;font-size:16.5px;line-height:1.6;color:var(--m);max-width:30em}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .tags span{font-size:13px;font-weight:400;padding:7px 13px;border-radius:999px;background:var(--card-2);border:1px solid var(--line);color:#BDBDBD}
+  .frame{margin:0;border-radius:18px;overflow:hidden;background:var(--bg);border:1px solid var(--line-2);box-shadow:0 30px 60px -40px rgba(0,0,0,.9)}
+  .frame img{width:100%}
+  @media (max-width:860px){
+    .step{grid-template-columns:minmax(0,1fr);gap:22px}
+    .step .txt{position:static}
+  }
+
+  /* QUOTES */
+  .quotes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:clamp(24px,3vw,40px)}
+  @media (max-width:760px){.quotes{grid-template-columns:1fr}}
+  .quote{margin:0;padding:clamp(24px,3vw,36px);border-radius:20px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+  .quote blockquote{margin:0;font-size:clamp(18px,1.5vw,21px);font-weight:400;line-height:1.5;letter-spacing:-.01em;color:#E5E5E5}
+  .quote figcaption{font-size:14px;color:var(--m)}
+
+  /* NEXT + FOOTER */
+  .next{padding-block:clamp(64px,8vw,120px);border-top:1px solid var(--line)}
+  .next .eyebrow{margin-bottom:14px}
+  .next a{display:inline-flex;align-items:baseline;gap:.2em;font-size:clamp(44px,7vw,96px);font-weight:300;line-height:1.05;letter-spacing:-.04em;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.14em;text-decoration-color:rgba(255,255,255,.4);transition:text-decoration-color .2s ease}
+  .next a .ar{color:var(--or);font-size:.6em;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  .next a:hover{text-decoration-color:var(--t)}
+  .next a:hover .ar{transform:translate(.08em,-.08em)}
+  footer{border-top:1px solid var(--line)}
+  footer .wrap{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px 24px;padding-block:32px 40px}
+  footer .who b{display:block;font-size:17px;font-weight:500}
+  footer .who span{font-size:14px;color:var(--m)}
+  footer nav{display:flex;flex-wrap:wrap;gap:6px 24px;font-size:14.5px;color:var(--m)}
+  footer nav a{display:inline-flex;align-items:center;min-height:44px;transition:color .2s ease}
+  footer nav a:hover{color:var(--t)}
+
+  /* GLASS: the grey cards, pills and buttons, over a soft fixed glow so the blur has something to show */
+  .ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .ambient span{position:absolute;border-radius:50%;filter:blur(90px)}
+  .ambient .a1{width:42vw;height:42vw;max-width:620px;max-height:620px;right:-8vw;top:8vh;background:rgba(230,121,25,.09);animation:drift-a 32s ease-in-out infinite alternate}
+  .ambient .a2{width:36vw;height:36vw;max-width:520px;max-height:520px;left:-10vw;bottom:-6vh;background:rgba(255,255,255,.04);animation:drift-b 38s ease-in-out infinite alternate}
+  .ambient .a3{width:26vw;height:26vw;max-width:380px;max-height:380px;left:38%;top:46vh;background:rgba(200,80,20,.06);animation:drift-c 44s ease-in-out infinite alternate}
+  @keyframes drift-a{to{transform:translate(-6vw,8vh) scale(1.08)}}
+  @keyframes drift-b{to{transform:translate(8vw,-6vh) scale(.94)}}
+  @keyframes drift-c{to{transform:translate(-5vw,-8vh) scale(1.1)}}
+  @media (prefers-reduced-motion:reduce){.ambient span{animation:none}}
+  @media (max-width:599px){.ambient span{filter:blur(60px)}.ambient .a1{width:80vw;height:80vw}.ambient .a2{width:70vw;height:70vw}}
+  .back,.btn.alt,.result-card,.qs li,.tags span,.step .k,.qs .k,.quote,.why,.why-pop{
+    background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.02));
+    backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 -1px 0 rgba(255,255,255,.02),0 18px 40px -28px rgba(0,0,0,.8)}
+  .back:hover,.btn.alt:hover{border-color:rgba(255,255,255,.3);background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.03))}
+
+  /* OFFLINE: "?" button + small popup */
+  .status{position:relative;display:inline-flex;align-items:center;gap:8px}
+  .why{appearance:none;display:inline-grid;place-items:center;width:22px;height:22px;padding:0;border-radius:50%;color:var(--m);font:500 12px/1 var(--sans);cursor:pointer;transition:color .2s ease,border-color .2s ease}
+  .why:hover,.why[aria-expanded="true"]{color:var(--t);border-color:rgba(255,255,255,.35)}
+  .why:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+  .why-pop{position:absolute;z-index:20;top:calc(100% + 10px);left:0;width:min(280px,calc(100vw - 32px));margin:0;padding:14px 16px;border-radius:14px;font-size:14.5px;line-height:1.5;color:#E5E5E5;
+    background:linear-gradient(135deg,rgba(40,40,40,.86),rgba(22,22,22,.86))}
+  .why-pop[hidden]{display:none}
+  .why-pop::before{content:"";position:absolute;top:-6px;left:calc(var(--arrow,62px) - 6px);width:10px;height:10px;transform:rotate(45deg);background:rgba(40,40,40,.9);border-left:1px solid rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.12)}
+  @media (prefers-reduced-motion:no-preference){.why-pop:not([hidden]){animation:pop .18s ease-out}}
+  @keyframes pop{from{opacity:0;transform:translateY(-4px)}}
+
+  @media (max-width:599px){
+    .top .logo img{height:24px}
+    .back{font-size:13px;padding:7px 12px}
+    .meta{flex-direction:column;align-items:flex-start}
+    .actions{width:100%}
+    .btn{flex:1 1 auto;justify-content:center}
+  }
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+
+<header class="top">
+  <div class="wrap">
+    <span class="logo"><img src="images/logo.svg" alt="Craft Studioo" width="735" height="333"></span>
+    <a class="back" href="https://adnan.world/#all-work">← adnan.world</a>
+  </div>
+</header>
+
+<main>
+  <!-- INTRO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Case study · Agency work · 2025</div>
+      <h1>A creative agency with no website. I designed and <span class="key">shipped one in a month</span>.</h1>
+      <p class="sub">Craftstudioo had clients, a team and real work, but nowhere to send a new lead. The site brought in 6 new customers in its first month.</p>
+      <div class="meta">
+        <dl>
+          <div><dt>Role</dt><dd>Designer</dd></div>
+          <div><dt>Timeline</dt><dd>1 month to launch, refined through 2025</dd></div>
+          <div><dt>Status</dt><dd class="status"><span><span class="off" aria-hidden="true"></span>Offline</span><button type="button" class="why" id="whyBtn" aria-expanded="false" aria-controls="whyPop" aria-label="Why is the site offline?">?</button><p class="why-pop" id="whyPop" role="status" hidden>The site is offline because the team members landed jobs, and we didn't have time to keep the agency going.</p></dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn pri" href="https://www.figma.com/proto/ftuvxt5mZZFxYQ98zcNclq/CRAFT-STUDIOO?node-id=576-3410&amp;t=4TFyViYpZxO9IJ6z-1" target="_blank" rel="noopener">View in Figma <span class="ar" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="result" aria-label="Result">
+    <div class="wrap">
+      <div class="result-card">
+        <span class="n">6<span class="dot" aria-hidden="true"></span></span>
+        <span class="t">new customers in the first month after launch.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="sec">
+    <div class="wrap">
+      <h2>The problem<span class="dot" aria-hidden="true"></span></h2>
+      <div class="copy">
+        <p class="big">Craftstudioo had clients, a team and work to show. What it didn't have was a website, so every new lead had to take the agency at its word.</p>
+        <p>The goal: one page that answers three questions fast.</p>
+      </div>
+      <ol class="qs">
+        <li><span class="k">1</span><span class="q">What do you do?</span></li>
+        <li><span class="k">2</span><span class="q">Can I trust you?</span></li>
+        <li><span class="k">3</span><span class="q">How do I start?</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- SECTION BY SECTION -->
+  <section class="sec">
+    <div class="wrap">
+      <h2>The page, section by section<span class="dot" aria-hidden="true"></span></h2>
+      <div class="steps">
+
+        <article class="step">
+          <div class="txt">
+            <span class="k">01</span>
+            <h3>One clear next step</h3>
+            <p>Five service chips show everything the agency does at a glance. "Let's Talk" is the only orange button on screen, so there's one obvious action.</p>
+            <div class="tags"><span>Von Restorff effect</span><span>Hick's Law</span></div>
+          </div>
+          <figure class="frame"><img src="images/01-hero.jpg" alt="Craftstudioo hero: five service chips and one orange &quot;Let's Talk&quot; button" width="1440" height="820" loading="lazy" decoding="async"></figure>
+        </article>
+
+        <article class="step">
+          <div class="txt">
+            <span class="k">02</span>
+            <h3>Show the craft, don't describe it</h3>
+            <p>I made the "WEBSITE" intro animation so the page proves the agency's skill before anyone reads a word.</p>
+            <div class="tags"><span>Aesthetic-usability effect</span></div>
+          </div>
+          <figure class="frame"><picture><source srcset="images/02-intro-still.jpg" media="(prefers-reduced-motion: reduce)"><img src="images/02-intro.webp" alt="The &quot;WEBSITE&quot; intro animation from the Craftstudioo site" width="1000" height="562" loading="lazy" decoding="async"></picture></figure>
+        </article>
+
+        <article class="step">
+          <div class="txt">
+            <span class="k">03</span>
+            <h3>Trust, early</h3>
+            <p>Real client logos sit right under the hero, in grey, so they build trust without pulling attention from the action.</p>
+            <div class="tags"><span>Social proof</span></div>
+          </div>
+          <figure class="frame"><img src="images/03-logos.jpg" alt="Client logos under the hero: Vaultor, IndiaShastra, Geekster, PropGrow, FastTutor" width="1440" height="315" loading="lazy" decoding="async"></figure>
+        </article>
+
+        <article class="step">
+          <div class="txt">
+            <span class="k">04</span>
+            <h3>Services you understand in a glance</h3>
+            <p>Four image cards in a 2×2 grid. Each photo explains its service faster than a sentence, and the ↗ arrow shows it opens.</p>
+            <div class="tags"><span>Picture superiority</span><span>Common region</span><span>Affordance</span></div>
+          </div>
+          <figure class="frame"><img src="images/04-services.jpg" alt="Services as four photo cards in a 2×2 grid, each with a ↗ arrow" width="1440" height="1135" loading="lazy" decoding="async"></figure>
+        </article>
+
+        <article class="step">
+          <div class="txt">
+            <span class="k">05</span>
+            <h3>Why this agency</h3>
+            <p>Three pillars, each with the same structure and one "Our Edge" line. That line answers the question every client has: why you?</p>
+            <div class="tags"><span>Chunking</span><span>Consistency</span></div>
+          </div>
+          <figure class="frame"><img src="images/05-pillars.jpg" alt="Three pillar cards with the same structure, each ending in an &quot;Our Edge&quot; line" width="1440" height="550" loading="lazy" decoding="async"></figure>
+        </article>
+
+
+        <article class="step">
+          <div class="txt">
+            <span class="k">06</span>
+            <h3>A form that's quick to fill</h3>
+            <p>Four fields. Email and phone sit side by side because both answer "how do we reach you?" The placeholder shows what to write, so nobody stares at an empty box.</p>
+            <div class="tags"><span>Hick's Law</span><span>Proximity</span></div>
+          </div>
+          <figure class="frame"><img src="images/07-form.jpg" alt="Contact form with four fields; email and phone side by side" width="1440" height="920" loading="lazy" decoding="async"></figure>
+        </article>
+
+        <article class="step">
+          <div class="txt">
+            <span class="k">07</span>
+            <h3>Doubts answered before they're asked</h3>
+            <p>Cost, timeline and process are answered in the FAQs, folded away so the page stays short.</p>
+            <div class="tags"><span>Progressive disclosure</span></div>
+          </div>
+          <figure class="frame"><img src="images/08-faqs.jpg" alt="FAQ list with one answer open and the rest folded away" width="1440" height="1135" loading="lazy" decoding="async"></figure>
+        </article>
+
+        <article class="step">
+          <div class="txt">
+            <span class="k">08</span>
+            <h3>Start and end with an action</h3>
+            <p>The page opens with "Let's Talk" and closes with "Get in touch". The first and last things people see are both a way to start.</p>
+            <div class="tags"><span>Serial position effect</span></div>
+          </div>
+          <figure class="frame"><img src="images/09-footer.jpg" alt="Footer closing with &quot;Want to work with us? Get in touch&quot;" width="1440" height="610" loading="lazy" decoding="async"></figure>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ONE RULE -->
+  <section class="sec">
+    <div class="wrap">
+      <h2>One rule across the page<span class="dot" aria-hidden="true"></span></h2>
+      <div class="copy"><p class="big">Orange is used only where it matters: actions, the key phrase, and the dot from the logo. Everything else stays quiet.</p></div>
+    </div>
+  </section>
+
+  <!-- WHAT HAPPENED -->
+  <section class="sec">
+    <div class="wrap">
+      <h2>What happened<span class="dot" aria-hidden="true"></span></h2>
+      <div class="copy"><p class="big">6 new customers in the first month after launch. I kept refining the site through 2025. Later the whole team got placed in full-time jobs, so the agency closed and the site went offline.</p></div>
+    </div>
+  </section>
+
+  <!-- WHAT THE TEAM SAID -->
+  <section class="sec">
+    <div class="wrap">
+      <h2>What the team said<span class="dot" aria-hidden="true"></span></h2>
+      <div class="quotes">
+        <figure class="quote"><blockquote>“The website looks great, man. It presents our agency really well and makes our work feel more professional. And bringing in 6 clients in our first month is a solid achievement. I think the way you've presented our services has made a real difference.”</blockquote><figcaption>— Video Editor, Craftstudioo</figcaption></figure>
+        <figure class="quote"><blockquote>“Honestly, you've done a great job with the website. It's clean, informative, and easy to understand. What I appreciate most is that your work has gone beyond design. Getting 6 clients in our first month is a great start for us, and you've played a big part in that.”</blockquote><figcaption>— Developer, Craftstudioo</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I LEARNED -->
+  <section class="sec">
+    <div class="wrap">
+      <h2>What I learned<span class="dot" aria-hidden="true"></span></h2>
+      <div class="copy"><p class="big">An agency landing page is a sales conversation. Each section has to answer the next question a client would ask, in the order they'd ask it.</p></div>
+    </div>
+  </section>
+
+  <!-- NEXT PROJECT -->
+  <section class="next">
+    <div class="wrap">
+      <div class="eyebrow">Next project</div>
+      <a href="https://adnnankhan.github.io/GitBrief/">GitBrief <span class="ar" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="who"><b>Adnan Asif Khan</b><span>Product / UX Designer</span></div>
+    <nav aria-label="Footer">
+      <a href="mailto:adnanasifkhan24@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/adnanasifkhan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://adnan.world" target="_blank" rel="noopener">Portfolio</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn=document.getElementById('whyBtn'), pop=document.getElementById('whyPop');
+  function set(open){pop.hidden=!open;btn.setAttribute('aria-expanded',String(open));
+    if(open){pop.style.setProperty('--arrow',(btn.offsetLeft+btn.offsetWidth/2)+'px')}}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(pop.hidden)});
+  document.addEventListener('click',function(e){if(!pop.hidden&&!pop.contains(e.target))set(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!pop.hidden){set(false);btn.focus()}});
+})();
+</script>
+
+</body>
+</html>
