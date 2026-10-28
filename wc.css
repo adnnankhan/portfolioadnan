@@ -1,0 +1,186 @@
+/* The work cards (shared by mockups.html and motion.html). */
+@font-face { font-family: "Newsreader"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/newsreader-latin.woff2") format("woff2"); }
+@font-face { font-family: "Newsreader"; font-style: italic; font-weight: 400; font-display: swap; src: url("fonts/newsreader-latin-italic.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Sans"; font-style: normal; font-weight: 400 500; font-display: swap; src: url("fonts/instrument-sans-latin.woff2") format("woff2"); }
+@font-face { font-family: "DM Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/dm-mono-latin-400.woff2") format("woff2"); }
+@font-face { font-family: "DM Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/dm-mono-latin-500.woff2") format("woff2"); }
+:root { --serif: "Newsreader", Georgia, serif; --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: "DM Mono", ui-monospace, Menlo, Consolas, monospace;
+  --pad: clamp(16px, 3.4vw, 48px); --ease: cubic-bezier(.2, .75, .15, 1);
+  /* the page: white by day, plain dark at night */
+  --page: #F7FAFD; --page-ink: #121B2C; --page-mut: #5B6577; --page-line: rgba(18, 27, 44, .1); color-scheme: light; }
+body.night { --page: #050914; --page-ink: #EEF2FB; --page-mut: #98A6C2; --page-line: rgba(238, 242, 251, .1); color-scheme: dark; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--page); color: var(--page-ink); font: 400 1rem/1.5 var(--sans); -webkit-font-smoothing: antialiased; transition: background .4s, color .4s; }
+a { color: inherit; }
+h2, h3, p { margin: 0; }
+
+/* ---------- the page around the cards ---------- */
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 12px; padding: 14px var(--pad); background: color-mix(in srgb, var(--page) 86%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--page-line); }
+.bar b { font: 500 .72rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--page-mut); margin-right: auto; }
+.seg { display: flex; gap: 2px; padding: 3px; border-radius: 999px; border: 1px solid var(--page-line); }
+.seg button { border: 0; background: none; color: var(--page-mut); font: 500 .8rem/1 var(--sans); padding: 8px 12px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--page-ink); color: var(--page); }
+.sec { max-width: 1200px; margin: 0 auto; padding: 64px var(--pad) 120px; }
+.sec-h { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 36px; }
+.sec-h h2 { font: 400 clamp(2.2rem, 4.6vw, 3.6rem)/1 var(--serif); letter-spacing: -.025em; }
+.sec-h h2 i { color: #3A68C8; }
+body.night .sec-h h2 i { color: #A9C8F7; }
+.sec-h span { font: 400 .74rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--page-mut); }
+.list { display: grid; gap: 28px; }
+body.narrow .list { max-width: 390px; margin: 0 auto; }
+
+/* =====================================================================
+   The work card: the project's colour and pieces of the project behind, a one-line title, real-looking mockups
+   ===================================================================== */
+.wc { --r: 30px; position: relative; container-type: inline-size; border-radius: var(--r); overflow: hidden; isolation: isolate; color: var(--fg);
+  background: var(--bg); aspect-ratio: 16 / 9; min-height: 520px; box-shadow: 0 1px 0 rgba(255, 255, 255, .06) inset, 0 30px 60px -36px rgba(18, 27, 44, .45); }
+body.night .wc { box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 30px 60px -36px rgba(0, 0, 0, .8); }
+.wc::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--glow); }
+.wc > a.cover { position: absolute; inset: 0; z-index: 5; border-radius: inherit; }
+.wc > a.cover:focus-visible { outline: 3px solid var(--fg); outline-offset: -6px; }
+.hd { position: relative; z-index: 4; display: flex; align-items: center; gap: 12px; padding: clamp(20px, 3.4cqi, 34px) clamp(20px, 3.6cqi, 38px) 0; font: 500 .68rem/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+.hd .yr, .hd .tg { color: var(--mut); }
+.hd .tg { margin-left: auto; }
+.hd .ar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--fg); color: var(--bg-solid); font: 400 1.05rem/1 var(--sans); flex: none; transition: transform .35s var(--ease); }
+.wc:hover .hd .ar { transform: rotate(45deg); }
+.ti { position: relative; z-index: 4; padding: 14px clamp(20px, 3.6cqi, 38px) 0; font: 400 clamp(1.4rem, 3.05cqi, 2.25rem)/1.12 var(--serif); letter-spacing: -.02em; }
+.ti span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ti .in { font-style: italic; color: var(--mut); }
+
+/* the project's own pieces, behind the mockups */
+.bgx { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.bgx > * { position: absolute; }
+.bgx svg { display: block; width: 100%; height: auto; }
+.bgx img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .28)); }
+.chip { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; border-radius: 999px; padding: 9px 14px; font: 500 .82rem/1 var(--sans); box-shadow: 0 16px 30px -18px rgba(0, 0, 0, .55); }
+.chip svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* the stage: mockups sit low and run off the bottom edge */
+.stage { position: absolute; left: 0; right: 0; bottom: 0; top: 36%; z-index: 2; }
+.mk { position: absolute; transition: transform .6s var(--ease); transform: var(--t, none); }
+.wc:hover .mk.f { transform: var(--t, none) translateY(-8px); }
+.wc:hover .mk.b { transform: var(--t, none) translateY(-3px); }
+/* phone: a slim device frame; the screenshots already carry the island */
+/* the bezel is sized from the card (cqi): a % padding would be measured against the stage, not the phone */
+.phone { aspect-ratio: 780 / 1688; padding: .4cqi; border-radius: 14% / 6.6%; background: #0B0B0D;
+  box-shadow: inset 0 0 0 1px #45464C, 0 40px 70px -30px rgba(0, 0, 0, .6), 0 12px 24px -14px rgba(0, 0, 0, .45); }
+.phone::before, .phone::after { content: ""; position: absolute; width: .9%; border-radius: 2px; background: #2E2F34; }
+.phone::before { right: -.7%; top: 22%; height: 10%; }
+.phone::after { left: -.7%; top: 18%; height: 5%; box-shadow: 0 240% 0 #2E2F34; }
+.phone .scr { width: 100%; height: 100%; border-radius: 13% / 6%; overflow: hidden; position: relative; background: #000; }
+.phone img, .win img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top; }
+/* window: a browser for the web app, an app window for the desktop app */
+.win { border-radius: 10px; overflow: hidden; background: var(--win, #FFFFFF); box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 40px 70px -30px rgba(0, 0, 0, .55), 0 12px 24px -14px rgba(0, 0, 0, .35); }
+.win .chrome { height: 20px; display: flex; align-items: center; gap: 5px; padding: 0 9px; background: var(--chrome, #ECEAE4); }
+.win .chrome i { width: 7px; height: 7px; border-radius: 50%; background: #E2584E; flex: none; }
+.win .chrome i:nth-child(2) { background: #E6B13B; } .win .chrome i:nth-child(3) { background: #5DBE4C; }
+.win .chrome u { flex: 0 1 40%; height: 10px; margin: 0 auto; border-radius: 4px; background: rgba(0, 0, 0, .07); }
+.win.dark { --win: #0F0F10; --chrome: #1B1B1D; }
+.win.dark .chrome u { background: rgba(255, 255, 255, .08); }
+.win.app .chrome u { display: none; }
+.win .scr { position: relative; aspect-ratio: var(--ar); }
+/* a decision, pinned where it lives on the screen; its words only on hover */
+.pin { position: absolute; z-index: 3; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: var(--pin, #FFFFFF); color: var(--pin-ink, #0B1226);
+  display: grid; place-items: center; font: 500 .6rem/1 var(--mono); box-shadow: 0 0 0 5px color-mix(in srgb, var(--pin, #fff) 30%, transparent), 0 6px 14px rgba(0, 0, 0, .35); }
+.pin span { position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translate(-50%, 4px); white-space: nowrap; padding: 7px 10px; border-radius: 10px; background: #0B1226; color: #EEF2FB; font: 500 .74rem/1 var(--sans); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s var(--ease); }
+.wc:hover .pin span { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- each project: its colours, two or three real pieces of its UI in a loose column on the left, one faint mark ---------- */
+.frag { left: var(--x); top: var(--y); transform: rotate(var(--rz, 0deg)); }
+/* Nudge: black and white, colour only for risk; a light card so its black phones read */
+.wc.nudge { --bg: linear-gradient(160deg, #F5F5F7 0%, #E4E4E9 100%); --bg-solid: #F5F5F7; --fg: #0E0F12; --mut: #6E6E76; --glow: radial-gradient(60% 70% at 70% 100%, rgba(14, 15, 18, .10), transparent 70%); }
+body.night .wc.nudge { --bg: linear-gradient(160deg, #E6E6EA 0%, #CFCFD6 100%); --bg-solid: #E6E6EA; }
+.nudge .m1 { left: 35%; top: 16%; width: 23%; --t: rotate(-7deg); }
+.nudge .m2 { left: 56%; top: 0%; width: 25%; --t: rotate(4deg); }
+.nudge .mark { left: -12%; bottom: -40%; width: 46%; color: rgba(14, 15, 18, .035); }
+.nudge .c-hold { background: #FFFFFF; color: #0E0F12; }
+.nudge .c-high { background: #2B1414; color: #FF8F87; }
+.nudge .c-low { background: #102A1C; color: #6FDB9E; }
+/* GitBrief: warm paper and ink with a rust accent; a dark ink card so its paper screens read */
+.wc.gitbrief { --bg: linear-gradient(160deg, #3D3A33 0%, #2B2823 55%, #171512 100%); --bg-solid: #2B2823; --fg: #F0EEE8; --mut: #B9B3A6; --glow: radial-gradient(55% 60% at 80% 90%, rgba(180, 70, 47, .3), transparent 70%); }
+/* windows stand straight; the activity view peeks above the brief, its chart side showing */
+.gitbrief .m1 { left: 24%; top: 0%; width: 44%; }
+.gitbrief .m2 { left: 36%; top: 19%; width: 60%; }
+.gitbrief .word { left: -1%; bottom: -9%; font: 400 23cqi/1 var(--serif); letter-spacing: -.04em; color: rgba(240, 238, 232, .045); white-space: nowrap; }
+.gitbrief .chip { background: #F0EEE8; color: #2B2823; }
+.gitbrief .chip i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+.gitbrief .s-ship i { background: #2E7D3B; } .gitbrief .s-rev i { background: #8E897E; } .gitbrief .s-none { background: transparent; color: #B9B3A6; box-shadow: inset 0 0 0 1px rgba(240, 238, 232, .2); }
+.gitbrief .inf { font: italic 400 1.05rem/1 var(--serif); color: #D98B6A; }
+/* Replix: its purple; dark app windows; real scene thumbnails from its own timeline */
+.wc.replix { --bg: linear-gradient(150deg, #B25CFF 0%, #9B3FEF 40%, #5A1FA8 100%); --bg-solid: #7B28CF; --fg: #FFFFFF; --mut: rgba(255, 255, 255, .72); --glow: radial-gradient(60% 70% at 30% 0%, rgba(245, 181, 68, .2), transparent 70%); }
+/* windows stand straight; "Reading your code" peeks behind the storyboard, which is big enough to read */
+.replix .m1 { left: 6%; top: 0%; width: 54%; filter: brightness(.82); }
+.replix .m2 { left: 17%; top: 15%; width: 81%; }
+.replix .fg { position: absolute; z-index: 3; }
+.replix .logo { left: -8%; bottom: -26%; width: 38%; color: rgba(255, 255, 255, .1); }
+.replix .scene { width: 14cqi; aspect-ratio: 272 / 117; border-radius: 10px; background: #0F0F10 url("img/replix-2-storyboard.webp") no-repeat; background-size: 703.7% auto; box-shadow: 0 0 0 4px #0F0F10, 0 22px 36px -18px rgba(0, 0, 0, .7); }
+.replix .sc2 { background-position: 42.8% 98.1%; } .replix .sc3 { background-position: 59.9% 98.1%; }
+.replix .meta { background: #0F0F10; color: #F2F2F2; font: 400 .74rem/1 var(--mono); }
+/* FitBite: its brand greens; its own white UI pieces, and its branded meal box */
+.wc.fitbite { --bg: linear-gradient(160deg, #0B6B45 0%, #054D2B 60%, #03331C 100%); --bg-solid: #054D2B; --fg: #FFFFFF; --mut: rgba(255, 255, 255, .72); --glow: radial-gradient(60% 70% at 70% 100%, rgba(1, 183, 99, .3), transparent 70%); }
+.fitbite .m1 { left: 45%; top: 14%; width: 23%; --t: rotate(-5deg); }
+.fitbite .m2 { left: 67%; top: 0%; width: 25%; --t: rotate(5deg); }
+.fitbite .chip { background: #FFFFFF; color: #2B2B2B; font-weight: 500; }
+.fitbite .ok { width: 20px; height: 20px; border-radius: 50%; background: #054D2B; color: #FFFFFF; display: grid; place-items: center; }
+.fitbite .ok svg { width: 12px; height: 12px; stroke-width: 3; }
+.fitbite .ring { width: 22px; height: 22px; }
+.fitbite .chip img.ic { width: 24px; height: 24px; object-fit: contain; filter: none; border-radius: 6px; }
+.fitbite .box { left: 21%; bottom: -13%; width: 20%; transform: rotate(4deg); }
+.fitbite .box img { filter: drop-shadow(0 24px 30px rgba(0, 0, 0, .35)); }
+
+/* Craftstudioo: its orange, its black pages on top, its logo; dark text for contrast on orange */
+.wc.craft { --bg: linear-gradient(150deg, #F59A43 0%, #E67919 50%, #B85A0C 100%); --bg-solid: #E67919; --fg: #0A0A0A; --mut: rgba(10, 10, 10, .62); --glow: radial-gradient(60% 70% at 80% 100%, rgba(10, 10, 10, .25), transparent 70%); }
+.craft .m1 { left: 24%; top: 0%; width: 42%; }
+.craft .m2 { left: 36%; top: 17%; width: 60%; }
+.craft .logo { left: -3%; bottom: -6%; width: 44%; aspect-ratio: 735 / 333; background: rgba(255, 255, 255, .16); -webkit-mask: url("img/craftstudioo-logo.svg") no-repeat center / contain; mask: url("img/craftstudioo-logo.svg") no-repeat center / contain; }
+.craft .chip { background: #141414; color: #E5E5E5; font-weight: 500; }
+/* Where did my money go?: its ink and blue; light screens on a dark card */
+.wc.money { --bg: linear-gradient(160deg, #2A2F38 0%, #16181D 60%, #0C0D10 100%); --bg-solid: #16181D; --fg: #F7F8FA; --mut: #B4BCCF; --glow: radial-gradient(60% 70% at 72% 100%, rgba(58, 91, 217, .4), transparent 70%); }
+.money .m1 { left: 35%; top: 16%; width: 23%; --t: rotate(-7deg); }
+.money .m2 { left: 56%; top: 0%; width: 25%; --t: rotate(4deg); }
+.money .word { left: -2%; bottom: -5%; font: 400 15cqi/1 var(--serif); letter-spacing: -.03em; color: rgba(247, 248, 250, .05); text-decoration: line-through; text-decoration-thickness: .06em; white-space: nowrap; }
+.money .c-sort { background: #FBF3E8; color: #8A5418; }
+.money .c-pipe { background: #2A2F38; color: #C4C9D2; font: 400 .78rem/1 var(--mono); box-shadow: inset 0 0 0 1px rgba(196, 201, 210, .18), 0 16px 30px -18px rgba(0, 0, 0, .55); }
+.money .c-cant { font: italic 400 1.1rem/1 var(--serif); color: #9AA9EF; }
+/* Diney: the yellow-orange of its cover; dark text for contrast; its own wordmark behind */
+.wc.diney { --bg: linear-gradient(150deg, #FFD98A 0%, #F5A524 50%, #E07B12 100%); --bg-solid: #F5A524; --fg: #2A1A05; --mut: rgba(42, 26, 5, .66); --glow: radial-gradient(60% 70% at 70% 100%, rgba(255, 255, 255, .35), transparent 70%); }
+.diney .m1 { left: 35%; top: 16%; width: 23%; --t: rotate(-7deg); }
+.diney .m2 { left: 56%; top: 0%; width: 25%; --t: rotate(4deg); }
+.diney .word { left: -1%; bottom: -8%; font: 500 21cqi/1 var(--sans); letter-spacing: -.04em; color: rgba(255, 255, 255, .3); white-space: nowrap; }
+.diney .chip { background: #FFFFFF; color: #2A1A05; }
+.diney .c-off { background: #2A1A05; color: #FFD98A; }
+.diney .chip svg { color: #E07B12; }
+/* Help me choose: a concept with no app screens, so its idea is the picture: three options, one picked */
+.wc.choose { --bg: linear-gradient(150deg, #8CC4E2 0%, #4D93BB 45%, #2A5B78 100%); --bg-solid: #2A5B78; --fg: #FFFFFF; --mut: rgba(255, 255, 255, .78); --glow: radial-gradient(60% 70% at 60% 100%, rgba(255, 255, 255, .25), transparent 70%); }
+.choose .m1 { position: absolute; inset: 0; }
+.opt { position: absolute; width: 21%; aspect-ratio: 1 / 1.08; border-radius: 18px; padding: 1.6cqi; background: rgba(255, 255, 255, .9); color: #2A5B78; display: flex; flex-direction: column; gap: .9cqi; box-shadow: 0 30px 50px -26px rgba(10, 40, 60, .6); transform: var(--t); transition: transform .6s var(--ease); }
+.opt .k { display: flex; justify-content: space-between; align-items: center; font: 500 .72rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #4D93BB; }
+.opt .k b { width: 22px; height: 22px; border-radius: 50%; background: #2A5B78; color: #fff; display: grid; place-items: center; font: 500 .7rem/1 var(--sans); }
+.opt i { display: block; height: .9cqi; border-radius: 99px; background: #D6E8F3; }
+.opt i.s { width: 60%; }
+.opt strong { font: 400 2.6cqi/1.05 var(--serif); color: #12324A; margin-top: auto; }
+.opt.o1 { left: 32%; top: 22%; --t: rotate(-9deg); opacity: .62; }
+.opt.o2 { left: 64%; top: 16%; --t: rotate(8deg); opacity: .62; }
+.opt.pick { left: 46%; top: 8%; width: 24%; background: #FFFFFF; box-shadow: 0 0 0 4px rgba(255, 255, 255, .35), 0 40px 70px -28px rgba(10, 40, 60, .7); --t: rotate(-1deg); }
+.wc:hover .opt.pick { transform: var(--t) translateY(-8px); }
+.choose .chip { background: #12324A; color: #D6E8F3; font: 400 .8rem/1 var(--mono); }
+.choose .c-how { background: #FFFFFF; color: #12324A; }
+
+/* narrow cards: the title can wrap, the mockups get bigger, the pieces behind step back */
+@container (max-width: 640px) {
+  .ti { font-size: 1.4rem; } .ti span { white-space: normal; }
+  .hd .tg { display: none; }
+  .hd .ar { margin-left: auto; }
+  .stage { top: 42%; }
+  .nudge .m1, .fitbite .m1, .money .m1, .diney .m1 { left: 12%; width: 36%; top: 12%; } .nudge .m2, .fitbite .m2, .money .m2, .diney .m2 { left: 46%; width: 40%; top: 0; }
+  .craft .m1 { left: 6%; width: 74%; } .craft .m2 { left: 20%; width: 92%; top: 24%; }
+  .opt.o1 { left: 4%; width: 34%; } .opt.o2 { left: 62%; width: 34%; } .opt.pick { left: 28%; width: 44%; } .opt strong { font-size: 6cqi; }
+  .money .word { font-size: 24cqi; } .diney .word { font-size: 34cqi; } .craft .logo { width: 80%; }
+  .gitbrief .m1 { left: 6%; width: 74%; } .gitbrief .m2 { left: 20%; width: 92%; top: 24%; }
+  .replix .m1 { left: 4%; width: 84%; } .replix .m2 { left: 12%; width: 100%; top: 26%; }
+  .bgx .frag, .fitbite .box, .stage .frag { display: none; }
+  .phone { padding: .65cqi; }
+  .nudge .mark { width: 80%; bottom: -24%; } .gitbrief .word { font-size: 30cqi; } .replix .logo { width: 70%; }
+}
+body.narrow .wc { aspect-ratio: auto; height: 560px; min-height: 0; }
