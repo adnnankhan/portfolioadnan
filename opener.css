@@ -1,0 +1,13 @@
+/* Opener (see opener.js). Until the opener's canvas is up, a plain dark cover hides the page, so the hero never flashes. */
+html.opening { overflow: hidden; }
+html.cover::before { content: ""; position: fixed; inset: 0; z-index: 99; background: #020515; }
+#opener { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 100; pointer-events: none; transition: opacity .3s ease; }
+#opener.out { opacity: 0; }
+#opener-mark { position: fixed; left: 0; top: 0; z-index: 101; margin: 0; white-space: nowrap; transform-origin: 0 0; pointer-events: none; }
+#opener-mark .ch { display: inline-block; opacity: 0; transform: translateY(.45em); transition: opacity .45s ease, transform .75s cubic-bezier(.2, .8, .2, 1); }
+#opener-mark.in .ch { opacity: 1; transform: none; }
+/* the hero's own reveal waits for the opener: the nav comes in during the dive, the headline once the hero is handed over */
+html.opening .hero.on .r, html.opening .hero.on .mask > span { animation-play-state: paused; }
+html.opening.nav-go .hero.on .pl-nav.r { animation-play-state: running; }
+html.brand-hold .pl-brand { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { html.cover::before, #opener, #opener-mark { display: none; } html.opening { overflow: auto; } }

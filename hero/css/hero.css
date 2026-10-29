@@ -1,0 +1,91 @@
+/* Hero: navigation, headline, the day/night switch and the sun/moon handle.
+   Colours come from the original adnan.world palette:
+   navy ink #121B2C, royal blue #25438A, blue #3A68C8, sky #D3E5FB, lavender #DCDDF8, paper #F7FAFD. */
+.pl { --ink: #EEF2FB; --text: #E8EDF7; --muted: #98A6C2; --line: rgba(238, 242, 251, .14); --acc: #A9C8F7; --acc-2: #C3C1F4;
+  --chip: rgba(10, 16, 36, .66); --chip-line: rgba(238, 242, 251, .18); --card: rgba(11, 17, 38, .95); --card-line: rgba(169, 200, 247, .3);
+  --btn: #EEF2FB; --btn-ink: #0B1226; --shadow: rgba(0, 0, 0, .55);
+  color: var(--text); background: #0B1226; touch-action: pan-y; }
+/* --text is kept light so body text stays at 4.9:1 or better against the brightest daytime sky (tools/test_contrast.py) */
+.pl :focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; border-radius: 8px; }
+.pl canvas { z-index: 0; }
+
+/* nav */
+.pl-nav { position: absolute; top: 0; left: 0; right: 0; z-index: 6; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 16px var(--pad); }
+.pl-brand { font: 400 1.25rem/1 var(--serif); color: var(--ink); text-decoration: none; white-space: nowrap; justify-self: start; }
+.pl-brand span { font-style: italic; color: var(--acc); }
+.pl-links { display: flex; gap: 2px; padding: 4px; border: 1px solid var(--chip-line); border-radius: 999px; background: var(--chip); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.pl-links a { color: var(--text); text-decoration: none; font-size: .92rem; padding: 0 14px; min-height: 34px; display: inline-flex; align-items: center; border-radius: 999px; }
+.pl-links a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.pl-links .m-only { display: none; }
+.pl-meta { justify-self: end; display: flex; align-items: center; gap: 14px; white-space: nowrap; }
+.pl-status { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; color: var(--ink); }
+.pl-pill { color: var(--ink); text-decoration: none; border: 1px solid var(--chip-line); border-radius: 999px; min-height: 38px; padding: 0 15px; display: inline-flex; align-items: center; gap: 6px; font: 500 .9rem/1 var(--sans); background: var(--chip); }
+.pl-pill:hover { border-color: var(--ink); }
+.pl-menu { display: none; min-height: 38px; padding: 0 15px; border-radius: 999px; border: 1px solid var(--chip-line); background: var(--chip); color: var(--ink); font: 500 .9rem/1 var(--sans); }
+
+/* headline, line and button: centred in the middle of the sky, just above the horizon (the horizon is at 70% of the
+   height on wide screens, see farY in sky.js). The semicircle is sized around them in sky.js. */
+.pl-copy { position: absolute; z-index: 4; left: 50%; right: auto; bottom: calc(30% + max(22px, 4vh)); transform: translateX(-50%); width: min(1200px, calc(100% - 2 * var(--pad))); text-align: center; }
+.pl h1 { font: 400 clamp(2.4rem, min(4.9vw, calc(9vh - 15px)), 5.4rem)/1.02 var(--serif); letter-spacing: -.025em; color: var(--ink); }
+.pl h1 .w { display: inline-block; position: relative; overflow: hidden; vertical-align: bottom; white-space: nowrap; padding: 0 .03em .16em 0; margin-bottom: -.16em; }
+.pl h1 .w i { display: inline-block; font-style: italic; }
+.pl h1 [data-w="a"] { color: var(--acc); }
+.pl h1 [data-w="b"] { color: var(--muted); }
+/* the typing caret after the second word */
+.pl h1[data-rot="type"] [data-w="b"]::after { content: ""; display: inline-block; width: .06em; height: .8em; margin-left: .04em; background: currentColor; vertical-align: -.04em; }
+@media (prefers-reduced-motion: no-preference) { .pl h1[data-rot="type"] [data-w="b"]::after { animation: plblink 1s steps(1) infinite; } }
+@keyframes plblink { 50% { opacity: 0; } }
+.pl-sub { margin-top: 14px; font-size: clamp(1rem, 1.2vw, 1.12rem); color: var(--ink); }
+.pl-ctas { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.pl-btn { min-height: 46px; padding: 0 20px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; font: 500 .98rem/1 var(--sans); text-decoration: none; border: 1px solid transparent; transition: transform .2s var(--ease), background .2s, border-color .2s; }
+.pl-btn.solid { background: var(--btn); color: var(--btn-ink); }
+.pl-btn.solid:hover { transform: translateY(-1px); }
+
+/* day/night switch in the nav */
+.pl-dn { position: relative; display: inline-flex; align-items: center; justify-content: space-between; gap: 0; width: 64px; height: 34px; padding: 0 9px; border-radius: 999px; border: 1px solid var(--chip-line); background: var(--chip); color: var(--ink); }
+.pl-dn svg { position: relative; z-index: 1; transition: color .5s, opacity .5s; }
+.pl-dn .dn-knob { position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: var(--btn); transition: transform .5s var(--ease), background-color .7s; }
+.pl-dn .dn-sun { color: var(--btn-ink); }
+.pl-dn .dn-moon { color: var(--muted); }
+.pl-dn.night .dn-knob { transform: translateX(30px); }
+.pl-dn.night .dn-sun { color: var(--muted); }
+.pl-dn.night .dn-moon { color: var(--btn-ink); }
+
+/* the handle on the sun or moon: an invisible 44px (56px on phones) circle that sky.js moves onto the body */
+.pl-sunknob { position: absolute; left: 0; top: 0; z-index: 5; width: 44px; height: 44px; border-radius: 50%; cursor: grab; touch-action: none; -webkit-tap-highlight-color: transparent; }
+.pl.sky .pl-sunknob:focus-visible { outline: 1px solid rgba(238, 242, 251, .6); outline-offset: 4px; border-radius: 50%; }
+.pl.sky.sky-drag, .pl.sky.sky-drag * { cursor: grabbing !important; -webkit-user-select: none; user-select: none; }
+
+/* squarer screens (3:2 and narrower): the semicircle is capped by the width, so the words stay a little smaller to fit inside it */
+@media (max-aspect-ratio: 3/2) {
+  .pl h1 { font-size: clamp(2.4rem, min(4vw, 7.1vh), 5.4rem); }
+}
+/* up to 1020px wide: the links fold into a Menu */
+@media (max-width: 1020px) {
+  .pl-links { display: none; }
+  .pl-nav { grid-template-columns: 1fr auto; }
+  .pl-menu { display: inline-flex; align-items: center; }
+  .pl-links.open { display: flex; flex-direction: column; align-items: stretch; position: absolute; top: 62px; right: var(--pad); min-width: 200px; padding: 6px; border-radius: 16px; gap: 2px; z-index: 8; background: rgba(10, 16, 36, .97); box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .7); }
+  .pl-links.open a { min-height: 44px; padding: 0 14px; }
+  .pl-links .m-only { display: inline-flex; }
+}
+/* tall screens (phones, tablets held upright): the words sit at the top and the semicircle below them, above the horizon */
+@media (max-aspect-ratio: 4/5) {
+  .pl-copy { left: var(--pad); right: var(--pad); top: clamp(74px, 9vh, 128px); bottom: auto; width: auto; transform: none; }
+  .pl h1 { font-size: clamp(2.6rem, 5.6vw, 4rem); }
+}
+@media (max-width: 760px) {
+  .pl-pill { display: none; }
+  .pl h1 { font-size: clamp(2.45rem, 11.2vw, 3.2rem); }
+  .pl-sub { margin-top: 12px; font-size: .98rem; }
+  .pl-ctas { margin-top: 16px; }
+  .pl-btn { min-height: 44px; padding: 0 16px; font-size: .94rem; }
+  .pl-status { font-size: 0; gap: 0; }
+  .pl-status .dot { margin-right: 2px; }
+  .pl-dn { width: 60px; }
+  .pl-dn.night .dn-knob { transform: translateX(26px); }
+  .pl-sunknob { width: 56px; height: 56px; }
+}
+
+/* reveal stagger (see base.css) */
+.d2 { --d: 2; } .d3 { --d: 3; } .d5 { --d: 5; } .d6 { --d: 6; } .d8 { --d: 8; }

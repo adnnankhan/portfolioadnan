@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Adnan Asif Khan · Product designer · adnan.world</title>
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Adnan Asif Khan, product designer in Kishanganj, India: selected work, writing, about and contact. Open to remote work.">
+<link rel="icon" href="hero/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="hero/css/base.css">
+<link rel="stylesheet" href="hero/css/hero.css">
+<link rel="stylesheet" href="wc.css">
+<style>
+/* the work section under the hero: paper while the sun is up, navy-black once the moon is (it follows the hero's own day/night) */
+body { background: var(--page); }
+/* the section slides up over the hero ground like a sheet, instead of a hard straight cut */
+.work { position: relative; z-index: 2; margin-top: -32px; border-radius: 30px 30px 0 0; background: var(--page); color: var(--page-ink); box-shadow: 0 -24px 48px -24px rgba(2, 4, 11, .55); transition: background .5s, color .5s; }
+.work .mstage { border-radius: 30px 30px 0 0; }
+body.night .work { box-shadow: 0 -1px 0 rgba(238, 242, 251, .08), 0 -24px 48px -24px rgba(0, 0, 0, .7); }
+.run { position: relative; }
+/* on touch screens, one stop per card (a swipe, however hard, moves one card), plus the hero and what follows the section,
+   so leaving at either end never snaps back. Mouse, trackpad and keys are handled in the script instead. */
+.snap { position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; }
+@media (pointer: coarse) {
+  html { scroll-snap-type: y proximity; }
+  .hero, .about, .endnote { scroll-snap-align: start; }
+  .snap { scroll-snap-align: start; scroll-snap-stop: always; }
+}
+.mstage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; perspective: 1500px; }
+.world { position: absolute; left: 50%; top: calc(50% + 12px); transform-style: preserve-3d; }
+.world .wc { position: absolute; left: 0; top: 0; width: var(--cw); height: var(--ch); margin: calc(var(--ch) / -2) 0 0 calc(var(--cw) / -2); aspect-ratio: auto; min-height: 0; will-change: transform, opacity; backface-visibility: hidden; }
+.world .wc .stage { transform: translate3d(0, calc(var(--pary, 0) * 1px), 0); }
+/* the heading: "Work", centred, with where you are in the four under it */
+.whead { position: absolute; z-index: 9; left: 0; right: 0; top: 46px; display: grid; justify-items: center; gap: 10px; text-align: center; }
+.whead h2 { margin: 0; font: 400 clamp(1.9rem, 3.4vw, 2.7rem)/1 var(--serif); letter-spacing: -.025em; color: var(--page-ink); }
+.whead span { font: 500 .66rem/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--page-mut); }
+.whead span b { color: var(--page-ink); font-weight: 500; }
+/* "See all work": under the cards, always one click away */
+.wfoot { position: absolute; z-index: 9; left: 0; right: 0; bottom: clamp(18px, 3.2vh, 30px); display: flex; justify-content: center; }
+.wfoot .all { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 18px; border-radius: 999px; background: var(--page-ink); color: var(--page); font: 500 .88rem/1 var(--sans); text-decoration: none; transition: transform .2s var(--ease); }
+.wfoot .all:hover { transform: translateY(-1px); }
+.wfoot .all:focus-visible { outline: 2px solid var(--page-ink); outline-offset: 3px; }
+
+/* ---------- Writing: his essays as a book, one page turned per scroll ---------- */
+.writing { position: relative; background: var(--page); color: var(--page-ink); transition: background .5s, color .5s; }
+.writing .mstage { perspective: 1800px; }
+.writing .world { top: calc(50% + 5px); }
+.writing .mono { font: 500 .64rem/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.writing .bk a:focus-visible { outline: 2px solid #3A68C8; outline-offset: 3px; }
+.bk { position: absolute; left: 0; top: 0; width: var(--bw); height: var(--bh); margin: calc(var(--bh) / -2) 0 0 calc(var(--bw) / -2); transform-style: preserve-3d; }
+/* the hardcover, a little larger than the pages, with the spine down the middle */
+.bk-cover { position: absolute; inset: -12px -14px; border-radius: 10px; transform: translateZ(-2px); background: linear-gradient(135deg, #2D4C99, #25438A 45%, #1A2F66); box-shadow: 0 40px 80px -40px rgba(10, 20, 50, .7), inset 0 0 0 1px rgba(255, 255, 255, .06); }
+.bk-cover::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 18px; margin-left: -9px; background: linear-gradient(90deg, rgba(0, 0, 0, .25), rgba(255, 255, 255, .06), rgba(0, 0, 0, .25)); }
+/* paper: warm by day, a dimmer paper at night (the book is an object on the page, so it stays paper) */
+.paper { --paper: #FBF8F1; --ink: #1E2638; --mut: #626A7E; --acc: #2F5BB8; background: var(--paper); color: var(--ink); }
+body.night .paper { --paper: #E6E1D5; --mut: #575E70; }
+/* a page's content is laid out once at full page width; a page half shows its half of it */
+.slab { position: absolute; top: 0; bottom: 0; width: var(--pw); container-type: inline-size; }
+.bk-pg > .slab { left: 0; width: 100%; }
+.bk-pg { position: absolute; top: 0; width: 50%; height: 100%; }
+.bk-pg.l { left: 0; border-radius: 3px 0 0 3px; box-shadow: -1px 1px 0 #E4DED0, -2px 2px 0 #D9D2C2, -3px 3px 0 #CEC6B4; }
+.bk-pg.r { left: 50%; border-radius: 0 3px 3px 0; box-shadow: 1px 1px 0 #E4DED0, 2px 2px 0 #D9D2C2, 3px 3px 0 #CEC6B4; }
+/* the gutter: pages darken into the spine */
+.bk-pg.l::after, .sg.in > .bk-face.b::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(270deg, rgba(0, 0, 0, .16), rgba(0, 0, 0, 0) var(--g, 18%)); }
+.bk-pg.r::after, .sg.in > .bk-face.f::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(0, 0, 0, .16), rgba(0, 0, 0, 0) var(--g, 18%)); }
+.bk-pg { --g: 9%; }
+/* a turning page is two halves, so it can bend: the outer half leads, the way a page lifted by its edge curls over */
+.bk-leaf { position: absolute; top: 0; left: 50%; width: 50%; height: 100%; transform-origin: 0 50%; transform-style: preserve-3d; }
+.sg { position: absolute; top: 0; left: 0; width: 50%; height: 100%; transform-origin: 0 50%; transform-style: preserve-3d; }
+.sg.out { left: 100%; width: 100%; }
+/* the inner half reaches 1px under the outer one, so no hairline shows between them */
+.sg.in > .bk-face { right: -1px; }
+.bk-face { position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.bk-face.b { transform: rotateY(180deg); }
+.sg.out > .bk-face.f { border-radius: 0 3px 3px 0; } .sg.out > .bk-face.b { border-radius: 3px 0 0 3px; }
+.bk-face .lit { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+/* a spread: the left page is the opening line, the right page the essay */
+.pq, .pd { position: absolute; inset: 0; padding: 8cqi 9cqi 13cqi; display: flex; flex-direction: column; }
+.pq .mono, .pd .mono { color: var(--mut); }
+.pq blockquote { margin: auto 0; font: italic 400 clamp(1rem, 6.4cqi, 1.9rem)/1.25 var(--serif); letter-spacing: -.012em; }
+.pq blockquote::before { content: "\201C"; display: block; height: .55em; font: 400 2.6em/1 var(--serif); color: var(--acc); }
+.pd .pub { color: var(--acc); margin-top: auto; }
+.pd h3 { margin: 12px 0 0; font: 400 clamp(1.05rem, 6cqi, 1.75rem)/1.15 var(--serif); letter-spacing: -.015em; }
+.pd a { margin-top: 22px; align-self: flex-start; color: var(--ink); font: 500 .9rem/1 var(--sans); text-decoration: underline; text-underline-offset: 5px; }
+.pd .pg, .pq .pg { position: absolute; bottom: 5cqi; font: 400 .74rem/1 var(--serif); color: var(--mut); }
+.pd .pg { right: 9cqi; } .pq .pg { left: 9cqi; }
+.pd .q-phone { display: none; }
+/* phones: one portrait page at a time, quote and essay together, turned over from the left edge */
+@media (max-width: 760px) {
+  .bk-cover { inset: -8px; }
+  .bk-cover::after, .bk-pg.l, .bk-face.b { display: none; }
+  .bk-pg.r, .bk-leaf { left: 0; width: 100%; }
+  .bk-pg.r { border-radius: 3px; }
+  .pd .q-phone { display: block; margin: 18px 0 0; font: italic 400 1.05rem/1.45 var(--serif); color: var(--mut); }
+  .pd .pub { margin-top: 0; } .pd h3 { margin-top: 10px; } .pd .spacer { flex: 1; }
+}
+
+/* ---------- About: his name opens into his portrait (one scroll), the facts come out from behind it ---------- */
+.about { position: relative; background: var(--page); color: var(--page-ink); transition: background .5s, color .5s; }
+.about .mstage { perspective: none; }
+.alayers { position: absolute; inset: 0; }
+.ahint { position: absolute; left: 0; right: 0; margin: 0; text-align: center; font: 500 .66rem/1.5 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--page-mut); }
+.duo2 { filter: url(#duo2); }
+body.night .about .duo2 { filter: url(#duo2n); }   /* at night the darkest tone is royal blue, so no letter disappears */
+.iw-l, .iw-arch { position: absolute; overflow: hidden; }
+.iw-l { -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+.iw-l img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; object-fit: cover; object-position: 58% 48%; }
+.iw-arch { background: #0B1430; box-shadow: 0 44px 70px -44px rgba(18, 27, 44, .6), inset 0 0 0 1px rgba(18, 27, 44, .1); }
+body.night .iw-arch { box-shadow: 0 44px 70px -40px rgba(0, 0, 0, .85), inset 0 0 0 1px rgba(169, 200, 247, .14); }
+.iw-arch canvas { display: block; width: 100%; height: 100%; object-fit: cover; }
+.iw-name { position: absolute; left: 0; right: 0; margin: 0; text-align: center; font-family: var(--serif); font-weight: 400; line-height: .95; letter-spacing: -.04em; color: var(--page-ink); pointer-events: none; }
+.iw-name .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding: .16em .04em .1em; margin-top: -.16em; }
+.iw-name .w > span { display: inline-block; }
+.iw-chip { position: absolute; padding: 12px 15px 13px; border-radius: 16px; display: grid; gap: 3px; pointer-events: none;
+  background: color-mix(in srgb, var(--page) 86%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--page-line); box-shadow: 0 20px 44px -26px rgba(18, 27, 44, .4); }
+body.night .iw-chip { box-shadow: 0 0 0 1px rgba(255, 255, 255, .04), 0 20px 44px -22px rgba(0, 0, 0, .8); }
+.iw-chip .k { font: 500 .62rem/1.5 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--page-mut); }
+.iw-chip b { font: 400 1.1rem/1.2 var(--serif); letter-spacing: -.01em; }
+.iw-chip .v { font: 400 .8rem/1.4 var(--sans); color: var(--page-mut); }
+.afoot { display: grid; justify-items: center; text-align: center; padding: clamp(28px, 5vh, 48px) var(--pad) clamp(80px, 12vh, 140px); }
+.afoot .lead { margin: 0 0 12px; font: 400 clamp(1.8rem, 3.3vw, 2.6rem)/1.08 var(--serif); letter-spacing: -.022em; }
+.afoot .lead i { color: #3A68C8; } body.night .afoot .lead i { color: #A9C8F7; }
+.afoot p.t { margin: 0 auto; max-width: 54ch; font: 400 1.05rem/1.6 var(--sans); }
+.afoot .btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+.afoot .btn { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 18px; border-radius: 999px; font: 500 .88rem/1 var(--sans); text-decoration: none; border: 1px solid var(--page-line); color: var(--page-ink); transition: transform .2s var(--ease), border-color .2s; }
+.afoot .btn.solid { background: var(--page-ink); color: var(--page); border-color: var(--page-ink); }
+.afoot .btn:hover { transform: translateY(-1px); border-color: var(--page-ink); }
+.afoot .btn:focus-visible { outline: 2px solid #3A68C8; outline-offset: 3px; }
+/* ---------- Contact: a street; a courier posts a letter in his box, and "Let's talk." rises around it ---------- */
+.ct.contact { padding-top: clamp(24px, 5vh, 56px); background: var(--page); color: var(--page-ink); transition: background .5s, color .5s; }
+.ct { position: relative; padding: clamp(84px, 12vh, 140px) var(--pad) clamp(90px, 14vh, 160px); overflow-x: clip; }
+.ct-in { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; }
+.ct .ahead { display: grid; justify-items: center; gap: 10px; text-align: center; margin-bottom: clamp(30px, 5vh, 56px); }
+.ct .ahead h2 { margin: 0; font: 400 clamp(1.9rem, 3.4vw, 2.7rem)/1 var(--serif); letter-spacing: -.025em; }
+.ct .ahead span { font: 500 .66rem/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--page-mut); }
+.ct .k { margin: 0; font: 500 .66rem/1.5 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--page-mut); }
+.ct .k b { color: var(--page-ink); font-weight: 500; }
+.ct .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ct .btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 22px; }
+.ct .btn { display: inline-flex; align-items: center; gap: 7px; min-height: 42px; padding: 0 18px; border-radius: 999px; font: 500 .9rem/1 var(--sans); text-decoration: none; border: 1px solid var(--page-line); color: var(--page-ink); background: none; cursor: pointer; transition: transform .2s var(--ease), border-color .2s, background .2s, color .2s; }
+.ct .btn.solid { background: var(--page-ink); color: var(--page); border-color: var(--page-ink); }
+.ct .btn:hover { transform: translateY(-1px); border-color: var(--page-ink); }
+.ct .btn .ar { display: inline-block; transition: transform .25s var(--ease); }
+.ct .btn:hover .ar, .ct .lk:hover .ar { transform: translate(2px, -2px); }
+.ct .btn.ok { background: #3A68C8; border-color: #3A68C8; color: #fff; }
+.ct .btn:focus-visible, .ct .lk:focus-visible, .ct button:focus-visible, .ct a:focus-visible { outline: 2px solid #3A68C8; outline-offset: 3px; }
+.ct .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; margin-top: 12px; }
+.ct .lk { display: inline-flex; align-items: center; gap: 5px; padding: 6px 0; font: 500 .9rem/1 var(--sans); color: var(--page-mut); text-decoration: none; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
+.ct .lk:hover { color: var(--page-ink); border-color: var(--page-ink); }
+.ct .mail { font: 400 clamp(1rem, 2.6vw, 1.6rem)/1.2 var(--mono); letter-spacing: -.01em; margin: 14px 0 0; }
+.ct .say { margin: 0; font: italic 400 clamp(2.6rem, 7vw, 5.4rem)/.95 var(--serif); letter-spacing: -.035em; text-align: center; }
+.ct .after { display: grid; justify-items: center; text-align: center; }
+html:not(.no-js) .ct .later { opacity: 0; translate: 0 14px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
+html:not(.no-js) .ct .later.on { opacity: 1; translate: 0 0; }
+html:not(.no-js) .ct .up { opacity: 0; translate: 0 18px; transition: opacity .8s var(--ease), translate .8s var(--ease); }
+html:not(.no-js) .ct.in .up { opacity: 1; translate: 0 0; }
+#ctoast { position: fixed; z-index: 50; left: 50%; bottom: 28px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 11px 16px; border-radius: 999px; background: var(--page-ink); color: var(--page); font: 500 .86rem/1 var(--sans); box-shadow: 0 18px 40px -18px rgba(0, 0, 0, .5); transition: opacity .3s, transform .4s var(--ease); }
+#ctoast.show { opacity: 1; transform: translate(-50%, 0); }
+.ct .replay { margin-top: 18px; border: 0; background: none; color: var(--page-mut); font: 500 .66rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; padding: 6px; }
+.ct .replay:hover { color: var(--page-ink); }
+
+/* ===== 4 · Scooter: a street in line drawing; a courier rides in, stops short of his post box, the crate pops open and the
+   letter flutters across into the slot. "Let's" rises out of the road; the courier pulls away past the box and "talk."
+   rises letter by letter behind it; the birds on the wire take off ===== */
+.ct .sc-scene { position: relative; width: min(1040px, 100%); color: var(--page-ink); }
+.ct .sc-scene svg { display: block; width: 100%; height: auto; overflow: visible; }
+.ct .sc-faint { fill: none; stroke: currentColor; stroke-opacity: .14; stroke-width: 1.4; stroke-linejoin: round; stroke-linecap: round; }
+.ct .sc-win { fill: currentColor; fill-opacity: .08; transition: fill .6s, fill-opacity .6s; }
+body.night .ct .sc-win { fill: #FFD27A; fill-opacity: .5; }
+.ct .sc-pole { stroke: currentColor; stroke-opacity: .3; stroke-linecap: round; fill: none; }
+.ct .sc-wire { fill: none; stroke: currentColor; stroke-opacity: .26; stroke-width: 1.3; }
+.ct .sc-bird { fill: currentColor; fill-opacity: .8; }
+.ct .sc-cloud { fill: none; stroke: currentColor; stroke-opacity: .16; stroke-width: 1.4; stroke-linecap: round; animation: sc-drift 24s ease-in-out infinite alternate; }
+.ct .sc-cloud + .sc-cloud { animation-duration: 31s; animation-direction: alternate-reverse; }
+.ct .sc-scene:not(.vis) .sc-cloud { animation-play-state: paused; }
+@keyframes sc-drift { to { transform: translateX(44px); } }
+.ct .road { stroke-width: 2; }
+.ct .road-d { stroke: var(--page-mut); stroke-width: 3; stroke-dasharray: 26 22; opacity: .3; }
+.ct .sc-word { font: italic 400 120px var(--serif); letter-spacing: -3px; fill: var(--page-ink); }
+.ct .puff { fill: var(--page-mut); }
+.ct #puffs { filter: blur(1.6px); }
+.ct .pb-plate { font: 500 8.6px var(--mono); letter-spacing: .2px; fill: #7A2A1F; }
+.ct .badge text { font: 600 15px var(--sans); fill: #fff; }
+.ct .beam { opacity: 0; transition: opacity .6s; }
+body.night .ct .beam { opacity: 1; }
+.ct .sc-after { margin-top: 22px; }
+/* the address is the thing people come here for: big, selectable, with its own copy button beside it */
+.ct .mrow { position: relative; }   /* the address sits on the centre line; its copy button hangs beside it */
+.ct .mrow .cpy { position: absolute; left: 100%; top: 50%; margin-left: 14px; transform: translateY(-50%); }
+@media (max-width: 600px) { .mrow { display: grid; justify-items: center; gap: 10px; }
+.ct .mrow .cpy { position: static; margin: 0; transform: none; } }
+.ct .mrow .mail { margin: 0; }
+.ct .cpy { min-height: 32px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--page-line); background: none; color: var(--page-mut); font: 500 .66rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
+.ct .cpy:hover { color: var(--page-ink); border-color: var(--page-ink); }
+.ct .cpy.ok { background: #3A68C8; border-color: #3A68C8; color: #fff; }
+.ct .sc-when { margin-top: 10px; }
+.ct .sc-after .btns { margin-top: 20px; }
+
+@media (max-width: 760px) { .ct .sc-scene svg { width: 150%; max-width: none; margin-left: -25%; } }
+@media (prefers-reduced-motion: reduce) { .ct .up, .ct .later { transition: none !important; opacity: 1 !important; translate: none !important; } .ct .sc-cloud { animation: none !important; } }
+.endnote { height: 40vh; display: grid; place-items: center; font: 400 .72rem/1 var(--mono); color: var(--page-mut); letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 760px) { .whead { top: 42px; gap: 8px; } }
+@media (prefers-reduced-motion: reduce) { .work { transition: none; } }
+</style>
+<script src="hero/js/core.js" defer></script>
+<script src="hero/js/ground.js" defer></script>
+<script src="hero/js/sky.js" defer></script>
+<script src="hero/js/headline.js" defer></script>
+<script src="hero/js/boot.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="hero pl sky arc">
+  <canvas class="fill" aria-hidden="true"></canvas>
+  <header class="pl-nav r">
+    <a class="pl-brand" href="/" aria-label="adnan.world home">adnan<span>.world</span></a>
+    <nav class="pl-links" id="site-menu" aria-label="Main"><a href="#work">Work</a><a href="#writing">Writing</a><a href="#about">About</a><a href="mailto:adnanasifkhan24@gmail.com">Contact</a><a class="m-only" href="/resume/adnan-asif-khan-product-designer-resume.pdf">Resume</a></nav>
+    <div class="pl-meta"><button type="button" class="pl-dn" data-dn aria-pressed="false" aria-label="Switch to night"><span class="dn-knob" aria-hidden="true"></span><svg class="dn-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg><svg class="dn-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><span class="pl-status"><i class="dot" aria-hidden="true"></i>Open to roles</span><a class="pl-pill" href="/resume/adnan-asif-khan-product-designer-resume.pdf">Resume <span aria-hidden="true">↗</span></a><button type="button" class="pl-menu" aria-expanded="false" aria-controls="site-menu">Menu</button></div>
+  </header>
+  <main class="pl-main" id="main" tabindex="-1">
+    <div class="pl-copy">
+      <h1 data-rot="type"><span class="sr">I design for what people mean, not what they type.</span><span class="mask d2" aria-hidden="true"><span>I design for what people <span class="w" data-w="a"><i>mean</i></span>,</span></span><span class="mask d3" aria-hidden="true"><span>not what they <span class="w" data-w="b"><i>type</i></span>.</span></span></h1>
+      <p class="pl-sub r d5">Hello, I am Adnan. Product designer<br> who designs for AI, human emotion and uncertain&nbsp;futures.</p>
+      <div class="pl-ctas r d6"><a class="pl-btn solid" href="#work">See the work <span aria-hidden="true">↓</span></a></div>
+    </div>
+    <div class="pl-sunknob" data-sky role="slider" tabindex="0" aria-label="Sun or moon, drag to change the time of day in Kishanganj" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Now"></div>
+  </main>
+</div>
+<section class="work" id="work" aria-labelledby="work-h">
+  <div class="run" id="run"><div class="mstage" id="mstage">
+    <header class="whead"><h2 id="work-h">Work</h2><span><b id="wcount">1</b> / 4</span></header>
+    <div class="world" id="world"></div>
+    <div class="wfoot"><a class="all" href="https://adnan.world/#all-work">See all work <span aria-hidden="true">→</span></a></div>
+  </div></div>
+</section>
+<section class="writing" id="writing" aria-labelledby="writing-h">
+  <div class="run" id="wrun"><div class="mstage" id="wstage">
+    <header class="whead"><h2 id="writing-h">Writing</h2><span><b id="ecount">1</b> / 3</span></header>
+    <div class="world" id="wworld"></div>
+    <div class="wfoot"><a class="all" href="https://medium.com/@adnanasifkhan24" target="_blank" rel="noopener">All writing on Medium <span aria-hidden="true">↗</span></a></div>
+  </div></div>
+</section>
+<section class="about" id="about" aria-labelledby="about-h">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="duo2" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values=".2126 .7152 .0722 0 0  .2126 .7152 .0722 0 0  .2126 .7152 .0722 0 0  0 0 0 1 0"/>
+      <feComponentTransfer><feFuncR type="linear" slope="1.55" intercept="-.24"/><feFuncG type="linear" slope="1.55" intercept="-.24"/><feFuncB type="linear" slope="1.55" intercept="-.24"/></feComponentTransfer>
+      <feComponentTransfer><feFuncR type="table" tableValues=".071 .145 .227 .45"/><feFuncG type="table" tableValues=".106 .263 .408 .62"/><feFuncB type="table" tableValues=".173 .541 .784 .93"/></feComponentTransfer>
+    </filter>
+    <filter id="duo2n" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values=".2126 .7152 .0722 0 0  .2126 .7152 .0722 0 0  .2126 .7152 .0722 0 0  0 0 0 1 0"/>
+      <feComponentTransfer><feFuncR type="linear" slope="1.55" intercept="-.24"/><feFuncG type="linear" slope="1.55" intercept="-.24"/><feFuncB type="linear" slope="1.55" intercept="-.24"/></feComponentTransfer>
+      <feComponentTransfer><feFuncR type="table" tableValues=".16 .22 .3 .5 .7"/><feFuncG type="table" tableValues=".27 .36 .48 .66 .82"/><feFuncB type="table" tableValues=".56 .7 .86 .95 .98"/></feComponentTransfer>
+    </filter>
+  </svg>
+  <div class="run" id="arun"><div class="mstage" id="astage">
+    <header class="whead"><h2 id="about-h">About</h2><span><b id="acount">1</b> / 2</span></header>
+    <div class="alayers" id="alayers" role="img" aria-label="Adnan Asif Khan in a leather jacket, sitting by a window at night"></div>
+    <p class="ahint" id="ahint" aria-hidden="true">Scroll to open</p>
+  </div></div>
+  <div class="afoot">
+    <p class="lead">Learned by building, <i>not by syllabus.</i></p>
+    <p class="t">What I care about is the moment between people and AI: what someone types, what they meant, and what it takes to trust the&nbsp;answer.</p>
+  </div>
+</section>
+<section class="ct contact" id="contact" aria-labelledby="contact-h">
+  <div class="ct-in">
+    <header class="ahead up"><h2 id="contact-h">Contact</h2><span>Open to remote work</span></header>
+    <div class="sc-scene" id="scs">
+      <svg viewBox="0 0 1000 300" aria-hidden="true">
+        <defs>
+          <linearGradient id="rdg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" stop-color="currentColor" stop-opacity="0"/><stop offset=".12" stop-color="currentColor" stop-opacity=".45"/><stop offset=".88" stop-color="currentColor" stop-opacity=".45"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient>
+          <linearGradient id="pbg" x1="0" x2="1"><stop offset="0" stop-color="#8A2A1F"/><stop offset=".28" stop-color="#C2412F"/><stop offset=".4" stop-color="#DA5B47"/><stop offset=".62" stop-color="#B4362A"/><stop offset="1" stop-color="#78221A"/></linearGradient>
+          <radialGradient id="pdome" cx=".36" cy=".3" r=".8"><stop offset="0" stop-color="#E06A55"/><stop offset=".5" stop-color="#B4362A"/><stop offset="1" stop-color="#7E241B"/></radialGradient>
+          <radialGradient id="helm" cx=".38" cy=".3" r=".75"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#EEF2F9"/><stop offset="1" stop-color="#C3CEE2"/></radialGradient>
+          <linearGradient id="beamg" x1="0" x2="1"><stop offset="0" stop-color="#FFE6A6" stop-opacity=".55"/><stop offset="1" stop-color="#FFE6A6" stop-opacity="0"/></linearGradient>
+          <clipPath id="above"><rect x="-400" y="-200" width="1800" height="462"/></clipPath>
+        </defs>
+        <!-- the town behind, in faint line drawing; its windows light up at night -->
+        <g id="town">
+          <path class="sc-faint" d="M150 262 V200 H206 V262 M206 262 V176 H246 V262 M246 262 V214 H302 V262 M318 262 V188 C318 170 360 170 360 188 V262 M372 262 V206 H418 V262 M590 262 V196 H638 V262 M638 262 V170 H676 V262 M676 262 V210 H730 V262 M744 262 V184 H790 V262 M790 262 V222 H846 V262"/>
+          <path class="sc-faint" d="M226 176 V160 M222 160 H230 M657 170 V150 M651 150 H663 M339 172 V164"/>
+          <path class="sc-faint" d="M862 262 V226 M862 230 C846 228 842 206 856 198 C858 184 878 182 884 194 C900 196 900 222 882 228 Z M120 262 V232 M120 236 C106 234 104 214 118 208 C122 196 138 198 140 210 C152 214 148 234 132 236 Z"/>
+          <g class="sc-win"><rect x="160" y="210" width="8" height="10" rx="1"/><rect x="176" y="210" width="8" height="10" rx="1"/><rect x="160" y="230" width="8" height="10" rx="1"/><rect x="216" y="186" width="7" height="10" rx="1"/><rect x="230" y="186" width="7" height="10" rx="1"/><rect x="216" y="206" width="7" height="10" rx="1"/><rect x="230" y="226" width="7" height="10" rx="1"/><rect x="258" y="224" width="9" height="9" rx="1"/><rect x="280" y="224" width="9" height="9" rx="1"/><rect x="333" y="196" width="12" height="16" rx="6"/><rect x="384" y="216" width="8" height="10" rx="1"/><rect x="400" y="216" width="8" height="10" rx="1"/><rect x="600" y="206" width="8" height="10" rx="1"/><rect x="616" y="226" width="8" height="10" rx="1"/><rect x="648" y="182" width="7" height="10" rx="1"/><rect x="662" y="200" width="7" height="10" rx="1"/><rect x="648" y="222" width="7" height="10" rx="1"/><rect x="690" y="222" width="9" height="9" rx="1"/><rect x="756" y="196" width="8" height="10" rx="1"/><rect x="770" y="216" width="8" height="10" rx="1"/><rect x="804" y="232" width="9" height="9" rx="1"/><rect x="824" y="232" width="9" height="9" rx="1"/></g>
+        </g>
+        <path class="sc-cloud" d="M140 54 C140 44 154 40 162 46 C166 34 188 34 192 48 C202 46 210 52 206 60 H142 C138 60 138 56 140 54 Z"/>
+        <path class="sc-cloud" d="M760 34 C760 26 772 22 778 28 C782 18 800 18 803 30 C812 28 818 34 815 40 H762 C758 40 758 36 760 34 Z"/>
+        <!-- poles and wires, with three birds on the wire -->
+        <path class="sc-pole" stroke-width="4" d="M70 262 V26 M930 262 V26"/>
+        <path class="sc-pole" stroke-width="3" d="M56 36 H84 M916 36 H944"/>
+        <path class="sc-wire" d="M60 36 Q 500 92 940 36"/><path class="sc-wire" d="M80 36 Q 500 104 920 36"/>
+        <g id="birds"></g>
+        <!-- the street -->
+        <line class="road" x1="0" y1="254" x2="1000" y2="254" stroke="url(#rdg)" opacity=".4"/>
+        <line class="road" x1="0" y1="262" x2="1000" y2="262" stroke="url(#rdg)"/>
+        <line class="road-d" x1="70" y1="280" x2="930" y2="280"/>
+        <g id="puffs"></g>
+        <!-- the courier on the scooter, on the far lane (behind the words and the box); its origin is where the back wheel meets the road -->
+        <g id="sc" transform="translate(-400 254) scale(.88)">
+          <ellipse cx="66" cy="1" rx="104" ry="5" fill="#121B2C" opacity=".14"/>
+          <path class="beam" d="M160 -132 L420 -168 L420 -60 Z" fill="url(#beamg)"/>
+          <path d="M14 -22 L-44 -26" stroke="#8C97B5" stroke-width="7" stroke-linecap="round"/>
+          <g transform="translate(0 -25)"><g id="w1"><circle r="25" fill="#1B2233"/><circle r="16" fill="#DCE3EE"/><circle r="6" fill="#8C97B5"/><g fill="#8C97B5"><circle cx="11" r="1.8"/><circle cx="3.4" cy="10.5" r="1.8"/><circle cx="-8.9" cy="6.5" r="1.8"/><circle cx="-8.9" cy="-6.5" r="1.8"/><circle cx="3.4" cy="-10.5" r="1.8"/></g></g></g>
+          <g transform="translate(136 -25)"><g id="w2"><circle r="25" fill="#1B2233"/><circle r="16" fill="#DCE3EE"/><circle r="6" fill="#8C97B5"/><g fill="#8C97B5"><circle cx="11" r="1.8"/><circle cx="3.4" cy="10.5" r="1.8"/><circle cx="-8.9" cy="6.5" r="1.8"/><circle cx="-8.9" cy="-6.5" r="1.8"/><circle cx="3.4" cy="-10.5" r="1.8"/></g></g></g>
+          <g id="scb">
+            <path d="M136 -25 L127 -48" stroke="#3A4560" stroke-width="6" stroke-linecap="round"/>
+            <!-- the far arm, behind everything of the rider -->
+            <path d="M54 -138 L78 -118 L100 -136" fill="none" stroke="#1C3270" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- rack and crate, the lid hinged at the back -->
+            <path d="M-44 -96 H6 M-36 -96 L-28 -80 M-2 -96 L4 -90" stroke="#8C97B5" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <rect x="-46" y="-130" width="52" height="34" rx="4" fill="#C4553A"/>
+            <rect x="-46" y="-108" width="52" height="12" rx="3" fill="#A84630"/>
+            <rect x="-31" y="-123" width="22" height="13" rx="1.5" fill="#FBF8F1"/><path d="M-31 -123 L-20 -115 L-9 -123" fill="none" stroke="#C4553A" stroke-width="1.4"/>
+            <rect id="lid" x="-48" y="-137" width="56" height="8" rx="3" fill="#A84630"/>
+            <!-- the body -->
+            <path d="M-36 -36 C-42 -62 -24 -90 12 -94 L66 -94 C78 -94 82 -84 80 -72 C78 -58 72 -46 64 -38 C40 -36 10 -38 -36 -36 Z" fill="#A9C8F7"/>
+            <path d="M-36 -36 C-38 -46 -36 -54 -32 -60 C0 -54 40 -53 77 -60 C75 -50 70 -44 64 -38 C40 -36 10 -38 -36 -36 Z" fill="#86AAE8"/>
+            <path d="M-20 -80 C-6 -89 22 -91 52 -89" fill="none" stroke="#DCE9FD" stroke-width="3" stroke-linecap="round"/>
+            <path d="M44 -66 C50 -68 60 -68 68 -66 M45 -60 C51 -62 61 -62 69 -60" fill="none" stroke="#86AAE8" stroke-width="2" stroke-linecap="round"/>
+            <rect x="-43" y="-66" width="8" height="12" rx="3" fill="#E05A3E"/>
+            <path d="M62 -38 H112 C115 -38 116 -36 116 -33 L62 -32 Z" fill="#2A3348"/>
+            <path d="M62 -32.5 H116" stroke="#DCE3EE" stroke-width="2"/>
+            <path d="M104 -33 C110 -64 114 -98 118 -128 C121 -132 132 -132 136 -128 C134 -98 132 -64 130 -33 Z" fill="#A9C8F7"/>
+            <path d="M104 -33 C110 -64 114 -98 118 -128 L124 -129 C120 -98 117 -64 112 -33 Z" fill="#86AAE8"/>
+            <path d="M112 -29 C112 -62 160 -64 163 -33 C160 -35 156 -37 152 -37 C147 -54 125 -54 120 -30 Z" fill="#A9C8F7"/>
+            <path d="M118 -40 C122 -54 146 -58 156 -44" fill="none" stroke="#DCE9FD" stroke-width="2" stroke-linecap="round"/>
+            <path d="M116 -126 C118 -141 152 -145 161 -132 C161 -126 150 -122 136 -121 Z" fill="#A9C8F7"/>
+            <circle cx="158" cy="-131" r="7.5" fill="#FFF1C9" stroke="#DCE3EE" stroke-width="2.5"/>
+            <path d="M126 -138 L121 -160" stroke="#8C97B5" stroke-width="2"/><ellipse cx="120" cy="-164" rx="5" ry="7" fill="#DCE3EE" stroke="#8C97B5" stroke-width="1.5"/>
+            <path d="M122 -136 L104 -140" stroke="#1E2638" stroke-width="6" stroke-linecap="round"/>
+            <path d="M6 -94 C6 -106 64 -108 74 -96 L74 -92 L6 -92 Z" fill="#273149"/>
+            <path d="M14 -102 C30 -106 50 -106 66 -102" fill="none" stroke="#3B4766" stroke-width="2" stroke-linecap="round"/>
+            <!-- the rider -->
+            <path d="M38 -96 L84 -100 L90 -46" fill="none" stroke="#1E2638" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M83 -46 C83 -53 101 -53 106 -44 L106 -40 L83 -40 Z" fill="#121826"/>
+            <path d="M30 -98 C26 -122 34 -146 50 -154 C62 -156 70 -148 70 -136 C70 -122 66 -108 62 -96 Z" fill="#25438A"/>
+            <path d="M30 -98 C26 -122 34 -146 50 -154 L47 -150 C37 -140 35 -118 39 -98 Z" fill="#1C3270"/>
+            <path d="M47 -151 L66 -104" stroke="#C4553A" stroke-width="4" stroke-linecap="round"/>
+            <path id="scarf" d="M44 -156 L10 -150 L10 -146 L44 -150 Z" fill="#E06B4E"/>
+            <path d="M58 -140 L82 -116 L106 -137" fill="none" stroke="#2F55A8" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="107" cy="-137" r="6" fill="#121826"/>
+            <circle cx="56" cy="-171" r="19" fill="url(#helm)"/>
+            <path d="M41 -174 C45 -184 57 -189 69 -184" fill="none" stroke="#E06B4E" stroke-width="3" stroke-linecap="round"/>
+            <path d="M58 -177 C70 -179 77 -169 75 -159 L60 -161 C58 -167 57 -173 58 -177 Z" fill="#1A2F66"/>
+            <path d="M64 -175 C68 -175 71 -172 72 -169" fill="none" stroke="#6F95DE" stroke-width="2" stroke-linecap="round"/>
+          </g>
+        </g>
+        <!-- the words: their letters rise out of the road -->
+        <g clip-path="url(#above)"><g id="wl"></g><g id="wt"></g></g>
+        <text id="mw" class="sc-word" x="0" y="258" style="visibility:hidden">Let's talk.</text>
+        <!-- his post box: an Indian pillar box, adnan.world on its plate -->
+        <g transform="translate(500 262) scale(.9)"><g id="pbox">
+          <rect x="-48" y="-12" width="96" height="12" rx="3" fill="#7E241B"/>
+          <rect x="-40" y="-150" width="80" height="140" fill="url(#pbg)"/>
+          <rect x="-40" y="-76" width="80" height="4" fill="#7E241B" opacity=".75"/>
+          <rect x="-40" y="-146" width="80" height="3" fill="#7E241B" opacity=".6"/>
+          <rect x="-25" y="-64" width="50" height="42" rx="3" fill="none" stroke="#7E241B" stroke-opacity=".7" stroke-width="1.6"/>
+          <circle cx="16" cy="-42" r="2.2" fill="#7E241B"/>
+          <path d="M -42 -158 C -42 -205 42 -205 42 -158 Z" fill="url(#pdome)"/>
+          <rect x="-46" y="-160" width="92" height="10" rx="5" fill="#8E2A20"/>
+          <circle cx="0" cy="-198" r="5" fill="#8E2A20"/>
+          <path d="M -29 -137 H 29 L 25 -129 H -25 Z" fill="#6A1E16"/>
+          <rect x="-24" y="-129" width="48" height="5" rx="2" fill="#2A0C08"/>
+          <rect x="-34" y="-114" width="68" height="23" rx="3" fill="#F4E9D8"/>
+          <text class="pb-plate" x="0" y="-99.5" text-anchor="middle">adnan.world</text>
+          <g transform="translate(40 -188)"><g id="badge" transform="scale(0)"><circle id="ring" r="15" fill="none" stroke="#3A68C8" stroke-width="2" opacity="0"/><circle r="15" fill="#3A68C8" style="stroke:var(--page)" stroke-width="3"/><text y="5.5" text-anchor="middle">1</text></g></g>
+        </g></g>
+        <!-- the letter -->
+        <g id="lt" opacity="0"><rect x="-14" y="-9" width="28" height="18" rx="2" fill="#FBF8F1" stroke="#1A2F66" stroke-width="1.4"/><path d="M-14 -9 L0 2 L14 -9" fill="none" stroke="#1A2F66" stroke-width="1.4"/></g>
+      </svg>
+    </div>
+    <div class="after sc-after later" id="scafter">
+      <p class="sr">Let's talk.</p>
+      <div class="mrow"><p class="mail">adnanasifkhan24@gmail.com</p><button class="cpy" type="button" data-copy aria-label="Copy email address">Copy</button></div>
+      <p class="k sc-when">Kishanganj, India · <b class="here-now">now</b> there (IST)</p>
+      <div class="btns"><a class="btn solid" href="mailto:adnanasifkhan24@gmail.com">Email me <span class="ar" aria-hidden="true">↗</span></a><a class="btn" href="https://adnan.world/resume/adnan-asif-khan-product-designer-resume.pdf" target="_blank" rel="noopener">Résumé <span class="ar" aria-hidden="true">↗</span></a></div>
+      <div class="links">
+        <a class="lk" href="https://www.linkedin.com/in/adnanasifkhan/" target="_blank" rel="noopener">LinkedIn <span class="ar" aria-hidden="true">↗</span></a>
+        <a class="lk" href="https://www.behance.net/adnankhan482" target="_blank" rel="noopener">Behance <span class="ar" aria-hidden="true">↗</span></a>
+        <a class="lk" href="https://medium.com/@adnanasifkhan24" target="_blank" rel="noopener">Medium <span class="ar" aria-hidden="true">↗</span></a>
+        <a class="lk" href="https://www.instagram.com/adnanuiux/" target="_blank" rel="noopener">Instagram <span class="ar" aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <button class="replay later" id="screplay" type="button">Deliver it again</button>
+  </div>
+</section>
+<p class="toast" id="ctoast" role="status" aria-live="polite"></p>
+<footer class="endnote">the rest of the site continues here</footer>
+<script src="wc.js"></script>
+<script>
+// Floating: the next cards wait tilted further back; the one in focus comes forward and lies flat, then lifts up and away.
+// Like the hero, nothing drifts on its own or follows the pointer: only scrolling moves the cards.
+(function () {
+  var P = WC.P.slice(0, 4), N = P.length, REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sec = document.getElementById('run'), stage = document.getElementById('mstage'), world = document.getElementById('world'), count = document.getElementById('wcount');
+  sec.style.height = (N * 110 + 60) + 'vh';
+  world.innerHTML = P.map(WC.cardHTML).join('');
+  // ---------- one scroll, one step (the work cards and the book pages share it) ----------
+  // Mouse, trackpad and keys: one scroll moves one card or turns one page. Until it has landed, more scrolling is ignored, so it
+  // never pushes the next one; once it has landed, scrolling counts again. The ends are steps too: up from the first card goes
+  // back to the whole hero, the last card hands over to the first page and back, and down from the last page goes on to About.
+  // On touch screens the snap points do the same job.
+  var steppers = [], lock = { to: null, since: 0, s: null }, lastWheel = 0, lastMag = 0, hero = document.querySelector('.hero');
+  function Stepped(sec, stage, n, getF, before) {
+    var snaps = [];
+    for (var i = 0; i < n; i++) { var d = document.createElement('div'); d.className = 'snap'; d.setAttribute('aria-hidden', 'true'); sec.appendChild(d); snaps.push(d); }
+    function span() { return sec.offsetHeight - stage.clientHeight; }
+    function place() { snaps.forEach(function (d, k) { d.style.top = Math.round(k / (n - 1) * span()) + 'px'; }); }
+    place(); addEventListener('resize', place);
+    function top(k) { return scrollY + sec.getBoundingClientRect().top + k / (n - 1) * span(); }
+    // if the scroll stops between two steps (a slow drag), glide to the nearer one so nothing is left half-moved
+    function settle() {
+      var H = stage.clientHeight, r = sec.getBoundingClientRect();
+      if (r.top > 1 || r.bottom < H - 1) return;   // only while the section is pinned on screen
+      var want = top(Math.round(clamp(-r.top / span(), 0, 1) * (n - 1)));
+      if (Math.abs(want - scrollY) > 2) scrollTo({ top: want, behavior: REDUCE ? 'auto' : 'smooth' });
+    }
+    if ('onscrollend' in window) addEventListener('scrollend', settle);
+    else { var st = 0; addEventListener('scroll', function () { clearTimeout(st); st = setTimeout(settle, 160); }, { passive: true }); }
+    // where one step in this direction goes from here, or null when this section is not involved
+    function step(dir) {
+      var H = stage.clientHeight, r = sec.getBoundingClientRect();
+      if (r.top > 1 && r.top < H) return dir > 0 ? top(0) : null;                  // coming in from above
+      if (r.bottom < H - 1 && r.bottom > -2) return dir < 0 ? top(n - 1) : null;    // just past it, its end still on screen
+      if (r.top > 1 || r.bottom < H - 1) return null;
+      var k = Math.round(clamp(-r.top / span(), 0, 1) * (n - 1));
+      if (dir < 0 && k === 0) return before();
+      if (dir > 0 && k === n - 1) return scrollY + r.bottom;                        // on to what follows
+      return top(k + dir);
+    }
+    steppers.push({ step: step, f: getF });
+  }
+  // still moving: until the scroll has reached its stop and the section has as good as settled there (the last 3% of a move
+  // can't be seen; at most 1.4 s, in case it never does)
+  function moving(now) {
+    if (lock.to === null) return false;
+    var p = lock.s.f();
+    if (now - lock.since > 1400 || (Math.abs(scrollY - lock.to) < 2 && Math.abs(p - Math.round(p)) < .03)) { lock.to = null; return false; }
+    return true;
+  }
+  // the first section with somewhere to go in this direction (where two meet, both name the same place)
+  function target(dir) { for (var i = 0; i < steppers.length; i++) { var to = steppers[i].step(dir); if (to !== null) return { to: to, s: steppers[i] }; } return null; }
+  function go(t, now) { lock.to = Math.round(Math.min(t.to, document.documentElement.scrollHeight - innerHeight)); lock.since = now; lock.s = t.s; scrollTo({ top: t.to, behavior: REDUCE ? 'auto' : 'smooth' }); }
+  addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaY) < Math.abs(e.deltaX) || e.ctrlKey) return;
+    // gaps are timed by when the input happened (e.timeStamp), not when it was handled: right after load the page is busy
+    // drawing the hero, events then arrive in bunches, and handling time would show gaps that were never there
+    var now = performance.now(), at = e.timeStamp || now, mag = Math.abs(e.deltaY) * (e.deltaMode === 1 ? 40 : 1);
+    // a new push (after a gap, or getting stronger) or a steady strong scroll counts; a fling's tail only ever fades
+    var push = at - lastWheel > 250 || mag > lastMag * 1.25 + 2 || (mag >= 40 && mag >= lastMag);
+    lastWheel = at; lastMag = mag;
+    var t = target(e.deltaY > 0 ? 1 : -1);
+    if (!t) return;   // not near either section: the page scrolls as usual
+    e.preventDefault();
+    if (moving(now) || !push) return;
+    go(t, now);
+  }, { passive: false });
+  addEventListener('keydown', function (e) {
+    var el = e.target, tag = el && el.tagName;
+    if (e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(tag) || (el && el.isContentEditable)) return;
+    var dir = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1 }[e.key] || (e.key === ' ' ? (e.shiftKey ? -1 : 1) : 0);
+    if (!dir) return;
+    var t = target(dir); if (!t) return;
+    e.preventDefault();
+    var now = performance.now(); if (moving(now)) return;
+    go(t, now);
+  });
+  Stepped(sec, stage, N, function () { return f; }, function () { return hero ? scrollY + hero.getBoundingClientRect().top : null; });
+  var wkey = '', cards = [].slice.call(world.children), f = null, last = 0, on = -1, running = false, raf = 0;
+  // the cards follow the scroll smoothly and never faster than about a card and a half a second, however hard the scroll
+  // (time-based, so a 120 Hz screen or a trackpad fling does not make them whip past)
+  var TAU = .16, SPEED = 1.6;
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function sm(a, b, x) { var t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); }
+  // a soft rest on each card: progress through n steps, lingering on each
+  function rest(s, n) { var q = s * (n - 1), i = Math.floor(q); return Math.min(n - 1, i + sm(.15, .85, q - i)); }
+  function put(el, tf, op, z) { el.style.transform = tf; el.style.opacity = op.toFixed(3); el.style.visibility = op < .01 ? 'hidden' : 'visible'; el.style.zIndex = z; }
+  function frame(t) {
+    raf = running ? requestAnimationFrame(frame) : 0;
+    var W = stage.clientWidth, H = stage.clientHeight, r = sec.getBoundingClientRect(), p = clamp(-r.top / Math.max(1, r.height - H), 0, 1);
+    var target = rest(p, N), dt = last && t ? clamp((t - last) / 1000, 0, .05) : 0; last = t;
+    if (f === null || REDUCE) f = target;
+    else { var cap = SPEED * dt; f += clamp((target - f) * (1 - Math.exp(-dt / TAU)), -cap, cap); if (Math.abs(target - f) < .0005) f = target; }
+    var wk = W + ',' + H + ',' + f.toFixed(4); if (wk === wkey) return; wkey = wk;   // nothing has moved: nothing to draw
+    var nar = W < 760, cw = nar ? W - 24 : Math.min(1100, W - 2 * Math.max(48, W * .06), (H - 250) * 16 / 9), ch = nar ? Math.min(560, H - 210) : cw * 9 / 16;
+    world.style.setProperty('--cw', cw + 'px'); world.style.setProperty('--ch', ch + 'px');
+    cards.forEach(function (el, k) {
+      var o = k - f, a = Math.abs(o), sg = k % 2 ? 1 : -1, m = Math.min(1, o);
+      el.style.setProperty('--pary', (a * 26).toFixed(1));
+      if (o >= 0) {
+        var x = sg * m * W * (nar ? .3 : .26) + sg * Math.max(0, o - 1) * W * .08, y = -m * H * .1, z = -o * (nar ? 700 : 900);
+        put(el, 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,' + z.toFixed(1) + 'px) rotateY(' + (-sg * 24 * m).toFixed(2) + 'deg) rotateX(' + (8 * m).toFixed(2) + 'deg) rotateZ(' + (sg * 3 * m).toFixed(2) + 'deg)', o > 2.6 ? sm(3.4, 2.6, o) : 1, 50 - k);
+      } else {
+        // solid while it leaves (3D stacks by depth, so a see-through card in front would ghost over the next one)
+        put(el, 'translate3d(' + (-sg * a * W * .12).toFixed(1) + 'px,' + (-a * H * 1.3).toFixed(1) + 'px,' + (a * 120).toFixed(1) + 'px) rotateX(' + (-a * 12).toFixed(2) + 'deg)', sm(.95, .65, a), 60 + k);
+      }
+    });
+    var cur = Math.round(f); if (cur !== on) { on = cur; count.textContent = cur + 1; cards.forEach(function (el, k) { el.inert = k !== cur; }); }
+  }
+  // only animate while the section is on screen (the hero pauses itself the same way)
+  new IntersectionObserver(function (es) { var vis = es[0].isIntersecting; if (vis && !running) { running = true; last = 0; raf = requestAnimationFrame(frame); } else if (!vis) running = false; }).observe(sec);
+  frame(0);
+
+  // ---------- Writing: his essays on Medium as a book (titles, dates and opening lines word for word from his feed) ----------
+  // Each spread: the left page is an essay's opening line, the right page the essay. The back of each turned page is the next
+  // spread's left page, as in a real book, and a turning page is two halves so it bends. On phones it is one page at a time.
+  var ESSAYS = [
+    { t: 'Why you should Stopped “Fighting” for your Designs (And Started Explaining Them Instead)', d: '17 Dec 2025', pub: 'Published in Bootcamp',
+      first: 'The difference between a “pretty” interface and a product that actually ships.', href: 'https://medium.com/design-bootcamp/why-you-should-stopped-fighting-for-your-designs-and-started-explaining-them-instead-ef8665500a1f' },
+    { t: 'I Used to Think UX Was Just About “Solving Problems.” I Was Wrong', d: '8 Dec 2025', pub: 'Medium',
+      first: 'For a long time, my definition of UX Design was simple: Find a user problem, design a solution, make the user happy.', href: 'https://medium.com/@adnanasifkhan24/i-used-to-think-ux-was-just-about-solving-problems-i-was-wrong-5e121ff7f3dc' },
+    { t: '4 Things I’m Learning as a New UX Designer (Beyond Just Figma)', d: '7 Dec 2025', pub: 'Medium',
+      first: 'There is a big difference between knowing how to use design tools and knowing how to actually build a product.', href: 'https://medium.com/@adnanasifkhan24/4-things-im-learning-as-a-new-ux-designer-beyond-just-figma-384c4138dd1c' }
+  ];
+  var M = ESSAYS.length, wrun = document.getElementById('wrun'), wstage = document.getElementById('wstage'), wworld = document.getElementById('wworld'), ecount = document.getElementById('ecount');
+  wrun.style.height = (100 + (M - 1) * 120) + 'vh';   // each page turn is about as long a scroll as each work card
+  function no(i) { return String(i + 1).padStart(2, '0'); }
+  function pq(i) { var w = ESSAYS[i]; return '<div class="pq"><span class="mono">Essay ' + no(i) + '</span><blockquote>' + w.first + '</blockquote><span class="mono">Adnan Asif Khan</span><span class="pg">' + (i * 2 + 1) + '</span></div>'; }
+  function pd(i) { var w = ESSAYS[i]; return '<div class="pd"><span class="mono">' + w.d + '</span><span class="spacer"></span><span class="mono pub">' + w.pub + '</span><h3>' + w.t + '</h3><p class="q-phone">“' + w.first + '”</p><a href="' + w.href + '" target="_blank" rel="noopener">Read the essay ↗</a><span class="pg">' + (i * 2 + 2) + '</span></div>'; }
+  // the front of a leaf is essay i, its back the opening line of essay i + 1; the outer half repeats them for the bend
+  function face(side, html, at) { return '<div class="bk-face ' + side + ' paper"><div class="slab" style="' + at + ':0">' + html + '</div><i class="lit"></i></div>'; }
+  var leafHTML = '';
+  for (var i = M - 2; i >= 0; i--) leafHTML += '<div class="bk-leaf"><div class="sg in">' + face('f', pd(i), 'left') + face('b', pq(i + 1), 'right') +
+    '<div class="sg out" inert>' + face('f', pd(i), 'right') + face('b', pq(i + 1), 'left') + '</div></div></div>';
+  wworld.innerHTML = '<div class="bk"><div class="bk-cover"></div><div class="bk-pg l paper"><div class="slab">' + pq(0) + '</div></div><div class="bk-pg r paper"><div class="slab">' + pd(M - 1) + '</div></div>' + leafHTML + '</div>';
+  var bk = wworld.firstChild, leaves = [].slice.call(wworld.querySelectorAll('.bk-leaf')).reverse();
+  var outs = leaves.map(function (l) { return l.querySelector('.sg.out'); }), lits = leaves.map(function (l) { return l.querySelectorAll('.lit'); });
+  var g = null, glast = 0, gon = -1, grun = false;
+  var gkey = '';
+  function bookFrame(t) {
+    if (grun) requestAnimationFrame(bookFrame);
+    var W = wstage.clientWidth, H = wstage.clientHeight, r = wrun.getBoundingClientRect(), p = clamp(-r.top / Math.max(1, r.height - H), 0, 1);
+    var target = rest(p, M), dt = glast && t ? clamp((t - glast) / 1000, 0, .05) : 0; glast = t;
+    if (g === null || REDUCE) g = target;
+    else { var cap = SPEED * dt; g += clamp((target - g) * (1 - Math.exp(-dt / TAU)), -cap, cap); if (Math.abs(target - g) < .0005) g = target; }
+    var gk = W + ',' + H + ',' + g.toFixed(4); if (gk === gkey) return; gkey = gk;   // nothing has moved: nothing to draw
+    var nar = W < 760, room = H - (nar ? 200 : 260), bh = nar ? Math.min(room, (W - 40) / .7) : Math.min(room, Math.min(1000, W * .88) / 1.5), bw = nar ? bh * .7 : bh * 1.5;
+    bk.style.setProperty('--bw', bw.toFixed(1) + 'px'); bk.style.setProperty('--bh', bh.toFixed(1) + 'px'); bk.style.setProperty('--pw', (nar ? bw : bw / 2).toFixed(1) + 'px');
+    bk.style.transform = nar ? 'none' : 'rotateX(10deg)';
+    leaves.forEach(function (el, i) {
+      var u = clamp(g - i, 0, 1), lift = Math.sin(u * Math.PI);
+      // a hairline of depth keeps the pages in order: unturned ones with the next page on top, turned ones with the latest on top
+      var z = u < .5 ? (M - i) * .6 : (i + 1) * .6;
+      el.style.transform = 'translateZ(' + (z + lift * 30).toFixed(2) + 'px) rotateY(' + (-180 * u).toFixed(2) + 'deg)';
+      outs[i].style.transform = 'rotateY(' + (-38 * lift).toFixed(2) + 'deg)';
+      // light across the turning page: the front darkens as it lifts away (the curled half more), the back catches the light as it lands
+      var L = lits[i];
+      L[0].style.background = 'rgba(0,0,0,' + (u * .28).toFixed(3) + ')';
+      L[2].style.background = 'linear-gradient(90deg, rgba(0,0,0,' + (u * .28 + lift * .1).toFixed(3) + '), rgba(0,0,0,' + (u * .28 + lift * .18).toFixed(3) + '))';
+      L[1].style.background = 'rgba(0,0,0,' + ((1 - u) * .26).toFixed(3) + ')';
+      L[3].style.background = 'linear-gradient(270deg, rgba(0,0,0,' + ((1 - u) * .26).toFixed(3) + '), rgba(255,255,255,' + (lift * .14).toFixed(3) + '))';
+    });
+    // only the page you are looking at can take focus
+    var cur = Math.round(g);
+    if (cur !== gon) {
+      gon = cur; ecount.textContent = cur + 1;
+      wworld.querySelectorAll('a').forEach(function (a) { a.tabIndex = -1; });
+      (cur < M - 1 ? leaves[cur].querySelector('.f') : wworld.querySelector('.bk-pg.r')).querySelectorAll('a').forEach(function (a) { a.tabIndex = 0; });
+    }
+  }
+  new IntersectionObserver(function (es) { var vis = es[0].isIntersecting; if (vis && !grun) { grun = true; glast = 0; requestAnimationFrame(bookFrame); } else if (!vis) grun = false; }).observe(wrun);
+  bookFrame(0);
+  Stepped(wrun, wstage, M, function () { return g; }, function () { return Math.max(0, scrollY + wrun.getBoundingClientRect().top - wstage.clientHeight); });
+
+  // ---------- About: "Adnan" (the neon photo in the site's blues, through the letters) splits across the middle; in the gap
+  // his arch portrait grows, in full colour with a film grade; his name rises under it; the four facts slide out from behind it
+  // in reading order. One scroll does it (the shared stepper); the words and links follow below. Scrolling back closes it.
+  var arun = document.getElementById('arun'), astage = document.getElementById('astage'), alayers = document.getElementById('alayers'), ahint = document.getElementById('ahint'), acount = document.getElementById('acount'), ahead = astage.querySelector('.whead');
+  arun.style.height = '220vh';
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function mix(a, b, t) { return { x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), w: lerp(a.w, b.w, t), h: lerp(a.h, b.h, t) }; }
+  function place(el, R) { el.style.left = R.x.toFixed(1) + 'px'; el.style.top = R.y.toFixed(1) + 'px'; el.style.width = R.w.toFixed(1) + 'px'; el.style.height = R.h.toFixed(1) + 'px'; }
+  function layer(cls, html) { var d = document.createElement('div'); d.className = cls; d.innerHTML = html || ''; alayers.appendChild(d); return d; }
+  // the word, drawn once in the site's serif, is the window (a mask)
+  function wordMask(text, done) {
+    var c = document.createElement('canvas'), x = c.getContext('2d'), fs = 420, font = '400 ' + fs + 'px Newsreader, Georgia, serif';
+    x.font = font; var m = x.measureText(text), w = Math.ceil(m.width + fs * .1), a = m.actualBoundingBoxAscent || fs * .72, d = m.actualBoundingBoxDescent || fs * .02, h = Math.ceil(a + d + fs * .08);
+    c.width = w; c.height = h; x.font = font; x.fillStyle = '#fff'; x.textBaseline = 'alphabetic'; x.fillText(text, fs * .05, a + fs * .04);
+    // encoded off the main thread where the browser can (toBlob); the halves wait, hidden, until it is ready
+    var M = { url: 'none', ratio: h / w };
+    function set(u) { M.url = u; done(M); }
+    if (c.toBlob) c.toBlob(function (b) { set('url(' + URL.createObjectURL(b) + ')'); }); else setTimeout(function () { set('url(' + c.toDataURL() + ')'); }, 0);
+    return M;
+  }
+  // the arch photo: the neon photo cropped to him, sharpened, shadows toward navy, highlights a touch warm, a vignette and grain
+  function grade(cv) {
+    var im = new Image(); im.onload = function () {
+      var W = 800, H = 1000, x = cv.getContext('2d', { willReadFrequently: true }); cv.width = W; cv.height = H; x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+      x.drawImage(im, 95, 245, 360, 450, 0, 0, W, H);
+      var bl = document.createElement('canvas'); bl.width = W; bl.height = H; var bx = bl.getContext('2d', { willReadFrequently: true }); bx.filter = 'blur(1.6px)'; bx.drawImage(cv, 0, 0);
+      var d = x.getImageData(0, 0, W, H), p = d.data, q = bx.getImageData(0, 0, W, H).data, cx = W / 2, cy = H * .42, rr2 = Math.pow(Math.hypot(W, H) * .58, 2);
+      // the curves as lookup tables (shadow pull by lightness, vignette by distance squared) instead of pow/hypot per pixel
+      var SW = new Float32Array(1024), VG = new Float32Array(1024), row = 0;
+      for (var j = 0; j < 1024; j++) { SW[j] = Math.pow(1 - j / 1023, 2.2) * .55; VG[j] = 1 - .3 * Math.pow(Math.sqrt(j / 1023), 2.2); }
+      var idle = window.requestIdleCallback ? function (fn) { requestIdleCallback(fn, { timeout: 600 }); } : function (fn) { setTimeout(function () { fn({ timeRemaining: function () { return 6; }, didTimeout: false }); }, 16); };
+      // row by row in idle time, so it never holds up a frame; the plain crop shows until the graded one replaces it
+      function work(dl) {
+        var extra = dl.didTimeout ? 24 : 0;
+        while (row < H && (dl.timeRemaining() > 2 || extra-- > 0)) {
+          var dy2 = (row - cy) * (row - cy);
+          for (var px = 0, i = row * W * 4; px < W; px++, i += 4) {
+            var R = p[i] + .75 * (p[i] - q[i]), G = p[i + 1] + .75 * (p[i + 1] - q[i + 1]), B = p[i + 2] + .75 * (p[i + 2] - q[i + 2]);
+            var L = (.2126 * R + .7152 * G + .0722 * B) / 255; L = L < 0 ? 0 : L > 1 ? 1 : L;
+            var sw = SW[(L * 1023) | 0], gr = (R + G + B) / 3, hw = L > .55 ? Math.min(1, (L - .55) * 2) * .06 : 0;
+            R = gr + (R - gr) * .86; G = gr + (G - gr) * .86; B = gr + (B - gr) * .86;
+            R = R * (1 - sw) + 18 * sw + 127.5 * hw; G = G * (1 - sw) + 34 * sw + 63.75 * hw; B = B * (1 - sw) + 74 * sw;
+            var e = ((px - cx) * (px - cx) + dy2) / rr2, vg = VG[e >= 1 ? 1023 : (e * 1023) | 0], n = (Math.random() - .5) * 8;
+            p[i] = ((R - 128) * 1.06 + 128) * vg + n; p[i + 1] = ((G - 128) * 1.06 + 128) * vg + n; p[i + 2] = ((B - 128) * 1.06 + 128) * vg + n;
+          }
+          row++;
+        }
+        if (row < H) idle(work); else x.putImageData(d, 0, 0);
+      }
+      idle(work);
+    };
+    im.src = 'img/me-neon.jpg';
+  }
+  var A = null, af = null, alast = 0, aon = -1, akey = '', avis = false;
+  function abuild() {
+    var NEON = '<img class="duo2" src="img/me-neon.jpg" width="545" height="727" alt="" decoding="async">', M = wordMask('Adnan', function (M) { [t, b].forEach(function (l) { l.style.webkitMaskImage = l.style.maskImage = M.url; l.style.visibility = ''; }); akey = ''; });
+    var arch = layer('iw-arch'), cv = document.createElement('canvas'); arch.appendChild(cv); grade(cv);
+    var t = layer('iw-l', NEON), b = layer('iw-l', NEON);
+    [t, b].forEach(function (l) { if (M.url === 'none') l.style.visibility = 'hidden'; else l.style.webkitMaskImage = l.style.maskImage = M.url; l.style.webkitMaskSize = l.style.maskSize = '100% 100%'; });
+    t.style.clipPath = 'inset(0 0 calc(50% - .5px) 0)'; b.style.clipPath = 'inset(calc(50% - .5px) 0 0 0)';   // overlap by a hair: no seam
+    var nm = layer('iw-name', '<span class="w"><span>Adnan</span></span> <span class="w"><span>Asif</span></span> <span class="w"><span>Khan</span></span>');
+    var chips = [
+      '<span class="k">Role</span><b>Product designer</b><span class="v">AI-first products</span>',
+      '<span class="k">Open to</span><b>Remote work</b><span class="v">English · Hindi · Urdu</span>',
+      '<span class="k">Based in</span><b>Kishanganj, India</b><span class="v"><span class="here-now">now</span> there</span>',
+      '<span class="k">Designing since</span><b>2023</b><span class="v">UX &amp; UI certified, 2024</span>'
+    ].map(function (h) { return layer('iw-chip', h); });
+    A = { M: M, arch: arch, t: t, b: b, nm: nm, words: [].slice.call(nm.querySelectorAll('.w > span')), chips: chips };
+    tick(); akey = '';
+  }
+  function aframe(t) {
+    requestAnimationFrame(aframe);
+    if (!A || !avis) { alast = 0; return; }
+    var W = astage.clientWidth, H = astage.clientHeight, r = arun.getBoundingClientRect(), p = clamp(-r.top / Math.max(1, r.height - H), 0, 1);
+    var target = rest(p, 2), dt = alast && t ? clamp((t - alast) / 1000, 0, .05) : 0; alast = t;
+    if (af === null || REDUCE) af = target; else { var cap = SPEED * dt; af += clamp((target - af) * (1 - Math.exp(-dt / TAU)), -cap, cap); if (Math.abs(target - af) < .0005) af = target; }
+    var k2 = W + ',' + H + ',' + af.toFixed(4); if (k2 === akey) return; akey = k2;   // nothing has moved: nothing to draw
+    var u = af, nar = W < 760, stack = nar || H > W * 1.2, top = ahead.offsetTop + ahead.offsetHeight + (nar ? 18 : 24), room = H - top - (nar ? 16 : 32);
+    // the word, as wide as the screen allows, centred in the room under the heading; its halves part
+    var ww = Math.min(W - (nar ? 32 : 96), 1180), w = { x: (W - ww) / 2, y: 0, w: ww, h: ww * A.M.ratio }; w.y = top + (room - w.h) / 2 - 12;
+    var d = sm(.04, .55, u) * H * .6, o = 1 - sm(.25, .55, u);
+    place(A.t, w); place(A.b, w);
+    A.t.style.transform = 'translateY(' + (-d).toFixed(1) + 'px)'; A.b.style.transform = 'translateY(' + d.toFixed(1) + 'px)'; A.t.style.opacity = A.b.style.opacity = o.toFixed(3);
+    // where it ends: the arch, his name under it, the four facts beside it (in a grid under the name on narrow screens)
+    var ch = A.chips[0].offsetHeight || 86, Ar, fs, ny, C, cw;
+    if (!stack && W >= 900) {
+      fs = clamp(W * .07, 40, 100); var ah = Math.min(500, room - fs * 1.02 - 14), aw = ah / 1.25;
+      Ar = { x: (W - aw) / 2, y: top + 2, w: aw, h: ah }; ny = Ar.y + ah + 6; cw = clamp(W * .16, 180, 220);
+      var lx = Ar.x - 26 - cw, rx = Ar.x + aw + 26;
+      C = [{ x: lx, y: Ar.y + aw * .14 }, { x: rx, y: Ar.y + aw * .26 }, { x: lx, y: Ar.y + aw * .66 }, { x: rx, y: Ar.y + aw * .78 }];
+    } else {
+      fs = clamp(W * .11, 32, 64); var gh = ch * 2 + 10, ah2 = clamp(room - fs * 1.02 - 16 - gh - 12, 140, 520), aw2 = Math.min(ah2 / 1.25, W * .7); ah2 = aw2 * 1.25;
+      Ar = { x: (W - aw2) / 2, y: top, w: aw2, h: ah2 }; ny = Ar.y + ah2 + 6; cw = Math.min(260, (W - 50) / 2);
+      var gx = (W - cw * 2 - 10) / 2, gy = ny + fs * 1.02 + 14;
+      C = [{ x: gx, y: gy }, { x: gx + cw + 10, y: gy }, { x: gx, y: gy + ch + 10 }, { x: gx + cw + 10, y: gy + ch + 10 }];
+    }
+    // the arch grows from a sliver across the middle of the word into its shape
+    var m = sm(.1, .62, u), R = mix({ x: w.x, y: w.y + w.h / 2, w: w.w, h: 0 }, Ar, m), rr = (sm(.2, .62, u) * R.w / 2).toFixed(1);
+    place(A.arch, R); A.arch.style.opacity = sm(.06, .2, u).toFixed(3); A.arch.style.borderRadius = rr + 'px ' + rr + 'px 22px 22px';
+    // his name rises under it, word by word
+    A.nm.style.top = ny.toFixed(1) + 'px'; A.nm.style.fontSize = fs.toFixed(1) + 'px';
+    A.words.forEach(function (sp, i) { var k = sm(.52 + i * .05, .78 + i * .05, u); sp.style.transform = 'translateY(' + ((1 - k) * 135).toFixed(1) + '%)'; sp.style.opacity = k > 0 ? 1 : 0; });
+    // the facts slide out from behind the arch, in reading order
+    var acx = Ar.x + Ar.w / 2, acy = Ar.y + Ar.h * .5;
+    A.chips.forEach(function (c, i) {
+      var k = sm(.6 + i * .06, .88 + i * .03, u), q = C[i], dx = (acx - (q.x + cw / 2)) * (1 - k), dy = (acy - (q.y + ch / 2)) * (1 - k);
+      c.style.left = q.x.toFixed(1) + 'px'; c.style.top = q.y.toFixed(1) + 'px'; c.style.width = cw.toFixed(1) + 'px';
+      c.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) scale(' + (.35 + .65 * k).toFixed(3) + ')'; c.style.opacity = k.toFixed(3);
+    });
+    ahint.style.top = (w.y + w.h + 18) + 'px'; ahint.style.opacity = (1 - sm(0, .2, u)).toFixed(3);
+    var cur = Math.round(af); if (cur !== aon) { aon = cur; acount.textContent = cur + 1; }
+  }
+  // built once it is within two screens: the photo grade and the word mask are real work, and not needed at load
+  new IntersectionObserver(function (es, io) { if (!es[0].isIntersecting) return; io.disconnect(); (document.fonts && document.fonts.load ? document.fonts.load('400 100px Newsreader') : Promise.resolve()).then(abuild, abuild); }, { rootMargin: '200% 0px' }).observe(arun);
+  new IntersectionObserver(function (es) { avis = es[0].isIntersecting; akey = ''; }).observe(arun);
+  addEventListener('resize', function () { akey = ''; });
+  requestAnimationFrame(aframe);
+  Stepped(arun, astage, 2, function () { return af === null ? 0 : af; }, function () { return Math.max(0, scrollY + arun.getBoundingClientRect().top - astage.clientHeight); });
+
+  // the time in Kishanganj (India time, the same clock as the hero's sun and moon), on the minute
+  function tick() { var p = new Date(Date.now() + 5.5 * 36e5).toISOString().slice(11, 16).split(':'), h = +p[0], v = ((h % 12) || 12) + ':' + p[1] + (h < 12 ? ' AM' : ' PM'); document.querySelectorAll('.here-now').forEach(function (e) { e.textContent = v; }); }
+  tick(); setTimeout(function () { tick(); setInterval(tick, 60000); }, 60000 - Date.now() % 60000 + 50);
+  // day or night follows the hero: its switch carries the class "night" while the moon is up
+  var dn = document.querySelector('[data-dn]');
+  function sync() { document.body.classList.toggle('night', !!dn && dn.classList.contains('night')); }
+  if (dn) new MutationObserver(sync).observe(dn, { attributes: true, attributeFilter: ['class'] });
+  sync();
+})();
+</script>
+<script>
+// ---------- Contact ----------
+(function () {
+  var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches, EMAIL = 'adnanasifkhan24@gmail.com';
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function show(el) { el.classList.add('on'); }
+  var toastT = 0;
+  function toast(msg) { var t = document.getElementById('ctoast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('show'); }, 1800); }
+  function copy(cb) {
+    function ok() { toast('Email copied: ' + EMAIL); if (cb) cb(); }
+    function fallback() { var a = document.createElement('textarea'); a.value = EMAIL; a.style.position = 'fixed'; a.style.opacity = '0'; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); ok(); } catch (e) { toast(EMAIL); } a.remove(); }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(EMAIL).then(ok, fallback); else fallback();
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.contact [data-copy]'); if (!b) return;
+    copy(function () { var was = b.innerHTML; b.classList.add('ok'); b.textContent = 'Copied ✓'; setTimeout(function () { b.classList.remove('ok'); b.innerHTML = was; }, 1600); });
+  });
+  // 4 · Scooter: one clock drives the whole street. The ride is a smooth curve (in, easing to a stop; then pulling away), and
+  // everything else follows from it: the wheels turn by the distance covered, the body dips as it brakes and lifts as it pulls
+  // away (on a spring, so it settles), the suspension bobs with speed, the scarf ripples with speed, exhaust puffs as it goes.
+  function scooter(root, sec) {
+    var $ = function (s) { return root.querySelector(s); }, NS = 'http://www.w3.org/2000/svg';
+    var scene = $('#scs'), sc = $('#sc'), scb = $('#scb'), w1 = $('#w1'), w2 = $('#w2'), lid = $('#lid'), lt = $('#lt'), box = $('#pbox'), badge = $('#badge'), ring = $('#ring'), scarf = $('#scarf'), puffG = $('#puffs'), birdG = $('#birds'), after = $('#scafter'), again = $('#screplay');
+    var R = 25, XS = 0, X0 = -360, XE = 1400, LEFT = [], RIGHT = [], birds = [], puffs = [], raf = 0, t0 = 0, st;
+    function el(tag, at) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); return e; }
+    function ease(k) { return 1 - Math.pow(1 - k, 3); }
+    function back(k) { var c = 1.4; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); }
+    function sm(a, b, t) { var k = clamp((t - a) / (b - a), 0, 1); return k * k * (3 - 2 * k); }
+    // the ride, in scene units over ms: in (fast, braking to a stop), a pause for the letter, then away (gathering speed)
+    var T1 = 1700, T2 = 3450, T3 = 6050;
+    function X(t) {
+      if (t <= 0) return X0;
+      if (t < T1) { var s = t / T1, D = XS - X0, m0 = .42 * T1; return X0 + m0 * s + (3 * D - 2 * m0) * s * s + (m0 - 2 * D) * s * s * s; }
+      if (t < T2) return XS;
+      var u = clamp((t - T2) / (T3 - T2), 0, 1.2); return XS + (XE - XS) * u * u;
+    }
+    // the words, split into letters measured from the real font
+    function words() {
+      var m = $('#mw'), txt = "Let's talk.", wl = $('#wl'), wt = $('#wt'); wl.innerHTML = wt.innerHTML = ''; LEFT = []; RIGHT = [];
+      var x0 = m.getStartPositionOfChar(0).x, x5 = m.getEndPositionOfChar(4).x, x6 = m.getStartPositionOfChar(6).x;
+      var offL = 425 - x5, offR = 567 - x6;   // "Let's" ends just before the box, "talk." starts just after it
+      for (var i = 0; i < txt.length; i++) { if (txt[i] === ' ') continue;
+        var x = m.getStartPositionOfChar(i).x, w = m.getEndPositionOfChar(i).x - x, left = i < 5, t = el('text', { 'class': 'sc-word', x: (x + (left ? offL : offR)).toFixed(1), y: 258 });
+        t.textContent = txt[i]; (left ? wl : wt).appendChild(t); (left ? LEFT : RIGHT).push({ el: t, x: x + (left ? offL : offR), w: w, at: -1 }); }
+    }
+    function birdsMake() {
+      birdG.innerHTML = ''; birds = [];
+      [604, 636, 688].forEach(function (x, i) {
+        var t = (x - 60) / 880, y = 36 + 112 * t * (1 - t), g = el('g', {}), b = el('g', { 'class': 'sc-bird' });
+        b.appendChild(el('ellipse', { cx: 0, cy: -5, rx: 6.5, ry: 4.2 })); b.appendChild(el('circle', { cx: i % 2 ? -5 : 5, cy: -9, r: 3 }));
+        b.appendChild(el('path', { d: i % 2 ? 'M5 -5 L11 -2 L5 -3 Z' : 'M-5 -5 L-11 -2 L-5 -3 Z' }));
+        var wing = el('path', { d: 'M-4 -6 Q 0 -16 6 -7 Z' }); b.appendChild(wing);
+        g.appendChild(b); birdG.appendChild(g);
+        birds.push({ g: g, wing: wing, x: x, y: y, dir: i % 2 ? -1 : 1, at: -1, vx: 90 + i * 30, seed: i * 1.7 });
+      });
+    }
+    function puff(x, y, big) { var c = el('circle', { 'class': 'puff', cx: x, cy: y, r: 3 }); puffG.appendChild(c); puffs.push({ c: c, x: x, y: y + (Math.random() - .5) * 4, b: performance.now(), big: big, dx: .7 + Math.random() * .6, dy: .6 + Math.random() * .8 }); }
+    function scarfPath(t, v) {
+      var n = 8, len = 26 + 16 * v, A = .8 + 5 * v, top = [], bot = [];
+      for (var i = 0; i <= n; i++) { var k = i / n, x = 44 - k * len, y = -156 + k * (4 - 3 * v) + k * k * 20 * (1 - v) + A * k * Math.sin(t / 90 - k * 3.2), w = 5.5 - 3 * k; top.push(x.toFixed(1) + ' ' + y.toFixed(1)); bot.unshift(x.toFixed(1) + ' ' + (y + w).toFixed(1)); }
+      return 'M' + top.join(' L') + ' L' + bot.join(' L') + ' Z';
+    }
+    function reset() {
+      cancelAnimationFrame(raf); puffs.forEach(function (p) { p.c.remove(); }); puffs = [];
+      st = { pitch: 0, pv: 0, last: 0, dist: 0, shown: false, gotAt: -1, lastPuff: 0 };
+      LEFT.concat(RIGHT).forEach(function (c) { c.at = -1; c.done = false; c.el.setAttribute('transform', 'translate(0 140)'); });
+      birdsMake(); badge.setAttribute('transform', 'scale(0)'); ring.setAttribute('opacity', 0); lt.setAttribute('opacity', 0); lid.removeAttribute('transform'); box.removeAttribute('transform');
+      after.classList.remove('on'); again.classList.remove('on'); sc.setAttribute('transform', 'translate(' + X0 + ' 254) scale(.88)');
+    }
+    function finalState() {
+      sc.setAttribute('transform', 'translate(' + XE + ' 254) scale(.88)'); LEFT.concat(RIGHT).forEach(function (c) { c.el.removeAttribute('transform'); });
+      cancelAnimationFrame(raf); puffs.forEach(function (p) { p.c.remove(); }); puffs = []; lt.setAttribute('opacity', 0); lid.removeAttribute('transform'); box.removeAttribute('transform'); ring.setAttribute('opacity', 0);
+      LEFT.concat(RIGHT).forEach(function (c) { c.done = true; }); badge.setAttribute('transform', 'scale(1)'); birdG.innerHTML = ''; show(after); show(again);
+    }
+    function frame(now) {
+      var t = now - t0, dt = st.last ? clamp((now - st.last) / 1000, 0, .05) : 1 / 60; st.last = now;
+      var x = X(t), v = (X(t + 8) - X(t - 8)) / 16 * 1000, a = (X(t + 16) - 2 * x + X(t - 16)) / 256 * 1e6, vn = clamp(Math.abs(v) / 500, 0, 1);
+      st.dist = x - X0;
+      // pitch on a spring: braking dips the nose, pulling away lifts it, and it settles with a small rebound
+      var target = clamp(-a * .0055, -3.2, 2.6), k = 140, c = 2 * Math.sqrt(k) * .5;
+      st.pv += (k * (target - st.pitch) - c * st.pv) * dt; st.pitch += st.pv * dt;
+      var idle = t > T1 && t < T2 ? Math.sin(t / 26) * .35 : 0, bob = -(Math.sin(st.dist * .09) * .8 + Math.sin(st.dist * .033) * .6) * vn + idle;
+      sc.setAttribute('transform', 'translate(' + x.toFixed(2) + ' 254) scale(.88)');
+      scb.setAttribute('transform', 'translate(0 ' + bob.toFixed(2) + ') rotate(' + st.pitch.toFixed(3) + ' ' + (st.pitch > 0 ? 136 : 0) + ' -25)');
+      var ang = (st.dist / R * 180 / Math.PI) % 360; w1.setAttribute('transform', 'rotate(' + ang.toFixed(1) + ')'); w2.setAttribute('transform', 'rotate(' + ang.toFixed(1) + ')');
+      scarf.setAttribute('d', scarfPath(t, vn));
+      // exhaust: a puff now and then while idling, more often while pulling away
+      var gap = t > T2 ? 170 : t > T1 ? 520 : 300;
+      if (x > -60 && x < 1040 && now - st.lastPuff > gap) { st.lastPuff = now; puff(x - 39, 254 - 20, t > T2); }
+      puffs = puffs.filter(function (p) { var k = (now - p.b) / (p.big ? 900 : 1100); if (k >= 1) { p.c.remove(); return false; }
+        var e = 1 - Math.pow(1 - k, 2); p.c.setAttribute('cx', (p.x - e * (p.big ? 40 : 20) * p.dx).toFixed(1)); p.c.setAttribute('cy', (p.y - e * (p.big ? 18 : 14) * p.dy).toFixed(1)); p.c.setAttribute('r', (3 + e * (p.big ? 13 : 8)).toFixed(1)); p.c.setAttribute('opacity', (Math.sin(Math.min(1, k * 4) * Math.PI / 2) * (1 - k) * .32).toFixed(3)); return true; });
+      // the crate lid lifts, the letter flutters over and drops into the slot
+      var L0 = T1 + 250, L1 = L0 + 1150;
+      lid.setAttribute('transform', 'rotate(' + (-62 * (sm(T1 + 80, T1 + 320, t) - sm(L0 + 500, L0 + 760, t))).toFixed(1) + ' -46 -132)');
+      if (t >= L0 && t < L1) {
+        var s = (t - L0) / (L1 - L0), e = s < .85 ? s / .85 : 1, p0 = { x: XS - 18, y: 254 - 113 }, cp = { x: 250, y: -30 }, p1 = { x: 500, y: 262 - 140 };
+        var bx = (1 - e) * (1 - e) * p0.x + 2 * e * (1 - e) * cp.x + e * e * p1.x, by = (1 - e) * (1 - e) * p0.y + 2 * e * (1 - e) * cp.y + e * e * p1.y;
+        if (s >= .85) { var d = (s - .85) / .15; by = p1.y + d * 14; }
+        var rot = s < .85 ? Math.sin(s * 11) * 26 * (1 - s) + s * 10 : 0, scl = s < .85 ? 1 + Math.sin(s * Math.PI) * .25 : 1 - (s - .85) / .15 * .3;
+        lt.setAttribute('opacity', s > .97 ? 0 : 1); lt.setAttribute('transform', 'translate(' + bx.toFixed(1) + ' ' + by.toFixed(1) + ') rotate(' + rot.toFixed(1) + ') scale(' + scl.toFixed(3) + ' ' + (s >= .85 ? (scl * (1 - (s - .85) / .15 * .6)).toFixed(3) : scl.toFixed(3)) + ')');
+      } else lt.setAttribute('opacity', 0);
+      // the box gulps it; the badge pops; "Let's" rises
+      if (t >= L1) {
+        var g = (t - L1) / 460; if (g < 1) { var q = Math.sin(g * Math.PI * 2) * (1 - g); box.setAttribute('transform', 'translate(0 ' + (-Math.max(0, Math.sin(g * Math.PI)) * 5 * (1 - g)).toFixed(2) + ') scale(' + (1 - q * .03).toFixed(4) + ' ' + (1 + q * .04).toFixed(4) + ')'); } else box.removeAttribute('transform');
+        var bk = clamp((t - L1 - 80) / 480, 0, 1); badge.setAttribute('transform', 'scale(' + (bk ? back(bk) : 0).toFixed(3) + ')');
+        var rk = clamp((t - L1 - 300) / 800, 0, 1); ring.setAttribute('opacity', rk > 0 && rk < 1 ? (1 - rk).toFixed(3) : 0); ring.setAttribute('r', (15 + rk * 14).toFixed(1));
+        LEFT.forEach(function (c, i) { if (c.at < 0) c.at = L1 + 60 + i * 45; });
+      }
+      // "talk." rises letter by letter as the back of the scooter passes each one
+      RIGHT.forEach(function (c) { if (c.at < 0 && t > T2 && x - 40 > c.x + c.w * .3) c.at = t; });
+      LEFT.concat(RIGHT).forEach(function (c) { if (c.at < 0 || c.done) return; var k = clamp((t - c.at) / 620, 0, 1), y = (1 - back(k)) * 140; if (k >= 1) { c.done = true; c.el.removeAttribute('transform'); } else c.el.setAttribute('transform', 'translate(0 ' + y.toFixed(2) + ')'); });
+      // the birds on the wire take off as the scooter comes under them
+      birds.forEach(function (b, i) {
+        if (b.at < 0 && b.placed && !(t > T2 && x + 170 > b.x - 30 - i * 18)) return;   // still perched: nothing to redraw
+        b.placed = true;
+        if (b.at < 0 && t > T2 && x + 170 > b.x - 30 - i * 18) b.at = t + i * 120;
+        var f = b.at < 0 ? 0 : Math.max(0, t - b.at) / 1000, fx = b.x + b.dir * 0 + f * b.vx * (1 + f), fy = b.y - f * 90 * (1 + f * .8);
+        b.g.setAttribute('transform', 'translate(' + fx.toFixed(1) + ' ' + fy.toFixed(1) + ') scale(' + (b.dir < 0 && f > 0 ? -1 : 1) * 1 + ' 1)');
+        b.wing.setAttribute('transform', f > 0 ? 'translate(0 -6) scale(1 ' + (Math.sin((t - b.at) / 45 + b.seed) * 1.1).toFixed(2) + ') translate(0 6)' : '');
+      });
+      if (!st.shown && x > 900) { st.shown = true; show(after); setTimeout(function () { show(again); }, 500); }
+      if (!vis) { finalState(); return; }   // scrolled away mid-ride: finish it, so nothing runs off screen
+      if (t < T3 + 1200 || puffs.length) raf = requestAnimationFrame(frame);
+    }
+    var vis = true;
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; scene.classList.toggle('vis', vis); }).observe(scene);
+    function run() { reset(); if (REDUCE) { finalState(); return; } t0 = performance.now(); raf = requestAnimationFrame(frame); }
+    var ready = (document.fonts ? document.fonts.load('italic 400 120px Newsreader') : Promise.resolve()).then(function () { words(); reset(); });
+    sec.addEventListener('ct:in', function () { ready.then(function () { setTimeout(run, 250); }); });
+    again.addEventListener('click', run);
+  }
+
+  var sec = document.getElementById('contact');
+  scooter(sec, sec);
+  // the heading comes up as the section arrives; the street plays once most of it is on screen
+  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { sec.classList.add('in'); io.disconnect(); } }, { rootMargin: '0px 0px -12% 0px' }).observe(sec);
+  new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { sec.dispatchEvent(new Event('ct:in')); io.disconnect(); } }, { threshold: .7 }).observe(document.getElementById('scs'));
+})();
+</script>
+</body>
+</html>
