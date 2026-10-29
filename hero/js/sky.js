@@ -193,7 +193,7 @@
       atmo: ['rgba(140,170,255,0.8)', 'rgba(140,170,255,0.3)', 'rgba(211,229,251,0.75)', 20],
       rowNear: [150, 175, 235], rowFar: [195, 193, 244], rowA: [0.06, 0.34], cols: [[0, 'rgba(195,193,244,0.15)'], [1, 'rgba(150,175,235,0.38)']],
       accent: '#A9C8F7', dot: 'rgba(238,242,251,0.85)',
-      farY: [0.7, 0.63],
+      farY: [0.7, 0.72],
       spots: [[0.3, 0.795], [0.66, 0.76], [0.15, 0.915], [0.8, 0.85]], spotsM: [[0.22, 0.705], [0.72, 0.735], [0.32, 0.83], [0.76, 0.89]],
 
       init: function (env) {
@@ -274,7 +274,7 @@
           var topIn = function (e) { var y = 0; while (e && e !== el) { y += e.offsetTop; e = e.offsetParent; } return y; };
           if (nv) Array.prototype.forEach.call(nv.querySelectorAll('.pl-brand, .pl-links, .pl-meta > *'), function (e) { if (e.offsetHeight) nb = Math.max(nb, topIn(e) + e.offsetHeight); });
           if (!nb) nb = 60;
-          var br = nar ? 12 : 14, cx = W / 2, Rmax = W * 0.42;
+          var br = nar ? 12 : 14, cx = W / 2, Rmax = W * (nar ? 0.46 : 0.42);
           var solve = function (top) { // the largest radius whose highest point stays at or below "top"
             var lo = 30, hi = Rmax; if (env.hz(cx - hi) - hi >= top) return hi;
             for (var i = 0; i < 30; i++) { var md = (lo + hi) / 2; if (env.hz(cx - md) - md >= top) lo = md; else hi = md; }
@@ -287,7 +287,10 @@
             Array.prototype.forEach.call(cp.querySelectorAll('.mask > span, .pl-ctas > *'), function (e) { lines.push([ox + e.offsetLeft, oy + e.offsetTop, e.offsetWidth]); });
             var sub = cp.querySelector('.pl-sub'); if (sub && document.createRange) { var rg = document.createRange(); rg.selectNodeContents(sub); var rb = rg.getBoundingClientRect(); lines.push([rb.left - er.left, oy + sub.offsetTop, rb.width]); }
             lines.forEach(function (l) { if (Math.hypot(Math.max(Math.abs(l[0] - cx), Math.abs(l[0] + l[2] - cx)), cyA - l[1]) > R - br - 8) inside = false; });
-            if (!inside) { var RB = solve(cr.bottom - er.top + 24 + br); if (RB >= 70) { R = RB; mode = 'below'; } }
+            // phones: the words sit over the path, as on wide screens (he asked for that on 29 Oct 2026: kept apart, the hero
+            // read as two separate things and ran too long); wider screens that can't fit them inside still put the path below
+            if (nar) inside = true;
+            else if (!inside) { var RB = solve(cr.bottom - er.top + 24 + br); if (RB >= 70) { R = RB; mode = 'below'; } }
           }
           S.G = { cx: cx, R: R, cy: env.hz(cx - R), br: br, nb: nb, mode: mode, fit: inside || mode === 'below', push: (2 * br + 12) / R, cb: cr ? [cr.left - er.left, cr.top - er.top, cr.right - er.left, cr.bottom - er.top] : null };
           if (!S.drag && !S.snap) S.phi = angleOf(S.T, S.mode);
@@ -365,18 +368,28 @@
           // not over the navigation or the words: if the outside spot is taken, it goes on the inside of the path
           var hit = function (x, y) { var c = G.cb; return y - ch / 2 < G.nb + 14 || (c && x + cw / 2 > c[0] - 8 && x - cw / 2 < c[2] + 8 && y + ch / 2 > c[1] - 8 && y - ch / 2 < c[3] + 8); };
           if (hit(lx, ly)) { lx = pos.x - ux * off; ly = pos.y - uy * off; }
-          lx = clamp(lx, cw / 2 + 8, W - cw / 2 - 8); ly = Math.min(ly, env.hz(lx) - ch / 2 - 6);
+          // (on phones the words sit over the path: with no free spot, the moment after load is skipped rather than shown
+          // through the words; while the body is held it still shows)
+          // (and while it is held there, the chip sits on the ground just under the horizon, below the body, where it can be read)
+          var blocked = hit(lx, ly) && !active, under = hit(lx, ly) && active;
+          if (under) { lx = clamp(pos.x, cw / 2 + 8, W - cw / 2 - 8); ly = env.hz(lx) + ch / 2 + 12; }
+          else { lx = clamp(lx, cw / 2 + 8, W - cw / 2 - 8); ly = Math.min(ly, env.hz(lx) - ch / 2 - 6); }
           var x0 = lx - cw / 2, y0 = ly - ch / 2;
+          // (on the ground it has to be drawn after the ground, in ground2)
+          var chip = function (ctx) {
           ctx.save(); ctx.globalAlpha = S.alpha;
           ctx.beginPath(); ctx.moveTo(x0 + rr, y0); ctx.arcTo(x0 + cw, y0, x0 + cw, y0 + ch, rr); ctx.arcTo(x0 + cw, y0 + ch, x0, y0 + ch, rr); ctx.arcTo(x0, y0 + ch, x0, y0, rr); ctx.arcTo(x0, y0, x0 + cw, y0, rr); ctx.closePath();
           ctx.fillStyle = css([6, 10, 28], (0.34 + 0.22 * S.dayK) * S.la); ctx.fill();
           ctx.strokeStyle = css([226, 234, 252], 0.14 * S.la); ctx.lineWidth = 1; ctx.stroke();
           ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = css([238, 242, 251], 0.92 * S.la);
           ctx.fillText(label, lx, ly + 0.5); ctx.textAlign = 'start'; ctx.textBaseline = 'alphabetic'; ctx.restore();
+          };
+          if (under) S.chipQ = chip; else if (!blocked) chip(ctx);
         }
       },
 
       ground2: function (ctx, t, env) {
+        if (S.chipQ) { var q = S.chipQ; S.chipQ = null; q(ctx); }
         if (!S.G) return;
         var h = S.h, low = sm(32, 0, h) * sm(-5, 0.5, h), warm = mix([255, 238, 214], [255, 160, 104], low);
         groundLight(ctx, env, S.sunX, (0.06 * S.dayK + 0.16 * low) * (S.mode === 'sun' ? S.alpha : 1), warm, 0.3);

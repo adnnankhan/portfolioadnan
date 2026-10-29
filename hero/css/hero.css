@@ -31,9 +31,11 @@
 .pl h1 .w i { display: inline-block; font-style: italic; }
 .pl h1 [data-w="a"] { color: var(--acc); }
 .pl h1 [data-w="b"] { color: var(--muted); }
-/* the typing caret after the second word */
-.pl h1[data-rot="type"] [data-w="b"]::after { content: ""; display: inline-block; width: .06em; height: .8em; margin-left: .04em; background: currentColor; vertical-align: -.04em; }
-@media (prefers-reduced-motion: no-preference) { .pl h1[data-rot="type"] [data-w="b"]::after { animation: plblink 1s steps(1) infinite; } }
+/* the typing caret after the second word: only while a word is being typed (at rest the line reads "…type." with no gap),
+   and it takes no width, so the line never shifts when it comes and goes */
+.pl h1[data-rot="type"] [data-w="b"]::after { content: ""; display: inline-block; width: .06em; height: .8em; margin: 0 -.06em 0 0; background: currentColor; vertical-align: -.04em; opacity: 0; }
+.pl h1[data-rot="type"].typing [data-w="b"]::after { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) { .pl h1[data-rot="type"].typing [data-w="b"]::after { animation: plblink 1s steps(1) infinite; } }
 @keyframes plblink { 50% { opacity: 0; } }
 .pl-sub { margin-top: 14px; font-size: clamp(1rem, 1.2vw, 1.12rem); color: var(--ink); }
 .pl-ctas { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
@@ -71,8 +73,10 @@
 }
 /* tall screens (phones, tablets held upright): the words sit at the top and the semicircle below them, above the horizon */
 @media (max-aspect-ratio: 4/5) {
-  .pl-copy { left: var(--pad); right: var(--pad); top: clamp(74px, 9vh, 128px); bottom: auto; width: auto; transform: none; }
-  .pl h1 { font-size: clamp(2.6rem, 5.6vw, 4rem); }
+  /* (far enough under the nav to breathe: the words sit in the middle of the sky between the nav and the semicircle) */
+  .pl-copy { left: var(--pad); right: var(--pad); top: clamp(84px, calc(16vh - 16px), 150px); bottom: auto; width: auto; transform: none; }
+  .pl h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); }
+  .pl-sub { text-wrap: balance; }
 }
 @media (max-width: 760px) {
   .pl-pill { display: none; }
@@ -80,11 +84,16 @@
   .pl-sub { margin-top: 12px; font-size: .98rem; }
   .pl-ctas { margin-top: 16px; }
   .pl-btn { min-height: 44px; padding: 0 16px; font-size: .94rem; }
-  .pl-status { font-size: 0; gap: 0; }
-  .pl-status .dot { margin-right: 2px; }
+  .pl-status { display: none; }   /* a dot without its words says nothing: "Open to remote work" is in Contact */
   .pl-dn { width: 60px; }
   .pl-dn.night .dn-knob { transform: translateX(26px); }
   .pl-sunknob { width: 56px; height: 56px; }
+}
+/* upright phones: the words just above the horizon, over the semicircle; a soft shade keeps them clear when the sun or
+   moon passes behind them */
+@media (max-width: 760px) and (max-aspect-ratio: 4/5) {
+  .pl-copy { top: auto; bottom: calc(28% + 22px); }
+  .pl h1, .pl-sub { text-shadow: 0 1px 18px rgba(6, 12, 34, .55), 0 0 2px rgba(6, 12, 34, .35); }
 }
 
 /* reveal stagger (see base.css) */

@@ -6,9 +6,10 @@
   function retype(slot, word) {
     var old = slot.querySelector('i');
     if (!old || old.textContent === word) return;
+    var h1 = slot.closest("h1"); if (h1) { h1.classList.add("typing"); clearTimeout(h1._tt); }
     var s = old.textContent, n = s.length, t = setInterval(function () {
       n--; old.textContent = s.slice(0, Math.max(0, n));
-      if (n <= 0) { clearInterval(t); var k = 0, t2 = setInterval(function () { k++; old.textContent = word.slice(0, k); if (k >= word.length) clearInterval(t2); }, 70); }
+      if (n <= 0) { clearInterval(t); var k = 0, t2 = setInterval(function () { k++; old.textContent = word.slice(0, k); if (k >= word.length) { clearInterval(t2); if (h1 && slot.getAttribute("data-w") === "b") h1._tt = setTimeout(function () { h1.classList.remove("typing"); }, 900); } }, 70); }
     }, 45);
   }
   setInterval(function () {

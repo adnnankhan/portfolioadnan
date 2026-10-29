@@ -27,7 +27,7 @@
 
   // ----- the hero's own geometry (the same formulas as hero/js/ground.js and sky.js) -----
   function geo() {
-    var r = hcv.getBoundingClientRect(), w = r.width, h = r.height, nar = w < 760, f = Math.min(h * .9, w * (nar ? 1.1 : .7)), farY = h * (nar ? .63 : .7);
+    var r = hcv.getBoundingClientRect(), w = r.width, h = r.height, nar = w < 760, f = Math.min(h * .9, w * (nar ? 1.1 : .7)), farY = h * (nar ? .72 : .7);
     var S = hero._S, G = S && S.G;
     return { x: r.left + w / 2, farY: r.top + farY, R: 30 * f / 10.5, nar: nar,
       arc: G ? { cx: r.left + G.cx, cy: r.top + G.cy, R: G.R, br: G.br } : null, sun: S && S.pos ? { x: r.left + S.pos.x, y: r.top + S.pos.y } : null, moon: S && S.mode === 'moon' };
@@ -119,14 +119,17 @@
 
   // ----- the clock -----
   var T = V === 'light' ? { pop: 200, hold: 900, dive: 1100, dur: 1500, fade: 2600 } : { pop: 250, hold: 1250, dive: 1300, dur: 1250, fade: 2550 };
-  var t0 = performance.now(), skip = false, spin = 0, last = 0, done = false, intro = null, navGo = false;
+  // its own clock: each frame moves it on by the frame's time, but never more than 34 ms, so a slow frame (the page still
+  // laying itself out on a phone) holds it for a moment instead of making it jump
+  var pageBg = '', clock = 0, skip = false, spin = 0, last = 0, done = false, intro = null, navGo = false;
   html.classList.add('brand-hold');
-  function onSkip() { if (!skip && performance.now() - t0 < T.fade) { skip = true; t0 = performance.now() - T.fade + 1; } }
+  function onSkip() { if (!skip && clock < T.fade) { skip = true; clock = T.fade - 1; } }
   ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (e) { addEventListener(e, onSkip, { passive: true }); });
 
   function frame(now) {
     if (done) return;
-    var t = AT ? +AT : now - t0, dt = AT ? 0 : last ? Math.min(.05, (now - last) / 1000) : 0; last = now;
+    var step = last ? Math.min(34, now - last) : 0; last = now; clock += step;
+    var t = AT ? +AT : clock, dt = AT ? 0 : step / 1000;
     if (AT && !spin) spin = (Math.min(+AT, T.dive) / 1000) * .9;
     var G = geo(), k = inout(clamp((t - T.dive) / T.dur, 0, 1)), kl = clamp((t - T.dive) / T.dur, 0, 1);
     if (!navGo && t > T.dive) { navGo = true; html.classList.add('nav-go'); }
@@ -139,7 +142,10 @@
     space(t, V === 'light' ? 0 : kl);
     // the live hero comes in over the last part of the dive
     var ha = V === 'light' ? 0 : sm(.42, .96, k);
-    if (ha > 0) { ctx.globalAlpha = ha; ctx.drawImage(hcv, 0, 0, hcv.width, hcv.height, G.x - hcv.clientWidth / 2, G.farY - hcv.clientHeight * (G.nar ? .63 : .7), hcv.clientWidth, hcv.clientHeight); ctx.globalAlpha = 1; }
+    if (ha > 0) { ctx.globalAlpha = ha; ctx.drawImage(hcv, 0, 0, hcv.width, hcv.height, G.x - hcv.clientWidth / 2, G.farY - hcv.clientHeight * (G.nar ? .72 : .7), hcv.clientWidth, hcv.clientHeight); ctx.globalAlpha = 1; }
+    // where the hero is shorter than the screen (phones), the page's sheet comes in under it too, so the hand-over has no edge
+    if (ha > 0) { var hb = hcv.getBoundingClientRect().bottom; if (hb < H - 1) { pageBg = getComputedStyle(document.body).getPropertyValue('--page').trim() || '#F7FAFD';   // (the token, not the background mid-fade)
+      var sy = hb - 32, rr = 30; ctx.globalAlpha = ha; ctx.fillStyle = pageBg; ctx.beginPath(); ctx.moveTo(0, H); ctx.lineTo(0, sy + rr); ctx.arcTo(0, sy, rr, sy, rr); ctx.lineTo(W - rr, sy); ctx.arcTo(W, sy, W, sy + rr, rr); ctx.lineTo(W, H); ctx.closePath(); ctx.fill(); ctx.globalAlpha = 1; } }
     if (V === 'light') light(t, G);
     else {
       var pop = sm(T.pop, T.pop + 650, t), w = 1 - Math.pow(1 - pop, 3);
@@ -178,7 +184,7 @@
     // the world, revealed from the horizon outward through a soft-edged ellipse
     if (b > 0) {
       off.width = cv.width; off.height = cv.height; octx.setTransform(DPR, 0, 0, DPR, 0, 0);
-      octx.drawImage(hcv, 0, 0, hcv.width, hcv.height, G.x - hcv.clientWidth / 2, G.farY - hcv.clientHeight * (G.nar ? .63 : .7), hcv.clientWidth, hcv.clientHeight);
+      octx.drawImage(hcv, 0, 0, hcv.width, hcv.height, G.x - hcv.clientWidth / 2, G.farY - hcv.clientHeight * (G.nar ? .72 : .7), hcv.clientWidth, hcv.clientHeight);
       octx.globalCompositeOperation = 'destination-in';
       var R = Math.hypot(W, H) * 1.1 * b + 1, gr = octx.createRadialGradient(G.x, G.farY, R * .55, G.x, G.farY, R);
       gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
@@ -187,5 +193,10 @@
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(off, 0, 0); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     }
   }
-  requestAnimationFrame(frame);
+  var started = false;
+  // (and once the hero has set itself up and drawn a few frames: its first frames are the heaviest, and the dive draws it in)
+  function begin() { if (started) return; started = true; requestAnimationFrame(frame); }
+  function start() { var n = 0; (function wait() { if (started) return; if (hero.classList.contains('on') && ++n > 3) begin(); else requestAnimationFrame(wait); })(); }
+  Promise.all([document.fonts && document.fonts.ready ? document.fonts.ready : 0, new Promise(function (r) { if (document.readyState === "complete") r(); else addEventListener("load", r); })]).then(start, start);
+  setTimeout(start, 1200); setTimeout(begin, 1800);
 })();

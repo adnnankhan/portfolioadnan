@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Work · Adnan Asif Khan · adnan.world</title>
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="All of Adnan Asif Khan's work: AI products, prototypes, concepts and an agency site he shipped.">
+<link rel="icon" href="hero/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="hero/css/base.css">
+<link rel="stylesheet" href="wc.css">
+<script>
+// day or night, as on the homepage: the hour in Kishanganj (night from 6 pm to 6 am), unless switched on this visit
+(function () { var h = new Date(Date.now() + 5.5 * 36e5).getUTCHours(), n = h < 6 || h >= 18; try { var m = sessionStorage.getItem('world-mode'); if (m) n = m === 'night'; } catch (e) {}
+  document.documentElement.className = 'js'; if (n) document.documentElement.classList.add('night-start'); })();
+</script>
+<style>
+body { margin: 0; background: var(--page); color: var(--page-ink); transition: background .5s, color .5s; }
+:root { --pad: clamp(20px, 5vw, 64px); --acc: #3A68C8; }
+body.night { --acc: #8FB0F0; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 50; padding: 10px 14px; border-radius: 10px; background: var(--page-ink); color: var(--page); text-decoration: none; }
+.skip:focus { top: 12px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+/* the top: the name home, the homepage's sections, the résumé, day or night */
+.wtop { display: flex; align-items: center; gap: 18px; padding: 22px var(--pad); max-width: 1240px; margin: 0 auto; box-sizing: border-box; }
+.wtop .brand { font: 400 1.25rem/1 var(--serif); color: var(--page-ink); text-decoration: none; white-space: nowrap; margin-right: auto; }
+.wtop .brand span { font-style: italic; color: var(--acc); }
+.wtop nav { display: flex; gap: 4px; }
+.wtop nav a { padding: 9px 12px; border-radius: 999px; font: 500 .9rem/1 var(--sans); color: var(--page-mut); text-decoration: none; transition: color .2s, background .2s; }
+.wtop nav a:hover { color: var(--page-ink); background: var(--page-line); }
+.wtop nav a[aria-current] { color: var(--page-ink); }
+.wtop .res { display: inline-flex; align-items: center; min-height: 38px; padding: 0 16px; border-radius: 999px; background: var(--page-ink); color: var(--page); font: 500 .88rem/1 var(--sans); text-decoration: none; }
+.dn { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--page-line); background: none; color: var(--page-ink); cursor: pointer; }
+.dn .mo, body.night .dn .su { display: none; } body.night .dn .mo { display: block; }
+@media (max-width: 760px) { .wtop nav a:not(.home) { display: none; } .wtop .res { display: none; } }
+@media (min-width: 761px) { .wtop nav a.home { display: none; } }
+/* the title, in the middle */
+.wk { padding: clamp(18px, 5vh, 56px) 0 clamp(40px, 8vh, 90px); }
+.wk-h { display: grid; justify-items: center; text-align: center; padding: 0 var(--pad); }
+.wk-h .k { font: 500 .66rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--page-mut); }
+.wk-h h1 { margin: 14px 0 0; font: 400 clamp(2.4rem, 6vw, 4.8rem)/1 var(--serif); letter-spacing: -.035em; }
+.wk-h h1 i { color: var(--acc); }
+.wk-h p { margin: 16px 0 0; max-width: 46ch; font: 400 clamp(1rem, 1.3vw, 1.12rem)/1.55 var(--sans); color: var(--page-mut); }
+/* the categories: one pressed at a time; the count is how many projects it holds */
+.wk-cats { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: clamp(22px, 4vh, 34px) auto 0; padding: 0 var(--pad); }
+.wk-cats button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--page-line); background: none; color: var(--page-ink); font: 500 .9rem/1 var(--sans); cursor: pointer; transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease); }
+.wk-cats button span { font: 500 .66rem/1 var(--mono); color: var(--page-mut); }
+.wk-cats button:hover { border-color: var(--page-ink); }
+.wk-cats button[aria-pressed="true"] { background: var(--page-ink); color: var(--page); border-color: var(--page-ink); }
+.wk-cats button[aria-pressed="true"] span { color: inherit; opacity: .7; }
+/* the slider: the card in focus in the middle, its neighbours smaller and quieter at the sides; it snaps to each
+   (sized so the card, the arrows and where you are all fit on one screen) */
+.wk-sl { --sw: max(560px, min(1040px, 80vw, calc((100vh - 300px) * 1.7778))); position: relative; margin-top: clamp(22px, 4vh, 44px); }
+/* (touch-action: the finger moves the cards sideways through the script, the page still scrolls up and down) */
+.wk-track { touch-action: pan-y; display: flex; gap: clamp(16px, 2.2vw, 32px); overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; padding: 14px calc((100% - var(--sw)) / 2) 30px; cursor: grab; }
+.wk-track::-webkit-scrollbar { display: none; }
+.wk-track.drag { scroll-snap-type: none; cursor: grabbing; }
+.wk-track.drag a { pointer-events: none; }
+.wk-track:focus-visible { outline: 2px solid var(--acc); outline-offset: -2px; border-radius: 20px; }
+.wk-slide { flex: 0 0 var(--sw); scroll-snap-align: center; transform: scale(.9); opacity: .45; transition: transform .6s var(--ease), opacity .6s var(--ease); }
+.wk-slide.on { transform: none; opacity: 1; }
+.wk-slide[hidden] { display: none; }
+.wk-slide .wc { width: 100%; min-height: 0; }
+/* under it: back, where you are (and along a fine line), what it is, forward */
+.wk-meta { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 18px; width: min(1040px, calc(100% - 2 * var(--pad))); margin: 6px auto 0; }
+.wk-arr { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--page-line); background: var(--page); color: var(--page-ink); font: 400 1.2rem/1 var(--sans); cursor: pointer; transition: background .3s var(--ease), color .3s var(--ease); }
+.wk-arr:hover:not(:disabled) { background: var(--page-ink); color: var(--page); }
+.wk-arr:disabled { opacity: .35; cursor: default; }
+.wk-mid { display: grid; gap: 10px; justify-items: center; text-align: center; }
+.wk-cur { margin: 0; font: 400 1.25rem/1.2 var(--serif); letter-spacing: -.01em; }
+.wk-cur small { display: block; margin-top: 5px; font: 500 .64rem/1.3 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--page-mut); }
+.wk-pos { display: flex; align-items: center; gap: 12px; width: min(360px, 100%); font: 500 .66rem/1 var(--mono); letter-spacing: .06em; color: var(--page-mut); }
+.wk-pos b { color: var(--page-ink); font-weight: 500; }
+.wk-bar { position: relative; flex: 1; height: 1px; background: var(--page-line); }
+.wk-bar i { position: absolute; left: 0; top: -1px; height: 3px; background: var(--acc); border-radius: 2px; transition: left .5s var(--ease), width .5s var(--ease); }
+/* wide screens: the arrows at the sides of the card in focus, over its neighbours */
+@media (min-width: 701px) {
+  .wk-meta { grid-template-columns: minmax(0, 1fr); }
+  .wk-arr { position: absolute; z-index: 2; top: calc(14px + var(--sw) * .28125); translate: 0 -50%; width: 56px; height: 56px; box-shadow: 0 14px 30px -16px rgba(0, 0, 0, .45), 0 0 0 1px var(--page-line); }
+  .wk-arr[data-go="-1"] { left: calc(50% - var(--sw) / 2 - 28px); } .wk-arr[data-go="1"] { right: calc(50% - var(--sw) / 2 - 28px); }
+  .wk-arr:disabled { opacity: 0; pointer-events: none; }
+}
+@media (max-width: 700px) { .wk-sl { --sw: 86vw; } .wk-arr { width: 42px; height: 42px; } .wk-cur { font-size: 1.05rem; } }
+@media (prefers-reduced-motion: reduce) { .wk-slide, .wk-bar i, body { transition: none; } }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* the footer: who, where to go, how to write; on the page's own colours */
+.sfoot { background: var(--page); color: var(--page-ink); padding: clamp(36px, 7vh, 88px) clamp(20px, 5vw, 64px) 28px; transition: background .5s, color .5s; }
+.sf-in { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr; gap: 32px; padding-top: 36px; border-top: 1px solid var(--page-line); }
+.sf-brand { font: 400 1.35rem/1 var(--serif); color: var(--page-ink); text-decoration: none; }
+.sf-brand span { font-style: italic; color: #3A68C8; }
+body.night .sf-brand span { color: #8FB0F0; }
+.sf-id p { margin: 14px 0 0; max-width: 26ch; font: 400 .95rem/1.5 var(--sans); color: var(--page-mut); }
+.sf-col { display: grid; align-content: start; gap: 11px; }
+.sf-col .k { font: 500 .66rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--page-mut); margin-bottom: 4px; }
+.sf-col a { font: 500 .95rem/1.3 var(--sans); color: var(--page-ink); text-decoration: none; width: fit-content; border-bottom: 1px solid transparent; transition: border-color .2s; overflow-wrap: anywhere; }
+.sf-col a:hover { border-color: currentColor; }
+.sf-bot { max-width: 1100px; margin: 48px auto 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; font: 500 .66rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--page-mut); }
+.sf-bot a { color: var(--page-mut); text-decoration: none; padding: 6px 0; }
+.sf-bot a:hover { color: var(--page-ink); }
+.sfoot a:focus-visible { outline: 2px solid var(--page-ink); outline-offset: 3px; border-radius: 4px; }
+@media (max-width: 860px) { .sf-in { grid-template-columns: 1fr 1fr; } .sf-id { grid-column: 1 / -1; } }
+@media (max-width: 420px) { .sf-in { gap: 28px 20px; } .sf-col:last-child { grid-column: 1 / -1; } .sf-bot { margin-top: 40px; } }
+</style>
+</head>
+<body id="top">
+<script>if (document.documentElement.classList.contains('night-start')) document.body.classList.add('night');</script>
+<a class="skip" href="#main">Skip to content</a>
+<header class="wtop">
+  <a class="brand" href="/" aria-label="adnan.world home">adnan<span>.world</span></a>
+  <nav aria-label="Main"><a class="home" href="/">← Home</a><a href="work.html" aria-current="page">Work</a><a href="/#writing">Writing</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav>
+  <a class="res" href="/resume/adnan-asif-khan-product-designer-resume.pdf">Résumé ↗</a>
+  <button class="dn" type="button" aria-pressed="false" aria-label="Switch to night"><span class="su"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg></span><span class="mo"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z" fill="currentColor"/></svg></span></button>
+</header>
+<main class="wk" id="main" tabindex="-1">
+  <header class="wk-h"><span class="k">Work · 8 projects</span><h1>All the work, <i>in one place.</i></h1><p>AI products, working prototypes, concepts, and an agency site I shipped. Each one opens its case study.</p></header>
+  <div class="wk-cats" role="group" aria-label="Show projects by category"><button type="button" data-cat="all" aria-pressed="true">All <span>8</span></button><button type="button" data-cat="ai" aria-pressed="false">AI <span>4</span></button><button type="button" data-cat="mobile" aria-pressed="false">Mobile <span>4</span></button><button type="button" data-cat="web" aria-pressed="false">Web <span>2</span></button><button type="button" data-cat="built" aria-pressed="false">Prototypes &amp; shipped <span>4</span></button><button type="button" data-cat="concept" aria-pressed="false">Concepts <span>4</span></button></div>
+  <section class="wk-sl" aria-roledescription="carousel" aria-labelledby="wk-sl-h">
+    <h2 class="sr" id="wk-sl-h">Projects</h2>
+    <div class="wk-track" id="wk-track" tabindex="0" aria-label="Projects: use the arrow keys or drag to move"></div>
+    <div class="wk-meta">
+      <button class="wk-arr" type="button" data-go="-1" aria-label="Previous project">←</button>
+      <div class="wk-mid"><p class="wk-cur" aria-live="polite"></p><div class="wk-pos" aria-hidden="true"><b class="wk-n">01</b><span class="wk-bar"><i></i></span><span class="wk-of">08</span></div></div>
+      <button class="wk-arr" type="button" data-go="1" aria-label="Next project">→</button>
+    </div>
+  </section>
+</main>
+<footer class="sfoot">
+  <div class="sf-in">
+    <div class="sf-id"><a class="sf-brand" href="#top" aria-label="adnan.world, back to the top">adnan<span>.world</span></a><p>Product designer in Kishanganj, India. Open to remote work.</p></div>
+    <nav class="sf-col" aria-label="Footer"><span class="k">Site</span><a href="work.html">All work</a><a href="/#writing">Writing</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav>
+    <div class="sf-col"><span class="k">Elsewhere</span><a href="https://www.linkedin.com/in/adnanasifkhan/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.behance.net/adnankhan482" target="_blank" rel="noopener">Behance ↗</a><a href="https://medium.com/@adnanasifkhan24" target="_blank" rel="noopener">Medium ↗</a><a href="https://www.instagram.com/adnanuiux/" target="_blank" rel="noopener">Instagram ↗</a></div>
+    <div class="sf-col"><span class="k">Write</span><a href="mailto:adnanasifkhan24@gmail.com">adnanasifkhan24@gmail.com</a><a href="/resume/adnan-asif-khan-product-designer-resume.pdf">Résumé ↗</a></div>
+  </div>
+  <div class="sf-bot"><span>© 2026 Adnan Asif Khan</span><a href="#top">Back to top ↑</a></div>
+</footer>
+<script src="wc.js"></script>
+<script>
+(function () {
+  'use strict';
+  var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // the slider: every project's card, one in focus in the middle; phones get the narrow card
+  var track = document.getElementById('wk-track'), sl = track.parentNode, nw = null;
+  // (the card size is settled before the cards go in, so the page is laid out once)
+  function narrow() { var n = innerWidth < 700; if (n !== nw) { nw = n; document.body.classList.toggle('narrow', n); } } narrow(); addEventListener('resize', narrow);
+  var CATS = { all: /./, ai: /AI/, mobile: /Mobile/, web: /Web/, built: /prototype|Shipped|In development/i, concept: /Concept|Experiment/ };
+  // (the first two cards' pictures load at once; the rest as you come to them)
+  track.innerHTML = WC.P.map(function (p, i) { var h = WC.cardHTML(p); return '<div class="wk-slide" role="group" aria-roledescription="slide" id="p-' + p.id + '">' + (i > 1 ? h.replace(/<img /g, '<img loading="lazy" ') : h) + '</div>'; }).join('');
+  var slides = [].slice.call(track.children), cur = 0, shown = slides;
+  var curEl = sl.querySelector('.wk-cur'), nEl = sl.querySelector('.wk-n'), ofEl = sl.querySelector('.wk-of'), bar = sl.querySelector('.wk-bar i'), prev = sl.querySelector('[data-go="-1"]'), next = sl.querySelector('[data-go="1"]');
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function mark(i) {
+    cur = i; shown.forEach(function (s, k) { s.classList.toggle('on', k === i); s.setAttribute('aria-label', (k + 1) + ' of ' + shown.length + ': ' + WC.P[slides.indexOf(s)].name); });
+    var p = WC.P[slides.indexOf(shown[i])]; curEl.innerHTML = p.name + '<small>' + p.tags + ' · ' + p.yr + '</small>';
+    nEl.textContent = pad(i + 1); ofEl.textContent = pad(shown.length); bar.style.width = (100 / shown.length) + '%'; bar.style.left = (100 * i / shown.length) + '%';
+    prev.disabled = i === 0; next.disabled = i === shown.length - 1;
+  }
+  function left(s) { return s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2; }
+  function go(i, now) { i = Math.max(0, Math.min(shown.length - 1, i)); track.scrollTo({ left: left(shown[i]), behavior: now || REDUCE ? 'auto' : 'smooth' }); mark(i); }
+  // which card is in the middle, as it scrolls
+  var tk = 0; track.addEventListener('scroll', function () { if (tk) return; tk = requestAnimationFrame(function () { tk = 0; var c = track.scrollLeft + track.clientWidth / 2, best = 0, bd = 1e9;
+    shown.forEach(function (s, k) { var d = Math.abs(s.offsetLeft + s.offsetWidth / 2 - c); if (d < bd) { bd = d; best = k; } }); if (best !== cur) mark(best); }); }, { passive: true });
+  prev.addEventListener('click', function () { go(cur - 1); }); next.addEventListener('click', function () { go(cur + 1); });
+  track.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); } });
+  // a card at the side, pressed, comes to the middle (instead of opening)
+  var justDragged = false;
+  track.addEventListener('click', function (e) { if (justDragged) { e.preventDefault(); justDragged = false; return; } var s = e.target.closest('.wk-slide'), k = shown.indexOf(s); if (s && k !== cur) { e.preventDefault(); go(k); } }, true);
+  // drag with a mouse or swipe with a finger: the cards follow, and on release one project on that way (or back, if it was
+  // only a nudge); a drag is not a click
+  var dr = null;
+  track.addEventListener('pointerdown', function (e) { if (e.button) return; dr = { x: e.clientX, l: track.scrollLeft, i: cur, moved: false, touch: e.pointerType !== 'mouse' }; });
+  // (an up-and-down swipe is the page scrolling: the browser takes it over and the slide settles where it was)
+  addEventListener('pointercancel', function () { if (!dr) return; var m = dr.moved, i0 = dr.i; dr = null; if (m) { track.classList.remove('drag'); go(i0); } });
+  addEventListener('pointermove', function (e) { if (!dr) return; var dx = e.clientX - dr.x; if (!dr.moved && Math.abs(dx) > 6) { dr.moved = true; track.classList.add('drag'); } if (dr.moved) track.scrollLeft = dr.l - dx; });
+  // (a drag of more than a little goes on to the next card that way; a small one settles back)
+  addEventListener('pointerup', function (e) { if (!dr) return; var m = dr.moved, dx = e.clientX - dr.x, i0 = dr.i, dr0t = dr.touch; dr = null; if (m) { justDragged = true; setTimeout(function () { justDragged = false; }, 60); track.classList.remove('drag'); go(Math.abs(dx) > (dr0t ? 36 : 70) ? i0 + (dx < 0 ? 1 : -1) : i0); } });
+  // the categories
+  var cats = [].slice.call(document.querySelectorAll('.wk-cats button'));
+  cats.forEach(function (b) { b.addEventListener('click', function () {
+    cats.forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+    var re = CATS[b.dataset.cat]; shown = slides.filter(function (s, k) { var ok = re.test(WC.P[k].tags); s.hidden = !ok; return ok; });
+    slides.forEach(function (s) { s.classList.remove('on'); }); go(0, true);
+  }); });
+  addEventListener('resize', function () { go(cur, true); });
+  mark(0);
+  // day or night (kept for this visit)
+  var dn = document.querySelector('.dn');
+  function setMode(n, save) {
+    document.body.classList.toggle('night', n); dn.setAttribute('aria-pressed', n ? 'true' : 'false'); dn.setAttribute('aria-label', n ? 'Switch to day' : 'Switch to night');
+    if (save) try { sessionStorage.setItem('world-mode', n ? 'night' : 'day'); } catch (e) {}
+  }
+  setMode(document.body.classList.contains('night'), false);
+  dn.addEventListener('click', function () { setMode(!document.body.classList.contains('night'), true); });
+})();
+</script>
+</body>
+</html>

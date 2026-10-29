@@ -29,6 +29,8 @@
       mb.addEventListener('click', function () { set(mb.getAttribute('aria-expanded') !== 'true'); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('open')) { set(false); mb.focus(); } });
       document.addEventListener('click', function (e) { if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== mb) set(false); });
+      // a link in the open menu closes it (on one page the link only scrolls, so the menu would stay open over the page)
+      nav.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a')) set(false); });
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();

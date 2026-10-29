@@ -31,6 +31,9 @@ a { color: inherit; }
 /* the hero fills the screen; the canvas is behind, the HTML (nav, words, places, cards) sits on top */
 .hero { position: relative; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; isolation: isolate; padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
 @media (max-width: 760px) { .hero { min-height: 660px; } }
+/* upright phones: shorter than the screen (the words sit over the path, so there is no empty sky to fill), and the work
+   section shows under it on the first screen */
+@media (max-width: 760px) and (max-aspect-ratio: 4/5) { .hero { height: min(100svh, 150vw); min-height: 540px; } }
 .pl-main { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
 .pl-main > * { pointer-events: auto; }
 .pl-main:focus { outline: none; }
