@@ -36,6 +36,15 @@ body.night .work { box-shadow: 0 -1px 0 rgba(238, 242, 251, .08), 0 -24px 48px -
 .wfoot .all { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 18px; border-radius: 999px; background: var(--page-ink); color: var(--page); font: 500 .88rem/1 var(--sans); text-decoration: none; transition: transform .2s var(--ease); }
 .wfoot .all:hover { transform: translateY(-1px); }
 .wfoot .all:focus-visible { outline: 2px solid var(--page-ink); outline-offset: 3px; }
+/* previous and next project, either side of "See all work" (as the arrows on the Work page); 44px to tap. At the ends they
+   fade and say so (aria-disabled), but keep focus, so a keyboard user never loses their place */
+.wfoot { align-items: center; gap: 10px; }
+.wnav { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid var(--page-line); background: var(--page); color: var(--page-ink); font: 400 1.05rem/1 var(--sans); cursor: pointer; transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), opacity .25s; }
+.wnav:hover:not([aria-disabled="true"]) { background: var(--page-ink); color: var(--page); border-color: var(--page-ink); }
+.wnav[aria-disabled="true"] { opacity: .35; cursor: default; }
+.wnav:focus-visible { outline: 2px solid var(--page-ink); outline-offset: 3px; }
+/* the nav marks the section on screen, with its own hover look */
+.pl-links a[aria-current] { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
 
 /* ---------- Writing: his essays as a book, one page turned per scroll ---------- */
 .writing { position: relative; background: var(--page); color: var(--page-ink); transition: background .5s, color .5s; }
@@ -274,7 +283,7 @@ body.night .sf-brand span { color: #8FB0F0; }
   <div class="run" id="run"><div class="mstage" id="mstage">
     <header class="whead"><h2 id="work-h">Work</h2><span><b id="wcount">1</b> / 4</span></header>
     <div class="world" id="world"></div>
-    <div class="wfoot"><a class="all" href="work.html">See all work <span aria-hidden="true">→</span></a></div>
+    <div class="wfoot"><button class="wnav" type="button" id="wprev" aria-label="Previous project" aria-controls="world" aria-disabled="true">←</button><a class="all" href="work.html">See all work <span aria-hidden="true">→</span></a><button class="wnav" type="button" id="wnext" aria-label="Next project" aria-controls="world">→</button></div>
   </div></div>
 </section>
 <section class="writing" id="writing" aria-labelledby="writing-h">
@@ -483,7 +492,7 @@ body.night .sf-brand span { color: #8FB0F0; }
       if (dir > 0 && k === n - 1) return scrollY + r.bottom;                        // on to what follows
       return top(k + dir);
     }
-    steppers.push({ step: step, f: getF });
+    var me = { step: step, f: getF, top: top }; steppers.push(me); return me;
   }
   // still moving: until the scroll has reached its stop and the section has as good as settled there (the last 3% of a move
   // can't be seen; at most 1.1 s, in case it never does)
@@ -537,7 +546,21 @@ body.night .sf-brand span { color: #8FB0F0; }
     if (!tch.done && Math.abs(dy) > 36) { tch.done = true; var now = performance.now(); if (!moving(now)) go(tch.t, now); }
   }, { passive: false });
   addEventListener('touchend', function () { tch = null; }, { passive: true });
-  Stepped(sec, stage, N, function () { return f; }, function () { return hero ? scrollY + hero.getBoundingClientRect().top : null; });
+  var wst = Stepped(sec, stage, N, function () { return f; }, function () { return hero ? scrollY + hero.getBoundingClientRect().top : null; });
+  // previous / next project: the buttons, and Left / Right while the cards are on screen. Counted from where the scroll is
+  // going, so quick presses each move one more card.
+  var wprev = document.getElementById('wprev'), wnext = document.getElementById('wnext');
+  function cardAt() { var y = lock.to !== null && lock.s === wst ? lock.to : scrollY; return Math.round(clamp((y - wst.top(0)) / Math.max(1, wst.top(1) - wst.top(0)), 0, N - 1)); }
+  function card(d) { var k = cardAt(), j = clamp(k + d, 0, N - 1); if (j !== k) go({ to: wst.top(j), s: wst }, performance.now()); }
+  wprev.addEventListener('click', function () { if (wprev.getAttribute('aria-disabled') !== 'true') card(-1); });
+  wnext.addEventListener('click', function () { if (wnext.getAttribute('aria-disabled') !== 'true') card(1); });
+  addEventListener('keydown', function (e) {
+    if ((e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') || e.altKey || e.ctrlKey || e.metaKey) return;
+    var el = e.target, tag = el && el.tagName;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(tag) || (el && (el.isContentEditable || (el.getAttribute && el.getAttribute('role') === 'slider')))) return;
+    var r = sec.getBoundingClientRect(); if (r.top > 1 || r.bottom < stage.clientHeight - 1) return;   // only while the cards are on screen
+    e.preventDefault(); card(e.key === 'ArrowRight' ? 1 : -1);
+  });
   var flat = null, workEl = document.getElementById('work');
   var wkey = '', cards = [].slice.call(world.children), f = null, last = 0, on = -1, running = false, raf = 0;
   // the cards follow the scroll smoothly and never faster than about a card and a half a second, however hard the scroll
@@ -570,7 +593,8 @@ body.night .sf-brand span { color: #8FB0F0; }
         put(el, 'translate3d(' + (-sg * a * W * .12).toFixed(1) + 'px,' + (-a * H * 1.3).toFixed(1) + 'px,' + (a * 120).toFixed(1) + 'px) rotateX(' + (-a * 12).toFixed(2) + 'deg)', sm(.95, .65, a), 60 + k);
       }
     });
-    var cur = Math.round(f); if (cur !== on) { on = cur; count.textContent = cur + 1; cards.forEach(function (el, k) { el.inert = k !== cur; }); }
+    var cur = Math.round(f); if (cur !== on) { on = cur; count.textContent = cur + 1; cards.forEach(function (el, k) { el.inert = k !== cur; });
+      wprev.setAttribute('aria-disabled', cur === 0 ? 'true' : 'false'); wnext.setAttribute('aria-disabled', cur === N - 1 ? 'true' : 'false'); }
   }
   // only animate while the section is on screen (the hero pauses itself the same way)
   new IntersectionObserver(function (es) { var vis = es[0].isIntersecting; if (vis && !running) { running = true; last = 0; raf = requestAnimationFrame(frame); } else if (!vis) running = false; }).observe(sec);
@@ -774,6 +798,18 @@ body.night .sf-brand span { color: #8FB0F0; }
   // the time in Kishanganj (India time, the same clock as the hero's sun and moon), on the minute
   function tick() { var p = new Date(Date.now() + 5.5 * 36e5).toISOString().slice(11, 16).split(':'), h = +p[0], v = ((h % 12) || 12) + ':' + p[1] + (h < 12 ? ' AM' : ' PM'); document.querySelectorAll('.here-now').forEach(function (e) { e.textContent = v; }); }
   tick(); setTimeout(function () { tick(); setInterval(tick, 60000); }, 60000 - Date.now() % 60000 + 50);
+  // the nav marks the section in the middle of the screen (the Work link leads to the Work page, and stands for the cards here)
+  var NAV = [['work', 'a[href="work.html"]'], ['writing', 'a[href="#writing"]'], ['about', 'a[href="#about"]'], ['contact', 'a[href="#contact"]']].map(function (p) {
+    return { sec: document.getElementById(p[0]), a: document.querySelector('#site-menu ' + p[1]) }; }).filter(function (p) { return p.sec && p.a; });
+  var navOn = null, navT = 0;
+  function navMark() {
+    navT = 0; var m = innerHeight / 2, hit = null;
+    NAV.forEach(function (p) { var b = p.sec.getBoundingClientRect(); if (b.top <= m && b.bottom > m) hit = p; });
+    if (hit === navOn) return; navOn = hit;
+    NAV.forEach(function (p) { if (p === hit) p.a.setAttribute('aria-current', 'true'); else p.a.removeAttribute('aria-current'); });
+  }
+  addEventListener('scroll', function () { if (!navT) navT = requestAnimationFrame(navMark); }, { passive: true });
+  addEventListener('resize', navMark); navMark();
   // day or night follows the hero: its switch carries the class "night" while the moon is up
   var dn = document.querySelector('[data-dn]');
   function sync() { document.body.classList.toggle('night', !!dn && dn.classList.contains('night')); }

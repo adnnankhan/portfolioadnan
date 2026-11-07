@@ -69,6 +69,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--acc); outline-o
 .wk-mid { display: grid; gap: 10px; justify-items: center; text-align: center; }
 .wk-cur { margin: 0; font: 400 1.25rem/1.2 var(--serif); letter-spacing: -.01em; }
 .wk-cur small { display: block; margin-top: 5px; font: 500 .64rem/1.3 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--page-mut); }
+/* one card has a line of its own under it (Diney: his first case study), in the page's body text */
+.wk-cur .wk-note { display: block; margin-top: 8px; font: 400 .92rem/1.4 var(--sans); letter-spacing: 0; color: var(--page-mut); }
 .wk-pos { display: flex; align-items: center; gap: 12px; width: min(360px, 100%); font: 500 .66rem/1 var(--mono); letter-spacing: .06em; color: var(--page-mut); }
 .wk-pos b { color: var(--page-ink); font-weight: 500; }
 .wk-bar { position: relative; flex: 1; height: 1px; background: var(--page-line); }
@@ -150,7 +152,7 @@ body.night .sf-brand span { color: #8FB0F0; }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function mark(i) {
     cur = i; shown.forEach(function (s, k) { s.classList.toggle('on', k === i); s.setAttribute('aria-label', (k + 1) + ' of ' + shown.length + ': ' + WC.P[slides.indexOf(s)].name); });
-    var p = WC.P[slides.indexOf(shown[i])]; curEl.innerHTML = p.name + '<small>' + p.tags + ' · ' + p.yr + '</small>';
+    var p = WC.P[slides.indexOf(shown[i])]; curEl.innerHTML = p.name + '<small>' + p.tags + ' · ' + p.yr + '</small>' + (p.id === 'diney' ? '<span class="wk-note">My first ever case study.</span>' : '');
     nEl.textContent = pad(i + 1); ofEl.textContent = pad(shown.length); bar.style.width = (100 / shown.length) + '%'; bar.style.left = (100 * i / shown.length) + '%';
     prev.disabled = i === 0; next.disabled = i === shown.length - 1;
   }
