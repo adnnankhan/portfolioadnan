@@ -8,7 +8,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Craftstudioo — Case study · Adnan Asif Khan">
 <meta property="og:description" content="A creative agency with no website. I designed and shipped one in a month.">
-<meta property="og:url" content="https://adnnankhan.github.io/craftstudioo/">
+<meta property="og:url" content="https://adnan.world/craftstudioo/">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0A0A0A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2064%2064'%3E%3Crect%20width%3D'64'%20height%3D'64'%20rx%3D'16'%20fill%3D'%230A0A0A'%2F%3E%3Ccircle%20cx%3D'32'%20cy%3D'32'%20r%3D'10'%20fill%3D'%23E67919'%2F%3E%3C%2Fsvg%3E">
@@ -46,7 +46,7 @@
   .back:hover{color:var(--t);border-color:rgba(255,255,255,.4)}
 
   /* HERO */
-  .hero{position:relative;padding:clamp(56px,9vw,120px) 0 clamp(48px,6vw,80px)}   /* no overflow clip: the offline popup can hang below */
+  .hero{position:relative;padding:clamp(56px,9vw,120px) 0 clamp(48px,6vw,80px)}
   .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
     background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;
     -webkit-mask-image:radial-gradient(80% 70% at 30% 20%,#000,transparent 75%);mask-image:radial-gradient(80% 70% at 30% 20%,#000,transparent 75%)}
@@ -142,24 +142,15 @@
   @keyframes drift-c{to{transform:translate(-5vw,-8vh) scale(1.1)}}
   @media (prefers-reduced-motion:reduce){.ambient span{animation:none}}
   @media (max-width:599px){.ambient span{filter:blur(60px)}.ambient .a1{width:80vw;height:80vw}.ambient .a2{width:70vw;height:70vw}}
-  .back,.btn.alt,.result-card,.qs li,.tags span,.step .k,.qs .k,.quote,.why,.why-pop{
+  .back,.btn.alt,.result-card,.qs li,.tags span,.step .k,.qs .k,.quote{
     background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.02));
     backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
     border:1px solid rgba(255,255,255,.12);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 -1px 0 rgba(255,255,255,.02),0 18px 40px -28px rgba(0,0,0,.8)}
   .back:hover,.btn.alt:hover{border-color:rgba(255,255,255,.3);background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.03))}
 
-  /* OFFLINE: "?" button + small popup */
+  /* STATUS row */
   .status{position:relative;display:inline-flex;align-items:center;gap:8px}
-  .why{appearance:none;display:inline-grid;place-items:center;width:22px;height:22px;padding:0;border-radius:50%;color:var(--m);font:500 12px/1 var(--sans);cursor:pointer;transition:color .2s ease,border-color .2s ease}
-  .why:hover,.why[aria-expanded="true"]{color:var(--t);border-color:rgba(255,255,255,.35)}
-  .why:focus-visible{outline:2px solid var(--or);outline-offset:2px}
-  .why-pop{position:absolute;z-index:20;top:calc(100% + 10px);left:0;width:min(280px,calc(100vw - 32px));margin:0;padding:14px 16px;border-radius:14px;font-size:14.5px;line-height:1.5;color:#E5E5E5;
-    background:linear-gradient(135deg,rgba(40,40,40,.86),rgba(22,22,22,.86))}
-  .why-pop[hidden]{display:none}
-  .why-pop::before{content:"";position:absolute;top:-6px;left:calc(var(--arrow,62px) - 6px);width:10px;height:10px;transform:rotate(45deg);background:rgba(40,40,40,.9);border-left:1px solid rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.12)}
-  @media (prefers-reduced-motion:no-preference){.why-pop:not([hidden]){animation:pop .18s ease-out}}
-  @keyframes pop{from{opacity:0;transform:translateY(-4px)}}
 
   @media (max-width:599px){
     .top .logo img{height:24px}
@@ -176,7 +167,7 @@
 <header class="top">
   <div class="wrap">
     <span class="logo"><img src="images/logo.svg" alt="Craft Studioo" width="735" height="333"></span>
-    <a class="back" href="https://adnan.world/#all-work">← adnan.world</a>
+    <a class="back" href="/#work">← adnan.world</a>
   </div>
 </header>
 
@@ -189,9 +180,9 @@
       <p class="sub">Craftstudioo had clients, a team and real work, but nowhere to send a new lead. The site brought in 6 new customers in its first month.</p>
       <div class="meta">
         <dl>
-          <div><dt>Role</dt><dd>Designer</dd></div>
+          <div><dt>Role</dt><dd>UI/UX Designer</dd></div>
           <div><dt>Timeline</dt><dd>1 month to launch, refined through 2025</dd></div>
-          <div><dt>Status</dt><dd class="status"><span><span class="off" aria-hidden="true"></span>Offline</span><button type="button" class="why" id="whyBtn" aria-expanded="false" aria-controls="whyPop" aria-label="Why is the site offline?">?</button><p class="why-pop" id="whyPop" role="status" hidden>The site is offline because the team members landed jobs, and we didn't have time to keep the agency going.</p></dd></div>
+          <div><dt>Status</dt><dd class="status"><span><span class="off" aria-hidden="true"></span>Shipped · 2025</span></dd></div>
         </dl>
         <div class="actions">
           <a class="btn pri" href="https://www.figma.com/proto/ftuvxt5mZZFxYQ98zcNclq/CRAFT-STUDIOO?node-id=576-3410&amp;t=4TFyViYpZxO9IJ6z-1" target="_blank" rel="noopener">View in Figma <span class="ar" aria-hidden="true">↗</span></a>
@@ -329,7 +320,7 @@
   <section class="sec">
     <div class="wrap">
       <h2>What happened<span class="dot" aria-hidden="true"></span></h2>
-      <div class="copy"><p class="big">6 new customers in the first month after launch. I kept refining the site through 2025. Later the whole team got placed in full-time jobs, so the agency closed and the site went offline.</p></div>
+      <div class="copy"><p class="big">6 new customers in the first month after launch. I kept refining the site through 2025.</p></div>
     </div>
   </section>
 
@@ -363,7 +354,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="who"><b>Adnan Asif Khan</b><span>Product / UX Designer</span></div>
+    <div class="who"><b>Adnan Asif Khan</b><span>Product Designer</span></div>
     <nav aria-label="Footer">
       <a href="mailto:adnanasifkhan24@gmail.com">Email</a>
       <a href="https://www.linkedin.com/in/adnanasifkhan/" target="_blank" rel="noopener">LinkedIn</a>
@@ -371,17 +362,6 @@
     </nav>
   </div>
 </footer>
-
-<script>
-(function(){
-  var btn=document.getElementById('whyBtn'), pop=document.getElementById('whyPop');
-  function set(open){pop.hidden=!open;btn.setAttribute('aria-expanded',String(open));
-    if(open){pop.style.setProperty('--arrow',(btn.offsetLeft+btn.offsetWidth/2)+'px')}}
-  btn.addEventListener('click',function(e){e.stopPropagation();set(pop.hidden)});
-  document.addEventListener('click',function(e){if(!pop.hidden&&!pop.contains(e.target))set(false)});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!pop.hidden){set(false);btn.focus()}});
-})();
-</script>
 
 </body>
 </html>
